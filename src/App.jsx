@@ -1,11 +1,13 @@
-import Home from "./pages/Home.jsx";
-import { Router, Routes, Route } from "react-router-dom";
-import ProductDetails from "./pages/ProductDetails.jsx";
-import ProductList from "./pages/ProductList.jsx";
-import Profile from "./pages/Profile.jsx";
+import Footer from "./components/Footer.jsx";
+import Navbar from "./components/Header.jsx";
 
 function App() {
-  return <Home />;
+  return (
+    <>
+      <Navbar />
+      <Footer />
+    </>
+  );
 }
 
 export default App;

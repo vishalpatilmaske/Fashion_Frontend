@@ -1,0 +1,61 @@
+.footer {
+  background-color: rgb(4, 4, 74);
+  color: white;
+  font-family: "Roboto", sans-serif;
+  width: 100%;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  text-align: start;
+}
+a {
+  text-decoration: none;
+  color: rgb(118, 134, 145);
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: rgb(118, 134, 145);
+  cursor: pointer;
+}
+p:hover {
+  color: white;
+}
+a:hover {
+  color: white;
+}
+h6 {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.first-child {
+  display: flex;
+  justify-content: center;
+}
+
+.second-child button {
+  background-color: rgb(212, 109, 50);
+  color: white;
+  border: none;
+  font-size: small;
+  cursor: pointer;
+}
+
+.second-child button:hover {
+  background-color: rgb(212, 109, 50);
+}
+
+.second-child img {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+
+.copyright p {
+  text-align: center;
+  padding: 10px;
+}

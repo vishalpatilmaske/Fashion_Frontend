@@ -1,56 +1,48 @@
 import React from "react";
-import "../style/componentStyle/footer.css";
-import instagram from "../assets/images/footerImges/instagram.png";
-import x from "../assets/images/footerImges/x.png";
-import whatsapp from "../assets/images/footerImges/whatsapp.png";
-import linkedin from "../assets/images/footerImges/linkedin.png";
+import "../style/component/footer.css";
+import instagram from "../assets/images/footer/instagram.png";
+import x from "../assets/images/footer/x.png";
+import whatsapp from "../assets/images/footer/whatsapp.png";
+import linkedin from "../assets/images/footer/linkedin.png";
 import { FaRegCopyright } from "react-icons/fa";
 
 function Footer() {
   return (
     <>
       <div className="footer">
-        <div className="container p-5">
-          <div className="col-sm-6 first-child">
-            <div className="col-sm-4">
-              <h6>Program</h6>
+        <div className="row container p-sm-5">
+          <div className="col-md-6 first-child">
+            <div className=" col-sm-4">
+              <strong>Program</strong>
               <p>Corporate</p>
               <p>One to One</p>
               <p>Consulting</p>
             </div>
-            <div className="col-sm-4">
-              <h6>Service</h6>
+            <div className=" col-sm-4">
+              <strong>Service</strong>
               <p>Traning</p>
               <p>Coaching</p>
               <p>Consulting</p>
             </div>
-            <div className="col-sm-4">
-              <h6>Contact</h6>
+            <div className=" col-sm-4">
+              <strong>Contact</strong>
               <p>Home</p>
               <p>About</p>
               <p>Contact</p>
             </div>
           </div>
-          <div className="col-sm-6 second-child">
-            <div className="col-sm-12">
-              <h6>Get in touch</h6>
-              <div className="row">
-                <div class="input-group input-group-sm mb-3">
-                  <input
-                    type="text"
-                    className="form-control rounded"
-                    placeholder="Email Address"
-                    aria-label="Recipient's username"
-                    aria-describedby="button-addon2"
-                  />
-                  <button className="btn ms-2 rounded" type="button">
-                    Subscribe
-                  </button>
-                </div>
-              </div>
+
+          <div className="col-sm-12  col-md-6 second-child">
+            <div className="col-sm-12 mb-2 ">
+              <strong className="d-none d-md-block">Get in touch</strong>
             </div>
-            <div className="row">
-              <div className="col-sm-1">
+
+            {/* display only on small screen  */}
+            <h2 className="d-block d-md-none">
+              Fashion<strong className="navbarbrand">Flick</strong>
+            </h2>
+            <div className="row pt-2">
+              <div className="col-2">
                 <a
                   href="https://www.instagram.com/vishal_patil_maske/"
                   target="_blank"
@@ -58,18 +50,18 @@ function Footer() {
                   <img src={instagram} alt="instagram" />
                 </a>
               </div>
-              <div className="col-sm-1">
+              <div className="col-2">
                 <a href="https://x.com/vishalS146150" target="_blank">
                   <img src={x} alt="x" />
                 </a>
               </div>
-              <div className="col-sm-1">
+              <div className="col-2">
                 <a href="https://wa.me/9322396236 " target="_blank">
                   {" "}
                   <img src={whatsapp} alt="whatsapp" />
                 </a>
               </div>
-              <div className="col-sm-1">
+              <div className="col-2">
                 <a
                   href="https://www.linkedin.com/in/vishal-maske146150/"
                   target="_blank"
@@ -90,7 +82,22 @@ function Footer() {
                 </a>
               </p>
             </div>
+            <div className="row mt-2">
+              <div class="input-group input-group-sm mb-3">
+                <input
+                  type="text"
+                  className="form-control rounded"
+                  placeholder="Email Address"
+                  aria-label="Recipient's username"
+                  aria-describedby="button-addon2"
+                />
+                <button className="btn ms-2 rounded" type="button">
+                  Subscribe
+                </button>
+              </div>
+            </div>
           </div>
+          {/* second  */}
         </div>
         <div className="copyright">
           <p>

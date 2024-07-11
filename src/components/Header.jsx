@@ -1,21 +1,23 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 import { VscHeart } from "react-icons/vsc";
 import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 
-import "../style/componentStyle/header.css";
+import "../style/component/header.css";
 
-function Navbar() {
+function Header() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
       <div className="container">
-        <a className="navbar-brand" href="#">
-          <h2>
+        <NavLink to="/">
+          <h4>
             {" "}
-            Fashion<strong className="navbarbrand">Flick</strong>
-          </h2>
-        </a>
+            <strong>Fashion</strong>
+            <strong className="navbarbrand">Flick</strong>
+          </h4>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -30,14 +32,14 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              <NavLink className="nav-link" aria-current="page" to="/Women">
                 Women
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink className="nav-link" to="/men">
                 Men
-              </a>
+              </NavLink>
             </li>
           </ul>
           <form
@@ -56,19 +58,27 @@ function Navbar() {
           </form>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              <NavLink
+                className="nav-link pe-sm-3"
+                aria-current="page"
+                to="/cart"
+              >
                 <PiHandbagSimpleBold className="icon-size" />
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
+              <NavLink
+                className="nav-link pe-sm-3"
+                aria-current="page"
+                to="/watchlist"
+              >
                 <VscHeart className="icon-size" />
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink className="nav-link " to="/profile">
                 <AiOutlineUser className="icon-size" />
-              </a>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -77,4 +87,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Header;

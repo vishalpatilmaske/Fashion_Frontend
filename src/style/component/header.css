@@ -1,7 +1,12 @@
 .navbarbrand {
   color: rgb(212, 109, 50);
 }
-
+h4 {
+  cursor: pointer;
+}
+h4:first-child {
+  color: black;
+}
 .search {
   width: 50%;
 }
@@ -16,7 +21,7 @@
 
 /* for mobile screen */
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .search {
     width: 100%;
   }
@@ -34,7 +39,7 @@
 
 /* tablet screen  */
 
-@media (min-width: 481px) and (max-width: 1024px) {
+@media screen and (min-width: 481px) and (max-width: 1024px) {
   .navbar-toggler {
     display: none;
   }

@@ -1,0 +1,21 @@
+.womens-product {
+  height: 35vh;
+  width: 15vw;
+}
+li {
+  list-style-type: none;
+}
+
+/* for mobile screen */
+
+@media screen and (max-width: 480px) {
+  .womens-product {
+    height: 20vh;
+    width: 15vw;
+  }
+
+  .product-list {
+    display: flex;
+    justify-content: space-between;
+  }
+}

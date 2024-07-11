@@ -59,3 +59,10 @@ h6 {
   text-align: center;
   padding: 10px;
 }
+
+/* Form mobile screen */
+@media (max-width: 480px) {
+  .first-child {
+    display: none;
+  }
+}

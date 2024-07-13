@@ -14,7 +14,7 @@ a {
   color: rgb(118, 134, 145);
 }
 
-p {
+.footer p {
   margin: 0;
   padding: 0;
   font-size: 16px;

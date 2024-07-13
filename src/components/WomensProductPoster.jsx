@@ -2,9 +2,12 @@ import React from "react";
 import "../style/component/product-poster.css";
 import women from "../assets/data/women.json";
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-function ProductPoster() {
+function WomensProductPoster() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setData(women);
   }, []);
@@ -20,6 +23,9 @@ function ProductPoster() {
                 src={item.image}
                 className="womens-product"
                 alt="poster image"
+                onClick={() => {
+                  navigate("/productdetails", { state: item });
+                }}
               />
             </li>
           ))}
@@ -29,4 +35,4 @@ function ProductPoster() {
   );
 }
 
-export default ProductPoster;
+export default WomensProductPoster;

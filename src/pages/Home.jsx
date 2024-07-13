@@ -1,6 +1,6 @@
 import React from "react";
 import "../style/page/home.css";
-import ProductPoster from "../components/ProductPoster.jsx";
+import WomensProductPoster from "../components/WomensProductPoster.jsx";
 import image1 from "../assets/images/carousel/home1.webp";
 import image2 from "../assets/images/carousel/home2.webp";
 import image3 from "../assets/images/carousel/home3.webp";
@@ -73,7 +73,7 @@ function Home() {
         </div>
       </section>
 
-      <ProductPoster />
+      <WomensProductPoster />
     </>
   );
 }

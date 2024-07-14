@@ -12,10 +12,10 @@ function Checkout() {
       <div className="container row checkout-main-container">
         <section className="row py-2">
           <div className="col-5">
-            <h4>
+            <h3>
               <strong>Fashion</strong>
               <strong className="navbarbrand">Flick</strong>
-            </h4>
+            </h3>
           </div>
           <div className="col-7">
             <h4>Checkout</h4>
@@ -25,7 +25,7 @@ function Checkout() {
       <hr className="header-hr" />
       <section className="mt-5">
         <div className="row container m-auto">
-          <div className="col-8 address">
+          <div className="col-12 col-sm-8 address">
             {/* address */}
             <div className="d-flex justify-content-between">
               <strong
@@ -159,8 +159,8 @@ function Checkout() {
             </div>
           </div>
           {/* order summary */}
-          <div className="col-3 checkout-summary">
-            <div className="border p-2 pb-4">
+          <div className="col-12 m-4 col-sm-3 checkout-summary">
+            <div className="border rounded p-2 pb-4">
               <strong className="p-2">Order Summary</strong>
               <table>
                 <tbody>

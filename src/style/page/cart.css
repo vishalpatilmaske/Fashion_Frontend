@@ -1,0 +1,62 @@
+body {
+  background-color: #d7d7d7;
+}
+
+.cart-item-list {
+  background-color: white;
+  padding: 1rem;
+}
+.sub-total {
+  background-color: white;
+  padding: 1rem;
+}
+
+.sub-total div > p {
+  font-size: 12px;
+  color: rgb(6, 141, 37);
+}
+
+.sub-total input {
+  cursor: pointer;
+}
+
+.product-image {
+  height: 40vh;
+  width: 14vw;
+}
+
+.cart-item input {
+  cursor: pointer;
+}
+
+.cart-item-details table {
+  width: 100%;
+}
+
+.cart-item-details p {
+  color: black;
+  font-size: 1.2rem;
+}
+
+/* for mobile screen */
+
+@media screen and (max-width: 570px) {
+  .product-image {
+    height: 20vh;
+
+    width: 20vw;
+  }
+  .cart-item-details p,
+  b {
+    padding: 0;
+    margin: 0;
+    color: black;
+    font-size: 0.9rem;
+  }
+  .quantity-btn {
+    font-size: 0.6rem;
+  }
+  .button-container button {
+    padding: 2px 3px;
+  }
+}

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import Watchlist from "./components/Watchlist.jsx";
-import Cart from "./components/Cart.jsx";
+import Cart from "./pages/Cart.jsx";
 import Home from "./pages/Home.jsx";
 import Women from "./pages/Women.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";

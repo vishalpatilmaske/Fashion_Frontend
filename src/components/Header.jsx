@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import "../style/globle.css";
+import { NavLink } from "react-router-dom";
 import { VscHeart } from "react-icons/vsc";
 import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../style/page/checkout.css";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
   const [textColor, setTextColor] = useState("black");
@@ -7,12 +8,17 @@ function Checkout() {
     setTextColor(textColor === "black" ? "brown" : "black");
   };
 
+  const navigate = useNavigate();
   return (
     <>
       <div className="container row checkout-main-container">
         <section className="row py-2">
           <div className="col-5">
-            <h3>
+            <h3
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <strong>Fashion</strong>
               <strong className="navbarbrand">Flick</strong>
             </h3>
@@ -160,7 +166,7 @@ function Checkout() {
           </div>
           {/* order summary */}
           <div className="col-12 m-4 col-sm-3 checkout-summary">
-            <div className="border rounded p-2 pb-4">
+            <div className="border rounded p-2 pb-4 summary">
               <strong className="p-2">Order Summary</strong>
               <table>
                 <tbody>

@@ -10,27 +10,34 @@ import ProductDetails from "./pages/ProductDetails.jsx";
 import Profile from "./components/Profile.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import { CartProvider } from "./context/CartContext.jsx";
+import Signin from "./pages/Signin.jsx";
+import Signup from "./pages/Signup.jsx";
 
 function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </CartProvider>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 
 function AppContent() {
   const location = useLocation();
   const isCheckoutPage = location.pathname === "/checkout";
+  const inSigninPage = location.pathname === "/signin";
+  const isSignupPage = location.pathname === "/signup";
+  const isErrorPage = location.pathname === "*";
+
+  const shouldShowHeaderFooter =
+    !isCheckoutPage && !isSignupPage && !isErrorPage && !inSigninPage;
 
   return (
     <>
-      {!isCheckoutPage && <Header />}
+      {shouldShowHeaderFooter && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
@@ -39,7 +46,7 @@ function AppContent() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-      {!isCheckoutPage && <Footer />}
+      {shouldShowHeaderFooter && <Footer />}
     </>
   );
 }

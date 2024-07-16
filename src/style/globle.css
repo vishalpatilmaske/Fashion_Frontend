@@ -1,8 +1,6 @@
 * {
-  background-color: #fff;
   font-family: "Roboto", sans-serif;
 }
-
-p {
-  color: red;
+p:hover {
+  color: black;
 }

@@ -1,16 +1,14 @@
-import React, { useState, useContext } from "react";
-import { FaPlus, FaMinus } from "react-icons/fa";
-import { CartContext } from "../context/CartContext.jsx";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import "../style/page/cart.css";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { FaPlus, FaMinus, FaRoad } from "react-icons/fa";
+
+import { RiDeleteBin6Line, RiH1 } from "react-icons/ri";
+import { removeFromCart } from "../store/slice/cartSlice";
 
 function Cart() {
-  const { cart, removeFromCart } = useContext(CartContext);
-
-  // Check if cart is defined and has items
-  if (!cart || cart.length === 0) {
-    return <div>Your cart is empty</div>;
-  }
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   // Initialize quantities state
   const [quantities, setQuantities] = useState(
@@ -42,6 +40,7 @@ function Cart() {
         <p className="float-end">Price</p>
         <br />
         <hr />
+        {cart.length == 0 ? <h1 className="text-center">Empty</h1> : false}
         {cart.map((item) => (
           <div key={item.id} className="row">
             <div className="col-4 col-sm-3">
@@ -117,7 +116,7 @@ function Cart() {
               <RiDeleteBin6Line
                 className="float-end delete mb-2"
                 onClick={() => {
-                  removeFromCart(item.id);
+                  dispatch(removeFromCart(item.id));
                 }}
               />
             </div>

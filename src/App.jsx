@@ -10,12 +10,15 @@ import ProductDetails from "./pages/ProductDetails.jsx";
 import Profile from "./components/Profile.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import { CartProvider } from "./context/CartContext.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 

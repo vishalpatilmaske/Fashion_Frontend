@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../style/page/productdetails.css";
+import { CartContext } from "../context/CartContext";
 
 function ProductDetails() {
   const location = useLocation();
@@ -12,6 +13,9 @@ function ProductDetails() {
     description: "No description available",
     price: "0",
   };
+  console.log("product detials " + productDetails.image);
+
+  const { addToCart } = useContext(CartContext);
 
   // Generate a random discount percentage between 10 and 80
   const offPercentage = Math.floor(Math.random() * (80 - 10 + 1)) + 10;
@@ -21,19 +25,14 @@ function ProductDetails() {
 
   return (
     <div className="dashboard-container">
-      {/* Container fluid on small screens, fixed-width on medium and up */}
       <div className="container-fluid container-md mt-3">
         <div className="row">
-          {/* Product Image Section */}
           <div className="col-sm-6 d-flex flex-column align-items-center">
-            <div className="product-images mb-3">
-              {/* Add product thumbnails or additional images here if needed */}
-            </div>
+            <div className="product-images mb-3"></div>
             <div className="border main-image">
               <img src={productDetails.image} alt="Product" />
             </div>
           </div>
-          {/* Product Details Section */}
           <div className="col-sm-6 p-5">
             <h3>{productDetails.description}</h3>
             <hr />
@@ -64,7 +63,8 @@ function ProductDetails() {
                 type="button"
                 className="col-6 btn btn-warning add-to-cart-button px-5 rounded-pill me-3"
                 onClick={() => {
-                  navigate("/cart", { state: productDetails });
+                  addToCart(productDetails);
+                  navigate("/cart");
                 }}
               >
                 Add to Cart

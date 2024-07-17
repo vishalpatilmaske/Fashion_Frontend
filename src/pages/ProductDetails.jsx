@@ -72,8 +72,8 @@ function ProductDetails() {
                 type="button"
                 className="col-6 btn btn-warning buy-now-button px-5 rounded-pill"
                 onClick={() => {
-                  dispatch(processToBuy(productDetails));
-                  navigate("/checkout");
+                  dispatch(addToCart(productDetails));
+                  navigate("/checkout", { state: productDetails.id });
                 }}
               >
                 Buy Now

@@ -10,7 +10,7 @@ import poster2 from "../assets/images/poster/poster2.webp";
 function Home() {
   return (
     <>
-      <section className="container-fluid mt-2 carousel p-0">
+      <section className="container-fluid  carousel p-0">
         <div
           id="carouselExampleAutoplaying"
           className="carousel slide"
@@ -59,11 +59,11 @@ function Home() {
           </button>
         </div>
       </section>
-      <section className="row girlshop-poster container mt-3 mb-3">
-        <div className="container mb-3">
+      <section className="row girlshop-poster container mt-3 m-auto mb-3">
+        <div className="mb-3">
           <h2 className="poster-heading">FEATURED BRAND FOR WOMEN</h2>
         </div>
-        <div className="girlshop-poster-images d-flex flex-row container justify-content-evenly">
+        <div className="girlshop-poster-images d-flex flex-row container justify-content-between">
           <div>
             <img src={poster2} className="img-thumbnail " alt="poster" />
           </div>

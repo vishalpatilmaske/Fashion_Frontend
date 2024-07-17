@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/component/product-poster.css";
+import "../style/component/womensproductposter.css";
 import women from "../assets/data/women.json";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,8 +15,8 @@ function WomensProductPoster() {
   return (
     <>
       {" "}
-      <div className="container-fluid container-sm ">
-        <ul className="row product-list">
+      <div className="container-fluid  ">
+        <ul className="row product-list mb-3">
           {data.map((item) => (
             <li key={item.id} className="col-3 col-sm-3 col-md-2">
               <img

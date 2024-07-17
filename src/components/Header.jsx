@@ -5,13 +5,15 @@ import { VscHeart } from "react-icons/vsc";
 import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
-
 import "../style/component/header.css";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const cart = useSelector((state) => state.cart);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
-      <div className="container">
+      <div className="container py-2 header">
         <NavLink to="/">
           <h4>
             {" "}
@@ -31,8 +33,8 @@ function Header() {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0 ">
+            <li className="nav-item px-4">
               <NavLink className="nav-link" aria-current="page" to="/Women">
                 Women
               </NavLink>
@@ -65,6 +67,7 @@ function Header() {
                 to="/cart"
               >
                 <PiHandbagSimpleBold className="icon-size" />
+                <sup>{cart.length}</sup>
               </NavLink>
             </li>
             <li className="nav-item">

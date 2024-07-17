@@ -1,8 +1,8 @@
 import "../style/page/cart.css";
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaPlus, FaMinus, FaRoad } from "react-icons/fa";
-
 import { RiDeleteBin6Line, RiH1 } from "react-icons/ri";
 import { removeFromCart } from "../store/slice/cartSlice";
 
@@ -10,6 +10,7 @@ function Cart() {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
   // Initialize quantities state
   const [quantities, setQuantities] = useState(
     cart.reduce((acc, item) => {
@@ -18,10 +19,12 @@ function Cart() {
     }, {})
   );
 
+  // increase the quantity of the product
   const incQuantity = (id) => {
     setQuantities({ ...quantities, [id]: (quantities[id] || 0) + 1 });
   };
 
+  // decrease the quantity of the product
   const decQuantity = (id) => {
     setQuantities({
       ...quantities,
@@ -29,13 +32,15 @@ function Cart() {
     });
   };
 
+  // select the item form the cart
+
   const subtotal = cart.reduce((total, item) => {
     return total + item.price * (quantities[item.id] || 1);
   }, 0);
 
   return (
     <div className="container-fluid container-sm cart row my-3 mx-auto d-flex align-items-start ">
-      <div className="col-12 col-sm-9 cart-item-list">
+      <div className="col-12 col-sm-9 cart-item-list mb-5">
         <h4>Shopping Cart</h4>
         <p className="float-end">Price</p>
         <br />
@@ -159,6 +164,9 @@ function Cart() {
             <button
               type="button"
               className="mt-2 btn btn-warning add-to-cart-button px-4 rounded-pill me-3 btn-sm"
+              onClick={() => {
+                navigate("/checkout");
+              }}
             >
               Proceed to Buy
             </button>

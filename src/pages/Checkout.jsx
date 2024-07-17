@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "../style/page/checkout.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CheckoutAddress from "../components/CheckoutAddress";
+import CheckoutPayment from "../components/CheckoutPayment";
 
 function Checkout() {
   const [textColor, setTextColor] = useState("black");
@@ -8,6 +11,16 @@ function Checkout() {
     setTextColor(textColor === "black" ? "brown" : "black");
   };
 
+  const cart = useSelector((state) => state.cart);
+  const location = useLocation();
+  const { id } = location.state || {};
+
+  const checkoutitem = cart.filter((product) => cart.id === id);
+
+  // product total
+  const total = checkoutitem.reduce((total, item) => {
+    return total + item.price * 1;
+  }, 0);
   const navigate = useNavigate();
   return (
     <>
@@ -32,116 +45,10 @@ function Checkout() {
       <section className="mt-5">
         <div className="row container m-auto">
           <div className="col-12 col-sm-8 address">
-            {/* address */}
-            <div className="d-flex justify-content-between">
-              <strong
-                data-bs-toggle="collapse"
-                id="address"
-                href="#collapseAddress"
-                role="button"
-                aria-expanded="false"
-                aria-controls="collapseAddress"
-                style={{ color: textColor }}
-                onClick={HandleClick}
-              >
-                1 Delivery Address
-              </strong>
-              <span
-                data-bs-toggle="collapse"
-                id="close-button"
-                data-bs-target="#collapseAddress"
-                aria-expanded="false"
-                aria-controls="collapseAddress"
-                style={{ color: textColor }}
-                onClick={HandleClick}
-              >
-                close
-              </span>
-            </div>
-            <div className="collapse mt-2" id="collapseAddress">
-              <div className="card card-body">
-                <div>
-                  <h6>Your address</h6>
-                  <hr />
-                  <p id="add-address">+ Add new address</p>
-                </div>
-                <div>
-                  <hr />
-                  <button
-                    type="button "
-                    className="btn btn-warning btn-sm px-5 rounded-pill"
-                  >
-                    Buy Now
-                  </button>
-                </div>
-              </div>
-            </div>
-            <hr />
+            {/* Address */}
+            <CheckoutAddress />
             {/* payment */}
-            <div className="d-flex justify-content-between">
-              <strong
-                data-bs-toggle="collapse"
-                id="address"
-                href="#collapsePayment"
-                role="button"
-                aria-expanded="false"
-                aria-controls="collapsePayment"
-                style={{ color: textColor }}
-                onClick={HandleClick}
-              >
-                2 Payment Method
-              </strong>
-              <span
-                data-bs-toggle="collapse"
-                id="close-button"
-                data-bs-target="#collapsePayment"
-                aria-expanded="false"
-                aria-controls="collapsePayment"
-                style={{ color: textColor }}
-                onClick={HandleClick}
-              >
-                close
-              </span>
-            </div>
-            <div className="collapse mt-2" id="collapsePayment">
-              <div className="card card-body">
-                <div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                      id="flexRadioDefault1"
-                    />
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Cash on Delivery / Pay on Delivery
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="flexRadioDefault"
-                      id="flexRadioDefault2"
-                      checked
-                    />
-                    <label class="form-check-label" for="flexRadioDefault2">
-                      UPI app
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <hr />
-                  <button
-                    type="button "
-                    className="btn btn-warning btn-sm px-3 rounded-pill"
-                  >
-                    use this payment method{" "}
-                  </button>
-                </div>
-              </div>
-            </div>
-            <hr />
+            <CheckoutPayment />
             {/* offer */}
             <div className="d-flex justify-content-between">
               <strong
@@ -172,7 +79,7 @@ function Checkout() {
                 <tbody>
                   <tr>
                     <td className="p-2">Items :</td>
-                    <td className="p-2"></td>
+                    <td className="p-2">{checkoutitem.length}</td>
                   </tr>
                   <tr>
                     <td className="p-2">Delivery:</td>
@@ -180,7 +87,7 @@ function Checkout() {
                   </tr>
                   <tr>
                     <td className="p-2">Total:</td>
-                    <td className="p-2"></td>
+                    <td className="p-2">{total}</td>
                   </tr>
                 </tbody>
               </table>

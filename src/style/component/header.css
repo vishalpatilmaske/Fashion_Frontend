@@ -14,11 +14,19 @@ h4:first-child {
   border: 0.5px solid black;
 }
 .icon-size {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: black;
   margin: 0 10px;
 }
+.navbar-nav sup {
+  color: #f08804;
+  font-weight: 900;
+  font-size: 1rem;
+}
 
+.header ul li {
+  font-weight: bold;
+}
 /* for mobile screen */
 
 @media screen and (max-width: 480px) {

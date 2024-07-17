@@ -1,0 +1,15 @@
+.addnewaddress {
+  cursor: pointer;
+  color: rgb(6, 141, 37);
+}
+.addnewaddress:hover {
+  color: rgb(6, 141, 37);
+}
+
+.modal-dialog input {
+  border: 1px solid black;
+}
+
+.modal-dialog label {
+  font-weight: 700;
+}

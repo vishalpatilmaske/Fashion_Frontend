@@ -7,7 +7,7 @@ import Cart from "./pages/Cart.jsx";
 import Home from "./pages/Home.jsx";
 import Women from "./pages/Women.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
-import Profile from "./components/Profile.jsx";
+import Profile from "./pages/Profile.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import Signin from "./pages/Signin.jsx";

@@ -1,33 +1,59 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../style/page/signin.css";
+import { useDispatch, useSelector } from "react-redux";
+import { signinUser } from "../store/slice/userSlice";
+import { toast } from "react-toastify";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/api/users/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-      const responseData = await response.json();
-      if (response.ok) {
-        alert(responseData.message);
-        console.log(responseData.message);
-      } else {
-        alert(responseData.error);
-      }
-    } catch (error) {
-      console.log("Error:", error.message);
-      alert("Signin Error: Network Error");
+  // handle submit
+  const handelSubmit = async (event) => {
+    event.preventDefault();
+    if (!validation()) {
+      return;
     }
+    dispatch(signinUser({ email, password }));
+    if (user.signin.success) {
+      toast.success(user.signin.successMessage);
+    } else {
+      toast.error(user.signin.errorMessage);
+    }
+  };
+
+  // validate the data at client side
+  const validation = () => {
+    if (email.trim() === "") {
+      toast.warn("Email can't be empty");
+      return false;
+    }
+    if (password.trim() === "") {
+      toast.warn("Password can't be empty");
+      return false;
+    }
+    const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    if (!specialCharacters.test(password)) {
+      toast.warn("Password must contain at least one special character");
+      return false;
+    }
+    if (!/\d/.test(password)) {
+      toast.warn("Password must contain at least one number");
+      return false;
+    }
+    if (!/[A-Z]/.test(password)) {
+      toast.warn("Password must contain at least one uppercase letter");
+      return false;
+    }
+    if (!/[a-z]/.test(password)) {
+      toast.warn("Password must contain at least one lowercase letter");
+      return false;
+    }
+    return true;
   };
 
   return (
@@ -45,9 +71,8 @@ const Signin = () => {
       <form
         id="show-login"
         name="login_form"
-        method="POST"
-        onSubmit={handleSubmit}
         className="w-100 mt-4"
+        onSubmit={handelSubmit}
         style={{ maxWidth: "400px" }}
       >
         <div className="card p-4 shadow-sm">
@@ -68,6 +93,7 @@ const Signin = () => {
               type="text"
               className="form-control"
               name="email"
+              autoComplete="username"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />

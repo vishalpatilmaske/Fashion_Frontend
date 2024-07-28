@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Async thunk for signing up a user
 export const signupUser = createAsyncThunk(
   "user/signupUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5000/user", {
+      const response = await axios.post("http://localhost:5000/user/signup", {
         email,
         password,
       });
@@ -20,30 +21,76 @@ export const signupUser = createAsyncThunk(
   }
 );
 
+// Async thunk for signing in a user
+export const signinUser = createAsyncThunk(
+  "user/signinUser",
+  async ({ email, password }, { rejectWithValue }) => {
+    console.log("signin called");
+    try {
+      const response = await axios.post("http://localhost:5000/user/signin", {
+        email,
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data
+          ? error.response.data.error
+          : "Network Error"
+      );
+    }
+  }
+);
+
+// User slice with initial state and reducers
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    loading: false,
-    errorMessage: null,
-    successMessage: null,
+    signup: {
+      loading: false,
+      errorMessage: null,
+      successMessage: null,
+    },
+    signin: {
+      success: false,
+      errorMessage: null,
+      successMessage: null,
+    },
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // Handle signup actions
       .addCase(signupUser.pending, (state) => {
-        state.loading = true;
-        state.errorMessage = null;
-        state.successMessage = null;
+        state.signup.loading = true;
+        state.signup.errorMessage = null;
+        state.signup.successMessage = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.successMessage = action.payload.message;
-        state.errorMessage = null;
+        state.signup.loading = false;
+        state.signup.successMessage = action.payload.message;
+        state.signup.errorMessage = null;
       })
       .addCase(signupUser.rejected, (state, action) => {
-        state.loading = false;
-        state.errorMessage = action.payload;
-        state.successMessage = null;
+        state.signup.loading = false;
+        state.signup.errorMessage = action.payload;
+        state.signup.successMessage = null;
+      })
+      // Handle signin actions
+      .addCase(signinUser.pending, (state) => {
+        state.signin.success = false;
+        state.signin.errorMessage = null;
+        state.signin.successMessage = null;
+      })
+      .addCase(signinUser.fulfilled, (state, action) => {
+        state.signin.success = true;
+        state.signin.successMessage = action.payload.message;
+        state.signin.errorMessage = null;
+      })
+      .addCase(signinUser.rejected, (state, action) => {
+        state.signin.success = false;
+        state.signin.errorMessage = action.payload;
+        state.signin.successMessage = null;
       });
   },
 });

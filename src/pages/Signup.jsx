@@ -58,10 +58,6 @@ const Signup = () => {
       return;
     }
     dispatch(signupUser({ email, password }));
-  };
-
-  // disply the messages
-  useEffect(() => {
     if (!user.loading) {
       if (user.successMessage) {
         toast.success(user.successMessage);
@@ -71,7 +67,7 @@ const Signup = () => {
         toast.error(user.errorMessage);
       }
     }
-  }, [user.loading, user.successMessage, user.errorMessage, navigate]);
+  };
 
   return (
     <div className="row d-flex justify-content-center ">

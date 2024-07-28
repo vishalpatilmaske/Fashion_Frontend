@@ -84,6 +84,12 @@ function Header() {
                 <AiOutlineUser className="icon-size" />
               </NavLink>
             </li>
+            <li className="nav-item login">
+              <NavLink className="nav-link" to="/signup">
+                <p>Hello,{` signin`}</p>
+                <p>Account</p>
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

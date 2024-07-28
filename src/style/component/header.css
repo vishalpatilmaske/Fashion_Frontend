@@ -27,6 +27,12 @@ h4:first-child {
 .header ul li {
   font-weight: bold;
 }
+
+.login p {
+  padding: 0;
+  margin: 0;
+  font-size: 0.6rem;
+}
 /* for mobile screen */
 
 @media screen and (max-width: 480px) {

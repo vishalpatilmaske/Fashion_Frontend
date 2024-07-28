@@ -1,78 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../style/page/signup.css";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { signupUser } from "../store/slice/userSlice";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPassword, setConPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
+  // validate the data at client side
   const validation = () => {
     if (email.trim() === "") {
-      alert("Email can't be empty");
+      toast.warn("Email can't be empty");
       return false;
     }
     if (password.trim() === "") {
-      alert("Password can't be empty");
+      toast.warn("Password can't be empty");
       return false;
     }
     if (conPassword.trim() === "") {
-      alert("Confirm Password can't be empty");
+      toast.warn("Confirm Password can't be empty");
       return false;
     }
     if (password !== conPassword) {
-      alert("Passwords do not match");
+      toast.warn("Passwords do not match");
       return false;
     }
     const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     if (!specialCharacters.test(password)) {
-      alert("Password must contain at least one special character");
+      toast.warn("Password must contain at least one special character");
       return false;
     }
     if (!/\d/.test(password)) {
-      alert("Password must contain at least one number");
+      toast.warn("Password must contain at least one number");
       return false;
     }
     if (!/[A-Z]/.test(password)) {
-      alert("Password must contain at least one uppercase letter");
+      toast.warn("Password must contain at least one uppercase letter");
       return false;
     }
     if (!/[a-z]/.test(password)) {
-      alert("Password must contain at least one lowercase letter");
+      toast.warn("Password must contain at least one lowercase letter");
       return false;
     }
     return true;
   };
 
-  const submitData = async (event) => {
+  // handel the submit data
+  const handleSubmitData = async (event) => {
     event.preventDefault();
     if (!validation()) {
       return;
     }
-    try {
-      const response = await fetch("http://localhost:3000/api/users/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      const responseData = await response.json();
-      if (response.ok) {
-        alert(responseData.message);
-      } else {
-        console.error("Error:", response.statusText);
-        alert(responseData.error);
-      }
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
+    dispatch(signupUser({ email, password }));
   };
+
+  // disply the messages
+  useEffect(() => {
+    if (!user.loading) {
+      if (user.successMessage) {
+        toast.success(user.successMessage);
+        navigate("/signin");
+      }
+      if (user.errorMessage) {
+        toast.error(user.errorMessage);
+      }
+    }
+  }, [user.loading, user.successMessage, user.errorMessage, navigate]);
 
   return (
     <div className="row d-flex justify-content-center ">
@@ -89,7 +88,7 @@ const Signup = () => {
       </div>
       <form
         name="signup_form"
-        onSubmit={submitData}
+        onSubmit={handleSubmitData}
         method="post"
         className="w-100 mt-4"
         style={{ maxWidth: "400px" }}
@@ -110,6 +109,7 @@ const Signup = () => {
               className="form-control"
               name="email"
               placeholder="Email"
+              autoComplete="new-password"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -119,6 +119,7 @@ const Signup = () => {
               className="form-control"
               name="password"
               placeholder="Create Password"
+              autoComplete="new-password"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -128,6 +129,7 @@ const Signup = () => {
               className="form-control"
               name="confirm-password"
               placeholder="Confirm Password"
+              autoComplete="new-password"
               onChange={(e) => setConPassword(e.target.value)}
             />
           </div>

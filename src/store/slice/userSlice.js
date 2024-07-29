@@ -27,7 +27,7 @@ export const signinUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     console.log("signin called");
     try {
-      const response = await axios.post("http://localhost:5000/user/signin", {
+      const response = await axios.post("http://localhost:5000/user/login", {
         email,
         password,
       });
@@ -47,7 +47,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     signup: {
-      loading: false,
+      success: false,
       errorMessage: null,
       successMessage: null,
     },
@@ -62,17 +62,17 @@ const userSlice = createSlice({
     builder
       // Handle signup actions
       .addCase(signupUser.pending, (state) => {
-        state.signup.loading = true;
+        state.signup.success = false;
         state.signup.errorMessage = null;
         state.signup.successMessage = null;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
-        state.signup.loading = false;
+        state.signup.success = true;
         state.signup.successMessage = action.payload.message;
         state.signup.errorMessage = null;
       })
       .addCase(signupUser.rejected, (state, action) => {
-        state.signup.loading = false;
+        state.signup.success = false;
         state.signup.errorMessage = action.payload;
         state.signup.successMessage = null;
       })

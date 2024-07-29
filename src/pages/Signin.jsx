@@ -21,6 +21,7 @@ const Signin = () => {
     dispatch(signinUser({ email, password }));
     if (user.signin.success) {
       toast.success(user.signin.successMessage);
+      navigate("/");
     } else {
       toast.error(user.signin.errorMessage);
     }

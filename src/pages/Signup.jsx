@@ -58,13 +58,13 @@ const Signup = () => {
       return;
     }
     dispatch(signupUser({ email, password }));
-    if (!user.loading) {
-      if (user.successMessage) {
-        toast.success(user.successMessage);
+    if (user.signup.success) {
+      if (user.signup.successMessage) {
+        toast.success(user.signup.successMessage);
         navigate("/signin");
       }
-      if (user.errorMessage) {
-        toast.error(user.errorMessage);
+      if (user.signup.errorMessage) {
+        toast.error(user.signup.errorMessage);
       }
     }
   };

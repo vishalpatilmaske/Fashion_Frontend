@@ -6,10 +6,13 @@ export const signupUser = createAsyncThunk(
   "user/signupUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5000/user/signup", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://fashionbackend-production.up.railway.app/user/signup",
+        {
+          email,
+          password,
+        }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -27,10 +30,13 @@ export const signinUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     console.log("signin called");
     try {
-      const response = await axios.post("http://localhost:5000/user/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://fashionbackend-production.up.railway.app/user/login",
+        {
+          email,
+          password,
+        }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(

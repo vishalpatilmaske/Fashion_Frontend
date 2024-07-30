@@ -83,7 +83,7 @@ function Footer() {
               </p>
             </div>
             <div className="row mt-2">
-              <div class="input-group input-group-sm mb-3">
+              <div className="input-group input-group-sm mb-3">
                 <input
                   type="text"
                   className="form-control rounded"

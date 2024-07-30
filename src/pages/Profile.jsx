@@ -2,8 +2,11 @@ import React from "react";
 import "../style/page/profile.css";
 import image from "../assets/images/poster/poster1.jpg";
 import { MdOutlineEdit } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 function Profile() {
+  const user = useSelector((state) => state.user);
+  console.log(user.signin.userData);
   return (
     <>
       <div className="row container m-auto mt-4">

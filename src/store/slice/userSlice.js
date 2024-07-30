@@ -7,12 +7,15 @@ export const signupUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://fashionbackend-production.up.railway.app/user/signup",
+        // "https://fashionbackend-production.up.railway.app/user/signup"
+        "http://localhost:5000/user/signup",
         {
           email,
           password,
-        }
+        },
+        { withCredentials: true }
       );
+      0;
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -28,14 +31,15 @@ export const signupUser = createAsyncThunk(
 export const signinUser = createAsyncThunk(
   "user/signinUser",
   async ({ email, password }, { rejectWithValue }) => {
-    console.log("signin called");
     try {
       const response = await axios.post(
-        "https://fashionbackend-production.up.railway.app/user/login",
+        // "https://fashionbackend-production.up.railway.app/user/login"
+        "http://localhost:5000/user/login",
         {
           email,
           password,
-        }
+        },
+        { withCredentials: true }
       );
       return response.data;
     } catch (error) {
@@ -61,6 +65,7 @@ const userSlice = createSlice({
       success: false,
       errorMessage: null,
       successMessage: null,
+      userData: null,
     },
   },
   reducers: {},
@@ -90,6 +95,7 @@ const userSlice = createSlice({
       })
       .addCase(signinUser.fulfilled, (state, action) => {
         state.signin.success = true;
+        state.signin.userData = action.payload.data;
         state.signin.successMessage = action.payload.message;
         state.signin.errorMessage = null;
       })

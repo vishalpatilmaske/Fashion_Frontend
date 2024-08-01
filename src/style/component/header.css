@@ -33,7 +33,11 @@ h4:first-child {
   margin: 0;
   font-size: 0.6rem;
 }
-/* for mobile screen */
+
+.dropdown-menu {
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
+}
 
 @media screen and (max-width: 480px) {
   .search {

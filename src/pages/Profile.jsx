@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../style/page/profile.css";
 import image from "../assets/images/poster/poster1.jpg";
 import { MdOutlineEdit } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { loadLocalStorage } from "../store/slice/userSlice";
 
 function Profile() {
-  const user = useSelector((state) => state.user);
-  console.log(user.signin.userData);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadLocalStorage());
+  }, [dispatch]);
+
+  const userData = useSelector((state) => state.user.signin.userData);
+
   return (
     <>
-      <div className="row container m-auto mt-4">
-        <div className="col-md-4 d-flex justify-content-center flex-column text-center">
+      <div className="row container m-auto mt-4 profile">
+        <div className="col-md-4 d-flex justify-content-start flex-column text-center ">
           <img
             src={image}
             alt=""
-            className="rounded-circle profile-image m-auto"
+            className="rounded-circle profile-image mx-auto"
           />
           <div>
             {" "}
             <strong>Vishal Vijay Maske</strong>
+            <p>{}</p>
             <MdOutlineEdit />
           </div>
           <div class="modal-dialog modal-dialog-centered">...</div>

@@ -1,5 +1,6 @@
 import React from "react";
 import "../style/page/home.css";
+import { useSelector } from "react-redux";
 import WomensProductPoster from "../components/WomensProductPoster.jsx";
 import image1 from "../assets/images/carousel/home1.webp";
 import image2 from "../assets/images/carousel/home2.webp";

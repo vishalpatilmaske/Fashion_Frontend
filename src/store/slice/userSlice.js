@@ -2,52 +2,35 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Async thunk for signing up a user
-export const signupUser = createAsyncThunk(
+export const userSignup = createAsyncThunk(
   "user/signupUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        // "https://fashionbackend-production.up.railway.app/user/signup"
         "http://localhost:5000/user/signup",
-        {
-          email,
-          password,
-        },
+        { email, password },
         { withCredentials: true }
       );
-      0;
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response && error.response.data
-          ? error.response.data.error
-          : "Network Error"
-      );
+      return rejectWithValue(error.response?.data?.error || "Network Error");
     }
   }
 );
 
 // Async thunk for signing in a user
-export const signinUser = createAsyncThunk(
+export const userSignin = createAsyncThunk(
   "user/signinUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        // "https://fashionbackend-production.up.railway.app/user/login"
         "http://localhost:5000/user/login",
-        {
-          email,
-          password,
-        },
+        { email, password },
         { withCredentials: true }
       );
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response && error.response.data
-          ? error.response.data.error
-          : "Network Error"
-      );
+      return rejectWithValue(error.response?.data?.error || "Network Error");
     }
   }
 );
@@ -68,38 +51,58 @@ const userSlice = createSlice({
       userData: null,
     },
   },
-  reducers: {},
+  reducers: {
+    // Add a logout action to clear user data and localStorage
+    logout: (state) => {
+      state.signin.success = false;
+      state.signin.userData = null;
+      state.signin.successMessage = null;
+      state.signin.errorMessage = null;
+      localStorage.removeItem("userData");
+    },
+
+    loadLocalStorage: (state) => {
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData) {
+        state.signin.userData = userData;
+        state.signin.success = true;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Handle signup actions
-      .addCase(signupUser.pending, (state) => {
+      .addCase(userSignup.pending, (state) => {
         state.signup.success = false;
         state.signup.errorMessage = null;
         state.signup.successMessage = null;
       })
-      .addCase(signupUser.fulfilled, (state, action) => {
+      .addCase(userSignup.fulfilled, (state, action) => {
         state.signup.success = true;
         state.signup.successMessage = action.payload.message;
         state.signup.errorMessage = null;
       })
-      .addCase(signupUser.rejected, (state, action) => {
+      .addCase(userSignup.rejected, (state, action) => {
         state.signup.success = false;
         state.signup.errorMessage = action.payload;
         state.signup.successMessage = null;
       })
       // Handle signin actions
-      .addCase(signinUser.pending, (state) => {
+      .addCase(userSignin.pending, (state) => {
         state.signin.success = false;
         state.signin.errorMessage = null;
         state.signin.successMessage = null;
       })
-      .addCase(signinUser.fulfilled, (state, action) => {
+      .addCase(userSignin.fulfilled, (state, action) => {
         state.signin.success = true;
-        state.signin.userData = action.payload.data;
+        // Save user data to localStorage
+        const userData = action.payload.data;
+        localStorage.setItem("userData", JSON.stringify(userData));
+        state.signin.userData = userData;
         state.signin.successMessage = action.payload.message;
         state.signin.errorMessage = null;
       })
-      .addCase(signinUser.rejected, (state, action) => {
+      .addCase(userSignin.rejected, (state, action) => {
         state.signin.success = false;
         state.signin.errorMessage = action.payload;
         state.signin.successMessage = null;
@@ -107,4 +110,5 @@ const userSlice = createSlice({
   },
 });
 
+export const { logout, loadLocalStorage } = userSlice.actions;
 export default userSlice.reducer;

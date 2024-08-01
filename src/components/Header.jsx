@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../style/globle.css";
 import { NavLink } from "react-router-dom";
 import { VscHeart } from "react-icons/vsc";
@@ -6,10 +6,17 @@ import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import "../style/component/header.css";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { loadLocalStorage } from "../store/slice/userSlice";
 function Header() {
   const cart = useSelector((state) => state.cart);
+
+  // get the user data from the store
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadLocalStorage());
+  }, [dispatch]);
+  const { userData, success } = useSelector((state) => state.user.signin);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
@@ -86,7 +93,12 @@ function Header() {
             </li>
             <li className="nav-item login">
               <NavLink className="nav-link" to="/signup">
-                <p>Hello,{` signin`}</p>
+                <p>
+                  Hello,
+                  <strong>
+                    {success ? userData.email.slice(0, 6) : "signin"}
+                  </strong>
+                </p>
                 <p>Account</p>
               </NavLink>
             </li>

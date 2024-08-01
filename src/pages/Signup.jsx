@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../style/page/signup.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { signupUser } from "../store/slice/userSlice";
+import { userSignup } from "../store/slice/userSlice";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -57,7 +57,7 @@ const Signup = () => {
     if (!validation()) {
       return;
     }
-    dispatch(signupUser({ email, password }));
+    dispatch(userSignup({ email, password }));
     if (user.signup.success) {
       if (user.signup.successMessage) {
         toast.success(user.signup.successMessage);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../style/page/signin.css";
 import { useDispatch, useSelector } from "react-redux";
-import { signinUser } from "../store/slice/userSlice";
+import { userSignin } from "../store/slice/userSlice";
 import { toast } from "react-toastify";
 
 const Signin = () => {
@@ -18,7 +18,7 @@ const Signin = () => {
     if (!validation()) {
       return;
     }
-    dispatch(signinUser({ email, password }));
+    dispatch(userSignin({ email, password }));
     if (user.signin.success) {
       toast.success(user.signin.successMessage);
       navigate("/");

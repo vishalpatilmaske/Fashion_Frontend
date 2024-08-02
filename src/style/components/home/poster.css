@@ -1,0 +1,36 @@
+.girlshop-poster img {
+  height: 40vh;
+}
+.poster-heading {
+  font-size: 2rem;
+  text-align: center;
+}
+.product-container img {
+  height: 40vh;
+  width: 30vh;
+}
+/* for tablet screen */
+@media screen and(min-width:768px) and (max-width: 1024px) {
+  .girlshop-poster img {
+    height: 40vh;
+  }
+  .poster-heading {
+    font-size: 1.5rem;
+  }
+  .girlshop-poster div:nth-child(1) {
+    width: 75%;
+  }
+}
+
+/* for mobile screen  */
+@media screen and (max-width: 767px) {
+  .girlshop-poster img {
+    height: 15vh;
+  }
+  .poster-heading {
+    font-size: 1rem;
+  }
+  .girlshop-poster div:nth-child(1) {
+    width: 75%;
+  }
+}

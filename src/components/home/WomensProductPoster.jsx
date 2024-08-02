@@ -1,6 +1,6 @@
 import React from "react";
-import "../style/component/womensproductposter.css";
-import women from "../assets/data/women.json";
+import "../../style/components/home/womensproductposter.css";
+import women from "/public/assets/data/women.json";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 

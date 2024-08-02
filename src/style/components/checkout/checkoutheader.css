@@ -1,0 +1,17 @@
+/* Styles specific to CheckoutHeader component */
+.navbarbrand {
+  color: rgb(212, 109, 50);
+}
+
+h3 {
+  cursor: pointer;
+}
+
+.header-hr {
+  margin: 0;
+  padding: 0;
+}
+
+.checkout-main-container {
+  margin: auto;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "../style/page/profile.css";
-import image from "../assets/images/poster/poster1.jpg";
+import image from "/public/assets/images/poster/poster1.jpg";
 import { MdOutlineEdit } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { loadLocalStorage } from "../store/slice/userSlice";

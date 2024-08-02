@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/slice/cartSlice";
-import { processToBuy } from "../store/slice/checkoutSlice";
 
 function ProductDetails() {
   const location = useLocation();

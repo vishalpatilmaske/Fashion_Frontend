@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import "../style/component/checkoutaddress.css";
+import "../../style/components/checkout/checkoutaddress.css";
 
 const CheckoutAddress = () => {
   const [textColor, setTextColor] = useState("black");

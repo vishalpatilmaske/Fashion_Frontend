@@ -1,0 +1,14 @@
+/* Styles specific to CartSummary component */
+.sub-total {
+  background-color: white;
+  padding: 1rem;
+}
+
+.sub-total div > p {
+  font-size: 12px;
+  color: rgb(6, 141, 37);
+}
+
+.sub-total input {
+  cursor: pointer;
+}

@@ -1,17 +1,17 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import Footer from "./components/Footer.jsx";
-import Header from "./components/Header.jsx";
-import Watchlist from "./components/Watchlist.jsx";
+import Footer from "./components/home/Footer.jsx";
+import Header from "./components/home/Header.jsx";
+import WatchList from "./pages/WatchList.jsx";
 import Cart from "./pages/Cart.jsx";
 import Home from "./pages/Home.jsx";
 import Women from "./pages/Women.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Profile from "./pages/Profile.jsx";
 import Checkout from "./pages/Checkout.jsx";
-import ErrorPage from "./pages/ErrorPage.jsx";
 import Signin from "./pages/Signin.jsx";
 import Signup from "./pages/Signup.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 function App() {
   return (
@@ -38,13 +38,13 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/Signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/watchlist" element={<WatchList />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/women" element={<Women />} />
         <Route path="/productdetails" element={<ProductDetails />} />
         <Route path="/checkout" element={<Checkout />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {shouldShowHeaderFooter && <Footer />}
     </>

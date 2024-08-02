@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import "../style/globle.css";
+import "../../style/globle.css";
+import "../../style/components/home/header.css";
 import { NavLink } from "react-router-dom";
 import { VscHeart } from "react-icons/vsc";
 import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
-import "../style/component/header.css";
 import { useSelector, useDispatch } from "react-redux";
-import { loadLocalStorage } from "../store/slice/userSlice";
+import { loadLocalStorage } from "../../store/slice/userSlice";
 function Header() {
   const cart = useSelector((state) => state.cart);
 

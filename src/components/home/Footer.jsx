@@ -1,9 +1,9 @@
 import React from "react";
-import "../style/component/footer.css";
-import instagram from "../assets/images/footer/instagram.png";
-import x from "../assets/images/footer/x.png";
-import whatsapp from "../assets/images/footer/whatsapp.png";
-import linkedin from "../assets/images/footer/linkedin.png";
+import "../../style/components/home/footer.css";
+import instagram from "/public/assets/images/footer/instagram.png";
+import x from "/public/assets/images/footer/x.png";
+import whatsapp from "/public/assets/images/footer/whatsapp.png";
+import linkedin from "/public/assets/images/footer/linkedin.png";
 import { FaRegCopyright } from "react-icons/fa";
 
 function Footer() {

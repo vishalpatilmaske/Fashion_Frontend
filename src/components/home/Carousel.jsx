@@ -1,7 +1,7 @@
 import React from "react";
-import image1 from "../assets/images/carousel/home1.webq";
-import image2 from "../assets/images/carousel/home2.webq";
-import image3 from "../assets/images/carousel/home3.webq";
+import image1 from "/public/assets/images/carousel/home1.webp";
+import image2 from "/public/assets/images/carousel/home2.webp";
+import image3 from "/public/assets/images/carousel/home3.webp";
 
 function Carousel() {
   return (

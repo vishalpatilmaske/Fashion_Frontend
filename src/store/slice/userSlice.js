@@ -49,6 +49,7 @@ const userSlice = createSlice({
       errorMessage: null,
       successMessage: null,
       userData: null,
+      isAuthenticate: false,
     },
   },
   reducers: {
@@ -61,6 +62,7 @@ const userSlice = createSlice({
       localStorage.removeItem("userData");
     },
 
+    // get the local storage data
     loadLocalStorage: (state) => {
       const userData = JSON.parse(localStorage.getItem("userData"));
       if (userData) {
@@ -101,6 +103,7 @@ const userSlice = createSlice({
         state.signin.userData = userData;
         state.signin.successMessage = action.payload.message;
         state.signin.errorMessage = null;
+        state.signin.isAuthenticate = true;
       })
       .addCase(userSignin.rejected, (state, action) => {
         state.signin.success = false;

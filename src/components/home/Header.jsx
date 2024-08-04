@@ -8,6 +8,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { loadLocalStorage } from "../../store/slice/userSlice";
+import { logout } from "../../store/slice/userSlice";
 function Header() {
   const cart = useSelector((state) => state.cart);
 
@@ -99,7 +100,20 @@ function Header() {
                     {success ? userData.email.slice(0, 6) : "signin"}
                   </strong>
                 </p>
-                <p>Account</p>
+                <div class="dropdown-center">
+                  <p
+                    class=" dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Account
+                  </p>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <p class="dropdown-item px-3 py-3">Action</p>
+                    </li>
+                  </ul>
+                </div>
               </NavLink>
             </li>
           </ul>

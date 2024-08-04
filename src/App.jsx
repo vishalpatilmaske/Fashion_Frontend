@@ -13,34 +13,27 @@ import Signin from "./pages/Signin.jsx";
 import Signup from "./pages/Signup.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
-  );
-}
-
-function AppContent() {
+const MyRoutes = () => {
   const location = useLocation();
   const isCheckoutPage = location.pathname === "/checkout";
-  const inSigninPage = location.pathname === "/signin";
+  const isSigninPage = location.pathname === "/signin";
   const isSignupPage = location.pathname === "/signup";
   const isErrorPage = location.pathname === "*";
 
   const shouldShowHeaderFooter =
-    !isCheckoutPage && !isSignupPage && !isErrorPage && !inSigninPage;
+    !isCheckoutPage && !isSignupPage && !isErrorPage && !isSigninPage;
 
   return (
     <>
       {shouldShowHeaderFooter && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Signin" element={<Signin />} />
+        <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/watchlist" element={<WatchList />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile />} />{" "}
+        {/* Removed restricted prop */}
         <Route path="/women" element={<Women />} />
         <Route path="/productdetails" element={<ProductDetails />} />
         <Route path="/checkout" element={<Checkout />} />
@@ -48,6 +41,14 @@ function AppContent() {
       </Routes>
       {shouldShowHeaderFooter && <Footer />}
     </>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <MyRoutes />
+    </BrowserRouter>
   );
 }
 

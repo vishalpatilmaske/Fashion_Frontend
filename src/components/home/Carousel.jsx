@@ -5,7 +5,7 @@ import image3 from "/public/assets/images/carousel/home3.webp";
 
 function Carousel() {
   return (
-    <section className="container-fluid mt-2 carousel p-0">
+    <section className="container-fluid carousel p-0">
       <div
         id="carouselExampleAutoplaying"
         className="carousel slide"

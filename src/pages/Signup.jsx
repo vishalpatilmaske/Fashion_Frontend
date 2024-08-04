@@ -70,8 +70,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="row d-flex justify-content-center ">
-      <div className="py-3 signup-header">
+    <div className=" row d-flex justify-content-center mx-auto ">
+      <div className="py-3 signup-header ">
         <h3
           onClick={() => {
             navigate("/");

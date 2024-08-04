@@ -83,3 +83,22 @@ h4:first-child {
     font-size: 1rem;
   }
 }
+
+/* CSS to minimize the dropdown menu size */
+.dropdown-menu {
+  min-width: 100px;
+  padding: 0;
+}
+
+.dropdown-item {
+  font-size: 0.9rem;
+  /* padding: 0.8rem 1rem; */
+}
+
+.nav-item.login {
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../../style/globle.css";
 import "../../style/components/home/header.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { VscHeart } from "react-icons/vsc";
 import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
@@ -9,14 +9,21 @@ import { FaSearch } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { loadLocalStorage } from "../../store/slice/userSlice";
 import { logout } from "../../store/slice/userSlice";
+
 function Header() {
   const cart = useSelector((state) => state.cart);
 
   // get the user data from the store
   const dispatch = useDispatch();
+
+  // navigate
+  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(loadLocalStorage());
   }, [dispatch]);
+
+  // get the user data from store
   const { userData, success } = useSelector((state) => state.user.signin);
 
   return (
@@ -93,28 +100,37 @@ function Header() {
               </NavLink>
             </li>
             <li className="nav-item login">
-              <NavLink className="nav-link" to="/signup">
-                <p>
-                  Hello,
-                  <strong>
-                    {success ? userData.email.slice(0, 6) : "signin"}
-                  </strong>
+              <p
+                onClick={() => {
+                  success ? true : navigate("/signin");
+                }}
+              >
+                Hello,
+                <strong>
+                  {success ? userData.email.slice(0, 6) : "signin"}
+                </strong>
+              </p>
+              <div class="dropdown-center">
+                <p
+                  class=" dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Account
                 </p>
-                <div class="dropdown-center">
-                  <p
-                    class=" dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Account
-                  </p>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <p class="dropdown-item px-3 py-3">Action</p>
-                    </li>
-                  </ul>
-                </div>
-              </NavLink>
+                <ul class="dropdown-menu">
+                  <li className="mx-auto">
+                    <p
+                      class="dropdown-item px-3 py-2"
+                      onClick={() => {
+                        dispatch(logout());
+                      }}
+                    >
+                      logout
+                    </p>
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>

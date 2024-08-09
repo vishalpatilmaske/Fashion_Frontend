@@ -35,6 +35,23 @@ h4:first-child {
 }
 
 .dropdown-menu {
+  min-width: 80px;
+  padding: 0;
+}
+
+.dropdown-item {
+  font-size: 0.9rem;
+}
+
+.nav-item.login {
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
   border-radius: 0.25rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
 }
@@ -82,23 +99,4 @@ h4:first-child {
   .nav-link {
     font-size: 1rem;
   }
-}
-
-/* CSS to minimize the dropdown menu size */
-.dropdown-menu {
-  min-width: 100px;
-  padding: 0;
-}
-
-.dropdown-item {
-  font-size: 0.9rem;
-  /* padding: 0.8rem 1rem; */
-}
-
-.nav-item.login {
-  display: inline-block;
-}
-
-.dropdown-toggle {
-  cursor: pointer;
 }

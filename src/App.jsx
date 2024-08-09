@@ -35,7 +35,7 @@ const MyRoutes = () => {
         <Route path="/profile" element={<Profile />} />{" "}
         {/* Removed restricted prop */}
         <Route path="/women" element={<Women />} />
-        <Route path="/productdetails" element={<ProductDetails />} />
+        <Route path="/product-details" element={<ProductDetails />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

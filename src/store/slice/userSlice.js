@@ -68,6 +68,7 @@ const userSlice = createSlice({
       if (userData) {
         state.signin.userData = userData;
         state.signin.success = true;
+        state.signin.isAuthenticate = true;
       }
     },
   },

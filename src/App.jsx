@@ -12,32 +12,61 @@ import Checkout from "./pages/Checkout.jsx";
 import Signin from "./pages/Signin.jsx";
 import Signup from "./pages/Signup.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import PrivateRoutes from "./components/auth/PrivateRoutes.jsx";
 
 const MyRoutes = () => {
   const location = useLocation();
   const isCheckoutPage = location.pathname === "/checkout";
   const isSigninPage = location.pathname === "/signin";
   const isSignupPage = location.pathname === "/signup";
-  const isErrorPage = location.pathname === "*";
 
   const shouldShowHeaderFooter =
-    !isCheckoutPage && !isSignupPage && !isErrorPage && !isSigninPage;
+    !isCheckoutPage && !isSignupPage && !isSigninPage;
 
   return (
     <>
       {shouldShowHeaderFooter && <Header />}
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/watchlist" element={<WatchList />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile />} />{" "}
-        {/* Removed restricted prop */}
         <Route path="/women" element={<Women />} />
         <Route path="/product-details" element={<ProductDetails />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<NotFound />} />
+        {/* Private routes */}
+        <Route
+          path="/watchlist"
+          element={
+            <PrivateRoutes>
+              <WatchList />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PrivateRoutes>
+              <Cart />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoutes>
+              <Profile />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoutes>
+              <Checkout />
+            </PrivateRoutes>
+          }
+        />
       </Routes>
       {shouldShowHeaderFooter && <Footer />}
     </>

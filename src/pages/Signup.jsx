@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../style/page/signup.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { userSignup } from "../store/slice/userSlice";
+import { userSignup } from "../store/slice/authSlice";
 import { validation } from "../utils/validation.js/signupValidation";
 
 const Signup = () => {

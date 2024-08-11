@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../style/page/signin.css";
 import { useDispatch, useSelector } from "react-redux";
-import { userSignin } from "../store/slice/userSlice";
+import { userSignin } from "../store/slice/authSlice";
 import { toast } from "react-toastify";
 
 const Signin = () => {

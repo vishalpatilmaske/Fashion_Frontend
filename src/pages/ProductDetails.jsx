@@ -1,10 +1,11 @@
 import "../style/page/productdetails.css";
-import React, { useContext } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../store/slice/cartSlice";
+// import { addItemsToCart } from "../store/slice/cartSlice";
 
 function ProductDetails() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -13,13 +14,10 @@ function ProductDetails() {
     description: "No description available",
     price: "0",
   };
-  console.log("product detials " + productDetails.image);
 
-  const offPercentage = Math.floor(Math.random() * (80 - 10 + 1)) + 10;
+  // const offPercentage = Math.floor(Math.random() * (80 - 10 + 1)) + 10;
 
-  const offPrice = Math.floor(Math.random() * (2001 - 400)) + 400;
-
-  const dispatch = useDispatch();
+  // const offPrice = Math.floor(Math.random() * (2001 - 400)) + 400;
 
   return (
     <div className="dashboard-container">
@@ -35,15 +33,13 @@ function ProductDetails() {
             <h3>{productDetails.description}</h3>
             <hr />
             <div className="price-container mb-3">
-              <p className="off">-{offPercentage}%</p>
+              {/* <p className="off">-{offPercentage}%</p> */}
               <p className="price">
                 <sup>₹</sup>
                 {productDetails.price}
               </p>
             </div>
-            <p className="price-off mb-3">
-              M.R.P.: <s>₹{offPrice}</s>
-            </p>
+            <p className="price-off mb-3">{/* M.R.P.: <s>₹{offPrice}</s> */}</p>
             <hr />
             <div className="select-container mb-3">
               <label htmlFor="size">Size: </label>
@@ -61,7 +57,7 @@ function ProductDetails() {
                 type="button"
                 className="col-6 btn btn-warning add-to-cart-button px-5 rounded-pill me-3"
                 onClick={() => {
-                  dispatch(addToCart(productDetails));
+                  // dispatch(addItemsToCart(productDetails));
                   navigate("/cart");
                 }}
               >
@@ -71,7 +67,7 @@ function ProductDetails() {
                 type="button"
                 className="col-6 btn btn-warning buy-now-button px-5 rounded-pill"
                 onClick={() => {
-                  dispatch(addToCart(productDetails));
+                  // dispatch(addItemsToCart(productDetails));
                   navigate("/checkout", { state: productDetails });
                 }}
               >

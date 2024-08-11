@@ -3,7 +3,7 @@ import "../style/page/profile.css";
 import image from "/public/assets/images/poster/poster1.jpg";
 import { MdOutlineEdit } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
-import { loadLocalStorage } from "../store/slice/userSlice";
+import { loadLocalStorage } from "../store/slice/authSlice";
 
 function Profile() {
   const dispatch = useDispatch();

@@ -7,31 +7,24 @@ import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { loadLocalStorage } from "../../store/slice/userSlice";
-import { logout } from "../../store/slice/userSlice";
+import { loadLocalStorage, logout } from "../../store/slice/authSlice";
 
 function Header() {
   const cart = useSelector((state) => state.cart);
-
-  // get the user data from the store
   const dispatch = useDispatch();
-
-  // navigate
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(loadLocalStorage());
   }, [dispatch]);
 
-  // get the user data from store
-  const { userData, success } = useSelector((state) => state.user.signin);
+  const { userData, success } = useSelector((state) => state.auth.signin);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
       <div className="container py-2 header">
         <NavLink to="/">
           <h4>
-            {" "}
             <strong>Fashion</strong>
             <strong className="navbarbrand">Flick</strong>
           </h4>
@@ -82,7 +75,7 @@ function Header() {
                 to="/cart"
               >
                 <PiHandbagSimpleBold className="icon-size" />
-                <sup>{cart.length}</sup>
+                {cart.length > 0 && <sup>{cart.length}</sup>}
               </NavLink>
             </li>
             <li className="nav-item">
@@ -102,7 +95,7 @@ function Header() {
             <li className="nav-item login">
               <p
                 onClick={() => {
-                  success ? true : navigate("/signin");
+                  if (!success) navigate("/signin");
                 }}
               >
                 Hello,
@@ -110,27 +103,29 @@ function Header() {
                   {success ? userData.email.slice(0, 6) : "signin"}
                 </strong>
               </p>
-              <div class="dropdown-center">
-                <p
-                  class=" dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Account
-                </p>
-                <ul class="dropdown-menu">
-                  <li className="mx-auto">
-                    <p
-                      class="dropdown-item px-3 py-2"
-                      onClick={() => {
-                        dispatch(logout());
-                      }}
-                    >
-                      logout
-                    </p>
-                  </li>
-                </ul>
-              </div>
+              {success && (
+                <div className="dropdown-center">
+                  <p
+                    className="dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Account
+                  </p>
+                  <ul className="dropdown-menu">
+                    <li className="mx-auto">
+                      <p
+                        className="dropdown-item px-3 py-2"
+                        onClick={() => {
+                          dispatch(logout());
+                        }}
+                      >
+                        logout
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </li>
           </ul>
         </div>

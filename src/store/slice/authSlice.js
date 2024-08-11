@@ -36,8 +36,8 @@ export const userSignin = createAsyncThunk(
 );
 
 // User slice with initial state and reducers
-const userSlice = createSlice({
-  name: "user",
+const authSlice = createSlice({
+  name: "auth",
   initialState: {
     signup: {
       success: false,
@@ -114,5 +114,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout, loadLocalStorage } = userSlice.actions;
-export default userSlice.reducer;
+export const userData = (state) => state.auth.signin.userData;
+
+export const { logout, loadLocalStorage } = authSlice.actions;
+export default authSlice.reducer;

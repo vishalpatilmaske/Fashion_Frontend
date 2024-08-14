@@ -4,7 +4,7 @@ import "../style/page/signup.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../store/slice/authSlice";
-import { validation } from "../utils/validation.js/signupValidation";
+// import { validation } from "../utils/validation.js/signupValidation";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -12,24 +12,19 @@ const Signup = () => {
   const [conPassword, setConPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
 
-  // client side validation
-  validation();
   // handel the submit data
   const handleSubmitData = async (event) => {
     event.preventDefault();
-    if (!validation()) {
-      return;
-    }
     dispatch(userSignup({ email, password }));
-    if (user.signup.success) {
-      if (user.signup.successMessage) {
-        toast.success(user.signup.successMessage);
+    if (auth.signup.success) {
+      if (auth.signup.successMessage) {
+        toast.success(auth.signup.successMessage);
         navigate("/signin");
       }
-      if (user.signup.errorMessage) {
-        toast.error(user.signup.errorMessage);
+      if (auth.signup.errorMessage) {
+        toast.error(auth.signup.errorMessage);
       }
     }
   };

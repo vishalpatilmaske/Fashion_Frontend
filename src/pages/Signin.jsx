@@ -10,20 +10,17 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const auth = useSelector((state) => state.auth);
 
   // handle submit
   const handelSubmit = async (event) => {
     event.preventDefault();
-    if (!validation()) {
-      return;
-    }
     dispatch(userSignin({ email, password }));
-    if (user.signin.success) {
-      toast.success(user.signin.successMessage);
+    if (auth.signin.success) {
+      toast.success(auth.signin.successMessage);
       navigate("/");
     } else {
-      toast.error(user.signin.errorMessage);
+      toast.error(auth.signin.errorMessage);
     }
   };
 

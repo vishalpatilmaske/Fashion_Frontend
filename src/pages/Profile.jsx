@@ -11,7 +11,7 @@ function Profile() {
     dispatch(loadLocalStorage());
   }, [dispatch]);
 
-  const userData = useSelector((state) => state.user.signin.userData);
+  const userData = useSelector((state) => state.auth.signin.userData);
 
   return (
     <>

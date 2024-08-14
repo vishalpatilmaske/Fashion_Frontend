@@ -1,46 +1,40 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { userData } from "./authSlice";
 
 // Create a cart when user was first time login
 export const createCart = createAsyncThunk(
   "cart/createCart",
-  async (userId, rejectWithValue) => {
+  async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://localhost:5000/cart", userId);
-      console.log("cart created succefully");
+      const response = await axios.post("http://localhost:5000/cart", {
+        userId,
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
     }
   }
 );
-// Async thunk for adding items to the cart
-// export const addItemsToCart = createAsyncThunk(
-//   "cart/getCartItems",
-//   async (item, { getState, rejectWithValue }) => {
-//     try {
-//       const state = getState();
-//       const user = userData(state); // Get userData from the state
-
-//       if (!user || !user.id) {
-//         throw new Error("User is not authenticated");
-//       }
-
-//       const response = await axios.get(
-//         `http://localhost:5000/cart/${user.id}/add`,
-//         item
-//       );
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response?.data?.error || "Network Error");
-//     }
-//   }
-// );
+// adding items to the cart
+export const addItemsToCart = createAsyncThunk(
+  "cart/addItemsToCart",
+  async ({ cartId, productId, quantity }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/cart/${cartId}/add`,
+        { productId, quantity }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
+    cart: null,
     items: [],
   },
   reducers: {
@@ -69,26 +63,25 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(addItemsToCart.pending, (state, action) => {
-      //   console.log("pending");
-      // })
-      // .addCase(addItemsToCart.fulfilled, (state, action) => {
-      //   state.items = action.payload; // Update items in the state with the response data
-      //   console.log("fulfilled");
-      // })
-      // .addCase(addItemsToCart.rejected, (state, action) => {
-      //   console.error("rejected", action.payload);
-      // })
       // create new cart
       .addCase(createCart.pending, (state, action) => {
-        console.log("pending");
+        // console.log(action.payload);
       })
       .addCase(createCart.fulfilled, (state, action) => {
-        state.items = action.payload;
-        console.log("fulfilled");
+        state.cart = action.payload._id;
       })
       .addCase(createCart.rejected, (state, action) => {
-        console.error("rejected", action.payload);
+        // console.error("rejected", action.error);
+      })
+      // add item to the cart
+      .addCase(addItemsToCart.pending, (state, action) => {
+        // console.log("pending");
+      })
+      .addCase(addItemsToCart.fulfilled, (state, action) => {
+        // console.log("fulfilled");
+      })
+      .addCase(addItemsToCart.rejected, (state, action) => {
+        // console.error("rejected", action.payload);
       });
   },
 });

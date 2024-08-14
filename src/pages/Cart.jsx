@@ -6,20 +6,22 @@ import { createCart } from "../store/slice/cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.auth.signin.userData);
+  const isAuthenticate = useSelector(
+    (state) => state.auth.signin.isAuthenticate
+  );
+  const user = useSelector((state) => state.user.userData);
 
   useEffect(() => {
-    if (data && data.id) {
-      console.log("User ID:", data.id);
-      dispatch(createCart(data.id));
-    } else {
-      console.log("User data not available yet.");
+    if (isAuthenticate) {
+      dispatch(createCart(user._id));
+      dispatch(getItems());
     }
-  }, [data, dispatch]);
-
+  }, []);
   return (
     <div className="container-fluid container-sm cart row my-3 mx-auto d-flex align-items-start">
-      <div className="col-12 col-sm-9">{/* <CartItemList /> */}</div>
+      <div className="col-12 col-sm-9">
+        <CartItemList />
+      </div>
       <div className="col-12 col-sm-2">{/* <CartSummary /> */}</div>
       <h1>cart</h1>
     </div>

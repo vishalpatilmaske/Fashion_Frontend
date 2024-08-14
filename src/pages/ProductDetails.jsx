@@ -1,18 +1,31 @@
 import "../style/page/productdetails.css";
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-// import { addItemsToCart } from "../store/slice/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemsToCart } from "../store/slice/cartSlice";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 function ProductDetails() {
+  const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.signin);
+  const cartId = useSelector((state) => state.cart.cart);
 
   const productDetails = location.state || {
     image: "default-image-url",
     description: "No description available",
     price: "0",
+  };
+
+  // handel add to cart
+  const handelAddToCart = () => {
+    const isAuthenticate = user.isAuthenticate;
+    const productId = productDetails._id;
+    if (isAuthenticate) {
+      dispatch(addItemsToCart({ cartId, productId, quantity }));
+    }
   };
 
   // const offPercentage = Math.floor(Math.random() * (80 - 10 + 1)) + 10;
@@ -52,12 +65,32 @@ function ProductDetails() {
               </select>
             </div>
             <hr />
+            <div className="button-container d-flex mt-3">
+              <button
+                type="button"
+                className="btn btn-warning btn-sm custom-button me-1"
+                onClick={() => setQuantity(quantity <= 1 ? 1 : quantity - 1)}
+              >
+                <FaMinus className="quantity-btn" />
+              </button>
+              <p className="m-0 px-2">
+                <b>{quantity}</b>
+              </p>
+              <button
+                type="button"
+                className="btn btn-warning btn-sm custom-button ms-1"
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                <FaPlus className="quantity-btn" />
+              </button>
+            </div>
+            <hr />
             <div className="row">
               <button
                 type="button"
                 className="col-6 btn btn-warning add-to-cart-button px-5 rounded-pill me-3"
                 onClick={() => {
-                  // dispatch(addItemsToCart(productDetails));
+                  dispatch(handelAddToCart);
                   navigate("/cart");
                 }}
               >
@@ -67,7 +100,7 @@ function ProductDetails() {
                 type="button"
                 className="col-6 btn btn-warning buy-now-button px-5 rounded-pill"
                 onClick={() => {
-                  // dispatch(addItemsToCart(productDetails));
+                  dispatch(addItemsToCart(productDetails));
                   navigate("/checkout", { state: productDetails });
                 }}
               >

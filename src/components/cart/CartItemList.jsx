@@ -3,30 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { removeFromCart } from "../../store/slice/cartSlice";
-
 import "../../style/components/cart/cartitemlist.css";
+
 const CartItemList = () => {
-  // const cart = useSelector((state) => state.cart);
-  // const dispatch = useDispatch();
-
-  // const [quantities, setQuantities] = useState(
-  //   cart.reduce((acc, item) => {
-  //     acc[item.id] = 1;
-  //     return acc;
-  //   }, {})
-  // );
-
-  // const incQuantity = (id) => {
-  //   setQuantities({ ...quantities, [id]: (quantities[id] || 0) + 1 });
-  // };
-
-  // const decQuantity = (id) => {
-  //   setQuantities({
-  //     ...quantities,
-  //     [id]: quantities[id] > 1 ? quantities[id] - 1 : 1,
-  //   });
-  // };
-
   return (
     <div className="cart-item-list mb-5">
       <h4>Shopping Cart</h4>

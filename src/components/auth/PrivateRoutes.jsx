@@ -7,7 +7,8 @@ const PrivateRoutes = ({ children }) => {
     (state) => state.auth.signin.isAuthenticate
   );
 
-  return isAuthenticate ? children : <Navigate to="/signin" />;
+  return isAuthenticate ? children : false;
+  // <Navigate to="/signin" />;
 };
 
 export default PrivateRoutes;

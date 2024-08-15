@@ -9,14 +9,15 @@ function Cart() {
   const isAuthenticate = useSelector(
     (state) => state.auth.signin.isAuthenticate
   );
-  const user = useSelector((state) => state.user.userData);
+  const user = useSelector((state) => state.auth.signin.userData);
 
+  // when user was first time login create emplty cart for this user
   useEffect(() => {
     if (isAuthenticate) {
       dispatch(createCart(user._id));
-      dispatch(getItems());
     }
   }, []);
+
   return (
     <div className="container-fluid container-sm cart row my-3 mx-auto d-flex align-items-start">
       <div className="col-12 col-sm-9">

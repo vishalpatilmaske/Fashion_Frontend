@@ -44,6 +44,25 @@ export const getCartItems = createAsyncThunk(
   }
 );
 
+// update cart items
+export const updateItemQuantity = createAsyncThunk(
+  "cart/updateQuantiy",
+  async ({ cartId, productId, quantity }, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/cart/${cartId}/update`,
+        {
+          productId,
+          quantity,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -94,9 +113,23 @@ const cartSlice = createSlice({
       })
       .addCase(getCartItems.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      // update item quantity
+      .addCase(updateItemQuantity.pending, (state, action) => {
+        console.log("pending vishal");
+      })
+      .addCase(updateItemQuantity.fulfilled, (state, action) => {
+        console.log(action.payload.data);
+      })
+      .addCase(updateItemQuantity.rejected, (state, action) => {
+        console.log("rejected");
       });
   },
 });
 
 export default cartSlice.reducer;
-export const { loadCartDetials } = cartSlice.actions;
+export const {
+  loadCartDetials,
+  increaseProductQuantity,
+  decreaseProductQuantity,
+} = cartSlice.actions;

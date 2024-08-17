@@ -2,7 +2,11 @@ import "../style/page/productdetails.css";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemsToCart } from "../store/slice/cartSlice";
+import {
+  addItemsToCart,
+  loadCartDetials,
+  updateItemQuantity,
+} from "../store/slice/cartSlice";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
 function ProductDetails() {
@@ -10,8 +14,12 @@ function ProductDetails() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+
+  // load the local storage data
+  dispatch(loadCartDetials());
   const user = useSelector((state) => state.auth.signin);
-  const cartId = useSelector((state) => state.cart.cart);
+  const cartId = useSelector((state) => state.cart.cartId);
+  const isAuthenticate = user.isAuthenticate;
 
   const productDetails = location.state || {
     image: "default-image-url",
@@ -19,18 +27,28 @@ function ProductDetails() {
     price: "0",
   };
 
-  // handel add to cart
-  const handelAddToCart = () => {
-    const isAuthenticate = user.isAuthenticate;
+  // Handle add to cart
+  const handleAddToCart = () => {
     const productId = productDetails._id;
     if (isAuthenticate) {
       dispatch(addItemsToCart({ cartId, productId, quantity }));
+      navigate("/cart", { state: quantity });
     }
   };
 
-  // const offPercentage = Math.floor(Math.random() * (80 - 10 + 1)) + 10;
-
-  // const offPrice = Math.floor(Math.random() * (2001 - 400)) + 400;
+  // Handle updating product quantity
+  const handleUpdateProductQuantity = (newQuantity) => {
+    if (newQuantity > 0) {
+      setQuantity(newQuantity);
+      // Optionally, you can dispatch an action to update quantity in the cart
+      const productId = productDetails._id;
+      if (isAuthenticate) {
+        dispatch(
+          updateItemQuantity({ cartId, productId, quantity: newQuantity })
+        );
+      }
+    }
+  };
 
   return (
     <div className="dashboard-container">
@@ -46,13 +64,11 @@ function ProductDetails() {
             <h3>{productDetails.description}</h3>
             <hr />
             <div className="price-container mb-3">
-              {/* <p className="off">-{offPercentage}%</p> */}
               <p className="price">
                 <sup>₹</sup>
                 {productDetails.price}
               </p>
             </div>
-            <p className="price-off mb-3">{/* M.R.P.: <s>₹{offPrice}</s> */}</p>
             <hr />
             <div className="select-container mb-3">
               <label htmlFor="size">Size: </label>
@@ -69,7 +85,7 @@ function ProductDetails() {
               <button
                 type="button"
                 className="btn btn-warning btn-sm custom-button me-1"
-                onClick={() => setQuantity(quantity <= 1 ? 1 : quantity - 1)}
+                onClick={() => handleUpdateProductQuantity(quantity - 1)}
               >
                 <FaMinus className="quantity-btn" />
               </button>
@@ -79,7 +95,7 @@ function ProductDetails() {
               <button
                 type="button"
                 className="btn btn-warning btn-sm custom-button ms-1"
-                onClick={() => setQuantity(quantity + 1)}
+                onClick={() => handleUpdateProductQuantity(quantity + 1)}
               >
                 <FaPlus className="quantity-btn" />
               </button>
@@ -89,10 +105,7 @@ function ProductDetails() {
               <button
                 type="button"
                 className="col-6 btn btn-warning add-to-cart-button px-5 rounded-pill me-3"
-                onClick={() => {
-                  dispatch(handelAddToCart);
-                  navigate("/cart");
-                }}
+                onClick={handleAddToCart}
               >
                 Add to Cart
               </button>
@@ -100,7 +113,7 @@ function ProductDetails() {
                 type="button"
                 className="col-6 btn btn-warning buy-now-button px-5 rounded-pill"
                 onClick={() => {
-                  dispatch(addItemsToCart(productDetails));
+                  handleAddToCart();
                   navigate("/checkout", { state: productDetails });
                 }}
               >

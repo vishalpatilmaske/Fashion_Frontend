@@ -1,31 +1,55 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { getCartItems, loadCartDetials } from "../../store/slice/cartSlice";
+import {
+  getCartItems,
+  loadCartDetials,
+  updateItemQuantity,
+} from "../../store/slice/cartSlice";
 import { getCartProducts } from "../../store/slice/productSlice";
-import "../../style/components/cart/cartitemlist.css";
 
 const CartItemList = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const product = useSelector((state) => state.product);
+  const isAuthenticate = useSelector(
+    (state) => state.auth.signin.isAuthenticate
+  );
+
+  dispatch(loadCartDetials());
+  const cartId = cart.cartId;
+
+  // Handle updating product quantity
+  const handleUpdateProductQuantity = (productDetails, newQuantity) => {
+    if (newQuantity > 0) {
+      const productId = productDetails._id;
+      if (isAuthenticate) {
+        dispatch(
+          updateItemQuantity({ cartId, productId, quantity: newQuantity })
+        );
+      }
+    }
+  };
 
   // Load cart details and fetch cart items
   useEffect(() => {
-    dispatch(loadCartDetials());
-    const cartId = cart.cartId;
     if (cartId) {
       dispatch(getCartItems({ cartId }));
     }
-  }, [dispatch, cart?.cartId]);
+  }, [dispatch, cart?.cartId, handleUpdateProductQuantity]);
 
-  // Fetch product details for each item in the cart
+  // Fetch product details on the bases on the product id
   useEffect(() => {
     cart.items.forEach((item) => {
-      dispatch(getCartProducts({ productId: item.productId }));
+      const isProductInCart = product.cartProducts.some(
+        (product) => product._id === item.productId
+      );
+      if (!isProductInCart) {
+        dispatch(getCartProducts({ productId: item.productId }));
+      }
     });
-  }, [dispatch, cart.items]);
+  }, [dispatch, cart.items, product.cartProducts]);
 
   return (
     <div className="cart-item-list mb-5">
@@ -91,16 +115,18 @@ const CartItemList = () => {
                         }
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="d-flex justify-content-start">
                       <td>
                         <b>Quantity :</b>
                       </td>
-                      <td>
-                        {
-                          cart.items.find(
-                            (item) => item.productId === productDetails._id
-                          )?.quantity
-                        }
+                      <td className="mx-2">
+                        <b>
+                          {
+                            cart.items.find(
+                              (item) => item.productId === productDetails._id
+                            )?.quantity
+                          }
+                        </b>
                       </td>
                     </tr>
                     <tr>
@@ -109,7 +135,15 @@ const CartItemList = () => {
                           <button
                             type="button"
                             className="btn btn-warning btn-sm custom-button me-1"
-                            onClick={() => console.log("Decrease quantity")}
+                            onClick={() => {
+                              let quantity = cart.items.find(
+                                (item) => item.productId === productDetails._id
+                              )?.quantity;
+                              handleUpdateProductQuantity(
+                                productDetails,
+                                quantity - 1
+                              );
+                            }}
                           >
                             <FaMinus className="quantity-btn" />
                           </button>
@@ -126,7 +160,15 @@ const CartItemList = () => {
                           <button
                             type="button"
                             className="btn btn-warning btn-sm custom-button ms-1"
-                            onClick={() => console.log("Increase quantity")}
+                            onClick={() => {
+                              let quantity = cart.items.find(
+                                (item) => item.productId === productDetails._id
+                              )?.quantity;
+                              handleUpdateProductQuantity(
+                                productDetails,
+                                quantity + 1
+                              );
+                            }}
                           >
                             <FaPlus className="quantity-btn" />
                           </button>

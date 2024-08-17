@@ -1,4 +1,4 @@
-import { combineSlices, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Get all products
@@ -17,8 +17,15 @@ export const getAllProducts = createAsyncThunk(
 // Get cart products by product ID
 export const getCartProducts = createAsyncThunk(
   "product/getCartProducts",
-  async ({ productId }, { rejectWithValue }) => {
+  async ({ productId }, { getState, rejectWithValue }) => {
     try {
+      const { product } = getState();
+      const existingProduct = product.cartProducts.find(
+        (prod) => prod._id === productId
+      );
+      if (existingProduct) {
+        return null; // If the product is already in the cartProducts array, return null
+      }
       const response = await axios.get(
         `http://localhost:5000/product/${productId}`
       );
@@ -57,10 +64,15 @@ const productSlice = createSlice({
         state.success = false;
       })
       .addCase(getCartProducts.fulfilled, (state, action) => {
-        state.success = true;
-        // Push the new product data into the cartProducts array
-        const product = action.payload.data;
-        state.cartProducts.push(product);
+        if (action.payload) {
+          const existingProduct = state.cartProducts.find(
+            (product) => product._id === action.payload.data._id
+          );
+          if (!existingProduct) {
+            state.success = true;
+            state.cartProducts.push(action.payload.data);
+          }
+        }
       })
       .addCase(getCartProducts.rejected, (state, action) => {
         state.success = false;

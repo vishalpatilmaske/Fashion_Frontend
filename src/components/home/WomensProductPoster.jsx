@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function WomensProductPoster() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products.data);
+  const products = useSelector((state) => state.product.allProducts.data);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,8 +17,8 @@ function WomensProductPoster() {
     <div className="container-fluid">
       <ul className="row product-list mb-3">
         {products &&
-          products.map((item) => (
-            <li key={item.id} className="col-3 col-sm-3 col-md-2">
+          products.map((item, index) => (
+            <li key={item._id || index} className="col-3 col-sm-3 col-md-2">
               <img
                 src={item.image}
                 className="womens-product"

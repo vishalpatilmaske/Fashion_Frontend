@@ -23,8 +23,9 @@ export const getCartProducts = createAsyncThunk(
       const existingProduct = product.cartProducts.find(
         (prod) => prod._id === productId
       );
+      // If the product is already in the cartProducts array, return null
       if (existingProduct) {
-        return null; // If the product is already in the cartProducts array, return null
+        return null;
       }
       const response = await axios.get(
         `http://localhost:5000/product/${productId}`
@@ -40,8 +41,10 @@ const productSlice = createSlice({
   name: "productSlice",
   initialState: {
     success: false,
+    // contain the cart products only
     cartProducts: [],
-    products: [],
+    // contain all product
+    allProducts: [],
     error: null,
   },
   reducers: {},
@@ -53,7 +56,7 @@ const productSlice = createSlice({
       })
       .addCase(getAllProducts.fulfilled, (state, action) => {
         state.success = true;
-        state.products = action.payload;
+        state.allProducts = action.payload;
       })
       .addCase(getAllProducts.rejected, (state, action) => {
         state.success = false;
@@ -65,6 +68,7 @@ const productSlice = createSlice({
       })
       .addCase(getCartProducts.fulfilled, (state, action) => {
         if (action.payload) {
+          // check already product in a cart if not then push it
           const existingProduct = state.cartProducts.find(
             (product) => product._id === action.payload.data._id
           );

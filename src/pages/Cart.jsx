@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import CartItemList from "../components/cart/CartItemList";
 import CartSummary from "../components/cart/CartSummary";
 import { useDispatch, useSelector } from "react-redux";
-import { createCart } from "../store/slice/cartSlice";
+import { createCart, loadCartDetials } from "../store/slice/cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -10,13 +10,28 @@ function Cart() {
     (state) => state.auth.signin.isAuthenticate
   );
   const user = useSelector((state) => state.auth.signin.userData);
+  const cart = useSelector((state) => state.cart);
 
-  // when user was first time login create emplty cart for this user
+  // Load cart details
   useEffect(() => {
-    if (isAuthenticate) {
-      dispatch(createCart(user._id));
+    dispatch(loadCartDetials());
+  }, [dispatch]);
+
+  // When cart details are loaded, check if cart exists or not
+  useEffect(() => {
+    if (cart.cartDetailsLoaded && isAuthenticate && user?._id) {
+      // Check if the cart is already loaded or not
+      if (!cart.cartId) {
+        dispatch(createCart(user._id));
+      }
     }
-  }, []);
+  }, [
+    dispatch,
+    cart.cartDetailsLoaded,
+    isAuthenticate,
+    user?._id,
+    cart.cartId,
+  ]);
 
   return (
     <div className="container-fluid container-sm cart row my-3 mx-auto d-flex align-items-start">
@@ -24,7 +39,6 @@ function Cart() {
         <CartItemList />
       </div>
       <div className="col-12 col-sm-2">{/* <CartSummary /> */}</div>
-      <h1>cart</h1>
     </div>
   );
 }

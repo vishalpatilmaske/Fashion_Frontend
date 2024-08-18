@@ -63,11 +63,32 @@ export const updateItemQuantity = createAsyncThunk(
   }
 );
 
+// remove items form cart
+export const removeFromCart = createAsyncThunk(
+  "cart/removeFromCart",
+  async ({ cartId, productId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/cart/${cartId}/remove`,
+        {
+          productId,
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartId: null,
+    // items array containe the productId and the quantity of the product
     items: [],
+    cartDetailsLoaded: false,
     loading: true,
     error: null,
   },
@@ -76,6 +97,7 @@ const cartSlice = createSlice({
     loadCartDetials: (state) => {
       const cartId = localStorage.getItem("cartId");
       cartId ? (state.cartId = cartId) : null;
+      state.cartDetailsLoaded = true;
     },
   },
   extraReducers: (builder) => {
@@ -115,21 +137,11 @@ const cartSlice = createSlice({
         state.error = action.payload;
       })
       // update item quantity
-      .addCase(updateItemQuantity.pending, (state, action) => {
-        console.log("pending vishal");
-      })
-      .addCase(updateItemQuantity.fulfilled, (state, action) => {
-        console.log(action.payload.data);
-      })
-      .addCase(updateItemQuantity.rejected, (state, action) => {
-        console.log("rejected");
-      });
+      .addCase(updateItemQuantity.pending, (state, action) => {})
+      .addCase(updateItemQuantity.fulfilled, (state, action) => {})
+      .addCase(updateItemQuantity.rejected, (state, action) => {});
   },
 });
 
 export default cartSlice.reducer;
-export const {
-  loadCartDetials,
-  increaseProductQuantity,
-  decreaseProductQuantity,
-} = cartSlice.actions;
+export const { loadCartDetials } = cartSlice.actions;

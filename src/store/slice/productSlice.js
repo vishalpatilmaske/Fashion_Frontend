@@ -19,7 +19,9 @@ export const getCartProducts = createAsyncThunk(
   "product/getCartProducts",
   async ({ productId }, { getState, rejectWithValue }) => {
     try {
-      const { product } = getState();
+      // access the product and cart slice
+      const { product, cart } = getState();
+
       const existingProduct = product.cartProducts.find(
         (prod) => prod._id === productId
       );
@@ -30,6 +32,12 @@ export const getCartProducts = createAsyncThunk(
       const response = await axios.get(
         `http://localhost:5000/product/${productId}`
       );
+
+      const quantity = cart.items.find(
+        (item) => item.productId == productId
+      )?.quantity;
+
+      response.data.quantity = quantity;
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
@@ -72,6 +80,8 @@ const productSlice = createSlice({
           const existingProduct = state.cartProducts.find(
             (product) => product._id === action.payload.data._id
           );
+          // add the quantity of the products
+          action.payload.data.quantity = action.payload.quantity;
           if (!existingProduct) {
             state.success = true;
             state.cartProducts.push(action.payload.data);

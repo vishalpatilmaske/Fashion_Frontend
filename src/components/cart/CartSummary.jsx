@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../style/components/cart/cartsummary.css";
 
 const CartSummary = () => {
   const cart = useSelector((state) => state.cart);
+  const cartProducts = useSelector((state) => state.product.cartProducts);
   const navigate = useNavigate();
 
-  const subtotal = cart.reduce((total, item) => {
-    return total + item.price * item.quantity;
-  }, 0);
+  // State for subtotal
+  const [subtotal, setSubtotal] = useState(0);
 
+  useEffect(() => {
+    // Calculate subtotal
+    const calculatedSubtotal = cartProducts.reduce((accumulator, current) => {
+      return accumulator + current.price * current.quantity;
+    }, 0);
+
+    // Update the state
+    setSubtotal(calculatedSubtotal);
+  }, [cartProducts]);
   return (
     <div className="sub-total d-inline-block ms-sm-4 mt-sm-0">
       <div>
@@ -22,11 +31,11 @@ const CartSummary = () => {
           <tbody>
             <tr>
               <td>Items :</td>
-              <td>{cart.length}</td>
+              <td>{cart.items.length}</td>
             </tr>
             <tr>
               <td>Subtotal :</td>
-              <td>&#8377;{subtotal}</td>
+              <td>&#8377;{subtotal.toFixed(2)}</td>
             </tr>
           </tbody>
         </table>

@@ -20,7 +20,7 @@ const CartItemList = () => {
   );
   const cartId = cart.cartId;
 
-  // Load cart details only once on component mount
+  // Load cart details form the localstorage only once on component mount
   useEffect(() => {
     dispatch(loadCartDetials());
   }, [dispatch]);

@@ -38,7 +38,9 @@ function Cart() {
       <div className="col-12 col-sm-9">
         <CartItemList />
       </div>
-      <div className="col-12 col-sm-2">{/* <CartSummary /> */}</div>
+      <div className="col-12 col-sm-2">
+        <CartSummary />
+      </div>
     </div>
   );
 }

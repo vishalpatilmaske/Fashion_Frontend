@@ -1,62 +1,71 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const CheckoutPayment = () => {
   const [textColor, setTextColor] = useState("black");
-  const HandleClick = () => {
+
+  const handleClick = () => {
     setTextColor(textColor === "black" ? "brown" : "black");
   };
+
+  const [selectedPayment, setSelectedPayment] = useState("UPI");
+
+  const handlePaymentChange = (event) => {
+    setSelectedPayment(event.target.value);
+  };
+
   return (
     <>
-      {" "}
       <div className="d-flex justify-content-between">
         <strong
           data-bs-toggle="collapse"
-          id="address"
           href="#collapsePayment"
           role="button"
           aria-expanded="false"
           aria-controls="collapsePayment"
           style={{ color: textColor }}
-          onClick={HandleClick}
+          onClick={handleClick}
         >
           2 Payment Method
         </strong>
         <span
           data-bs-toggle="collapse"
-          id="close-button"
           data-bs-target="#collapsePayment"
           aria-expanded="false"
           aria-controls="collapsePayment"
           style={{ color: textColor }}
-          onClick={HandleClick}
+          onClick={handleClick}
         >
-          close
+          Close
         </span>
       </div>
       <div className="collapse mt-2" id="collapsePayment">
         <div className="card card-body">
           <div>
-            <div class="form-check my-4">
+            <div className="form-check my-4">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault1"
+                name="paymentMethod"
+                id="cashOnDelivery"
+                value="Cash on Delivery"
+                checked={selectedPayment === "Cash on Delivery"}
+                onChange={handlePaymentChange}
               />
-              <label class="form-check-label" for="flexRadioDefault1">
+              <label className="form-check-label" htmlFor="cashOnDelivery">
                 Cash on Delivery / Pay on Delivery
               </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault2"
-                checked
+                name="paymentMethod"
+                id="upiPayment"
+                value="UPI"
+                checked={selectedPayment === "UPI"}
+                onChange={handlePaymentChange}
               />
-              <label class="form-check-label" for="flexRadioDefault2">
+              <label className="form-check-label" htmlFor="upiPayment">
                 UPI app
               </label>
             </div>
@@ -64,10 +73,10 @@ const CheckoutPayment = () => {
           <div>
             <hr />
             <button
-              type="button "
+              type="button"
               className="btn btn-warning btn-sm px-3 rounded-pill"
             >
-              use this payment method{" "}
+              Use this payment method
             </button>
           </div>
         </div>

@@ -34,11 +34,11 @@ function Cart() {
   ]);
 
   return (
-    <div className="container-fluid container-sm cart row my-3 mx-auto d-flex align-items-start">
+    <div className="container-fluid container-sm cart row my-3 mx-auto d-flex align-items-start ">
       <div className="col-12 col-sm-9">
         <CartItemList />
       </div>
-      <div className="col-12 col-sm-2">
+      <div className="col-12 col-sm-3">
         <CartSummary />
       </div>
     </div>

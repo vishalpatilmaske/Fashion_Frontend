@@ -114,7 +114,9 @@ function ProductDetails() {
                 className="col-6 btn btn-warning buy-now-button px-5 rounded-pill"
                 onClick={() => {
                   handleAddToCart();
-                  navigate("/checkout", { state: productDetails });
+                  navigate("/checkout", {
+                    state: { productDetails, quantity },
+                  });
                 }}
               >
                 Buy Now

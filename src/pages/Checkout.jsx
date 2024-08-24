@@ -4,12 +4,17 @@ import CheckoutAddress from "../components/checkout/CheckoutAddress";
 import CheckoutPayment from "../components/checkout/CheckoutPayment";
 import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
 import CheckoutHeader from "../components/checkout/CheckoutHeader";
+import { useLocation } from "react-router-dom";
+import { createOrder } from "../store/slice/orderSlice";
 
 const Checkout = () => {
   const [textColor, setTextColor] = useState("black");
   const HandleClick = () => {
     setTextColor(textColor === "black" ? "brown" : "black");
   };
+
+  const location = useLocation();
+  const data = location.state || {};
 
   return (
     <>
@@ -45,7 +50,7 @@ const Checkout = () => {
             </div>
           </div>
           {/* order summary */}
-          <CheckoutOrderSummary />
+          <CheckoutOrderSummary product={data} />
         </div>
       </section>
     </>

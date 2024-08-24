@@ -7,6 +7,7 @@ import { loadLocalStorage } from "../store/slice/authSlice";
 
 function Profile() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(loadLocalStorage());
   }, [dispatch]);
@@ -16,24 +17,23 @@ function Profile() {
   return (
     <>
       <div className="row container m-auto mt-4 profile">
-        <div className="col-md-4 d-flex justify-content-start flex-column text-center ">
+        <div className="col-md-4 d-flex justify-content-start flex-column text-center">
           <img
             src={image}
-            alt=""
+            alt="Profile"
             className="rounded-circle profile-image mx-auto"
           />
           <div>
-            {" "}
-            <strong>Vishal Vijay Maske</strong>
-            <p>{}</p>
+            <strong>{userData?.name || "Vishal Vijay Maske"}</strong>
+            <p>{userData?.email || "your.email@example.com"}</p>
             <MdOutlineEdit />
           </div>
-          <div class="modal-dialog modal-dialog-centered">...</div>
+          <div className="modal-dialog modal-dialog-centered">...</div>
         </div>
         <div className="col-md-8">
           <h1>Your Profile</h1>
           <p>
-            Your profile preferences help us personalise recommendations for
+            Your profile preferences help us personalize recommendations for
             you.
           </p>
         </div>

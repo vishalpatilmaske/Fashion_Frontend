@@ -1,15 +1,60 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../style/components/checkout/checkoutaddress.css";
+import { addAddress, loadLocalStorage } from "../../store/slice/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutAddress = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // load the login user data
+  useEffect(() => {
+    dispatch(loadLocalStorage());
+  }, []);
+  const userData = useSelector((state) => state.auth.signin.userData);
+  // Form state
+  const [formData, setFormData] = useState({
+    fullname: "",
+    mobile: "",
+    pincode: "",
+    housenumber: "",
+    area: "",
+    landmark: "",
+    dist: "",
+  });
+
   const [textColor, setTextColor] = useState("black");
-  const HandleClick = () => {
+
+  const handleClick = () => {
     setTextColor(textColor === "black" ? "brown" : "black");
   };
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleToAddAddress = () => {
+    // Dispatch the form data as the address
+    dispatch(
+      addAddress({
+        userId: userData._id,
+        address: formData,
+      })
+    );
+    setFormData({
+      fullname: "",
+      mobile: "",
+      pincode: "",
+      housenumber: "",
+      area: "",
+      landmark: "",
+      dist: "",
+    });
+  };
+
   return (
     <>
-      {" "}
       {/* address */}
       <div className="d-flex justify-content-between">
         <strong
@@ -20,7 +65,7 @@ const CheckoutAddress = () => {
           aria-expanded="false"
           aria-controls="collapseAddress"
           style={{ color: textColor }}
-          onClick={HandleClick}
+          onClick={handleClick}
         >
           1 Delivery Address
         </strong>
@@ -32,11 +77,12 @@ const CheckoutAddress = () => {
           aria-expanded="false"
           aria-controls="collapseAddress"
           style={{ color: textColor }}
-          onClick={HandleClick}
+          onClick={handleClick}
         >
-          close
+          Close
         </span>
       </div>
+
       <div className="collapse mt-2" id="collapseAddress">
         <div className="card card-body">
           <div>
@@ -73,80 +119,120 @@ const CheckoutAddress = () => {
                     />
                   </div>
                   <div className="modal-body">
-                    {/* Add your form inputs here */}
+                    {/* Form inputs */}
                     <form className="w-80">
                       <div className="mb-3">
-                        <label htmlFor="addressInput" className="form-label">
-                          Full name (First and Last name)
+                        <label htmlFor="fullNameInput" className="form-label">
+                          Full Name (First and Last name)
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="addressInput"
+                          id="fullNameInput"
+                          name="fullname"
+                          value={formData.fullname}
+                          onChange={handleInputChange}
+                          placeholder="Enter your full name"
                         />
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="cityInput" className="form-label">
+                        <label
+                          htmlFor="mobileNumberInput"
+                          className="form-label"
+                        >
                           Mobile Number
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="cityInput"
+                          id="mobileNumberInput"
+                          name="mobile"
+                          value={formData.mobile}
+                          onChange={handleInputChange}
+                          placeholder="Enter your mobile number"
                         />
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="cityInput" className="form-label">
+                        <label htmlFor="pinCodeInput" className="form-label">
                           Pin Code
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="cityInput"
-                          placeholder="6 digit [0-9] PIN code"
+                          id="pinCodeInput"
+                          name="pincode"
+                          value={formData.pincode}
+                          onChange={handleInputChange}
+                          placeholder="6-digit PIN code"
                         />
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="cityInput" className="form-label">
-                          Flat,House no.,Bulding,Company
+                        <label htmlFor="addressInput" className="form-label">
+                          Flat, House No., Building, Company
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="cityInput"
-                          placeholder="Enter your city"
+                          id="addressInput"
+                          name="housenumber"
+                          value={formData.housenumber}
+                          onChange={handleInputChange}
+                          placeholder="Enter your address"
                         />
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="cityInput" className="form-label">
-                          Area,Steet,Sector,Village
+                        <label htmlFor="areaInput" className="form-label">
+                          Area, Street, Sector, Village
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="cityInput"
-                          placeholder="Enter your city"
+                          id="areaInput"
+                          name="area"
+                          value={formData.area}
+                          onChange={handleInputChange}
+                          placeholder="Enter your area"
                         />
                       </div>
                       <div className="mb-3">
-                        <label htmlFor="cityInput" className="form-label">
+                        <label htmlFor="landmarkInput" className="form-label">
                           Landmark
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          id="cityInput"
-                          placeholder="E.g near temple"
+                          id="landmarkInput"
+                          name="landmark"
+                          value={formData.landmark}
+                          onChange={handleInputChange}
+                          placeholder="E.g., near temple"
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="distInput" className="form-label">
+                          Dist
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="distInput"
+                          name="dist"
+                          value={formData.dist}
+                          onChange={handleInputChange}
+                          placeholder="Enter your dist"
                         />
                       </div>
                     </form>
                   </div>
                   <div className="modal-footer d-flex justify-content-start">
                     <button
-                      type="button "
-                      className="btn btn-warning btn-sm px-3  rounded-pill"
+                      type="button"
+                      className="btn btn-warning btn-sm px-3 rounded-pill"
+                      onClick={handleToAddAddress}
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
                     >
-                      use this address
+                      Use this address
                     </button>
                   </div>
                 </div>
@@ -156,10 +242,11 @@ const CheckoutAddress = () => {
           <div>
             <hr />
             <button
-              type="button "
+              type="button"
               className="btn btn-warning btn-sm px-3 rounded-pill"
+              onClick={handleToAddAddress}
             >
-              use this address
+              Use this address
             </button>
           </div>
         </div>

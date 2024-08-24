@@ -35,6 +35,22 @@ export const userSignin = createAsyncThunk(
   }
 );
 
+// Async thunk for adding user address
+export const addAddress = createAsyncThunk(
+  "user/addUserAddress",
+  async ({ userId, address }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/user/${userId}/address`,
+        address
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
 // User slice with initial state and reducers
 const authSlice = createSlice({
   name: "auth",
@@ -100,8 +116,8 @@ const authSlice = createSlice({
         state.signin.success = true;
         // Save user data to localStorage
         const userData = action.payload.data;
+        console.log(userData);
         localStorage.setItem("userData", JSON.stringify(userData));
-        state.signin.userData = userData;
         state.signin.successMessage = action.payload.message;
         state.signin.errorMessage = null;
         state.signin.isAuthenticate = true;
@@ -110,6 +126,16 @@ const authSlice = createSlice({
         state.signin.success = false;
         state.signin.errorMessage = action.payload;
         state.signin.successMessage = null;
+      })
+      // handel add address to the
+      .addCase(addAddress.pending, (state, action) => {
+        console.log("pending");
+      })
+      .addCase(addAddress.fulfilled, (state, action) => {
+        console.log("fullfield");
+      })
+      .addCase(addAddress.rejected, (state, action) => {
+        console.log("rejected");
       });
   },
 });

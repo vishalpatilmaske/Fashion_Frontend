@@ -9,7 +9,7 @@ function Cart() {
   const isAuthenticate = useSelector(
     (state) => state.auth.signin.isAuthenticate
   );
-  const user = useSelector((state) => state.auth.signin.userData);
+  const user = useSelector((state) => state.auth.signin.userCredential);
   const cart = useSelector((state) => state.cart);
 
   // Load cart details

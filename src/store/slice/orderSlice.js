@@ -45,4 +45,5 @@ const orderSlice = createSlice({
   },
 });
 
+export const { setSelectedAddress } = orderSlice.actions;
 export default orderSlice.reducer;

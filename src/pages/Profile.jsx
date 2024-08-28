@@ -12,7 +12,9 @@ function Profile() {
     dispatch(loadLocalStorage());
   }, [dispatch]);
 
-  const userData = useSelector((state) => state.auth.signin.userData);
+  const userCredential = useSelector(
+    (state) => state.auth.signin.userCredential
+  );
 
   return (
     <>
@@ -24,8 +26,8 @@ function Profile() {
             className="rounded-circle profile-image mx-auto"
           />
           <div>
-            <strong>{userData?.name || "Vishal Vijay Maske"}</strong>
-            <p>{userData?.email || "your.email@example.com"}</p>
+            <strong>{userCredential?.name || "Vishal Vijay Maske"}</strong>
+            <p>{userCredential?.email || "your.email@example.com"}</p>
             <MdOutlineEdit />
           </div>
           <div className="modal-dialog modal-dialog-centered">...</div>

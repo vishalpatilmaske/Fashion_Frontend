@@ -18,7 +18,7 @@ function Header() {
     dispatch(loadLocalStorage());
   }, [dispatch]);
 
-  const { userData, success } = useSelector((state) => state.auth.signin);
+  const { userCredential, success } = useSelector((state) => state.auth.signin);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
@@ -100,7 +100,7 @@ function Header() {
               >
                 Hello,
                 <strong>
-                  {success ? userData.email.slice(0, 6) : "signin"}
+                  {success ? userCredential.email.slice(0, 6) : "signin"}
                 </strong>
               </p>
               {success && (

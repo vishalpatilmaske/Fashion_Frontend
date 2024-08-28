@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useCallback } from "react";
+import { AiFillFileText } from "react-icons/ai";
 
 // Async thunk for signing up a user
 export const userSignup = createAsyncThunk(
@@ -51,6 +53,20 @@ export const addAddress = createAsyncThunk(
   }
 );
 
+// get user data
+export const getUserData = createAsyncThunk(
+  "user/getUserData",
+  async ({ userId }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/user/${userId}/data`
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
 // User slice with initial state and reducers
 const authSlice = createSlice({
   name: "auth",
@@ -64,28 +80,37 @@ const authSlice = createSlice({
       success: false,
       errorMessage: null,
       successMessage: null,
-      userData: null,
+      userCredential: null,
       isAuthenticate: false,
+    },
+    user: {
+      selectedAddress: null,
+      userData: {},
     },
   },
   reducers: {
     // Add a logout action to clear user data and localStorage
     logout: (state) => {
       state.signin.success = false;
-      state.signin.userData = null;
+      state.signin.userCredential = null;
       state.signin.successMessage = null;
       state.signin.errorMessage = null;
-      localStorage.removeItem("userData");
+      localStorage.removeItem("userCredential");
+      localStorage.removeItem("cartId");
     },
 
     // get the local storage data
     loadLocalStorage: (state) => {
-      const userData = JSON.parse(localStorage.getItem("userData"));
-      if (userData) {
-        state.signin.userData = userData;
+      const userCredential = JSON.parse(localStorage.getItem("userCredential"));
+      if (userCredential) {
+        state.signin.userCredential = userCredential;
         state.signin.success = true;
         state.signin.isAuthenticate = true;
       }
+    },
+    // user seleted address or the primary address to delivery of the product
+    setSelectedAddress: (state, action) => {
+      state.user.selectedAddress = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -94,11 +119,12 @@ const authSlice = createSlice({
       .addCase(userSignup.pending, (state) => {
         state.signup.success = false;
         state.signup.errorMessage = null;
+        console.log("reject");
         state.signup.successMessage = null;
       })
       .addCase(userSignup.fulfilled, (state, action) => {
         state.signup.success = true;
-        state.signup.successMessage = action.payload.message;
+        state.signup.successMessage = action.payload;
         state.signup.errorMessage = null;
       })
       .addCase(userSignup.rejected, (state, action) => {
@@ -115,9 +141,8 @@ const authSlice = createSlice({
       .addCase(userSignin.fulfilled, (state, action) => {
         state.signin.success = true;
         // Save user data to localStorage
-        const userData = action.payload.data;
-        console.log(userData);
-        localStorage.setItem("userData", JSON.stringify(userData));
+        const userCredential = action.payload.data;
+        localStorage.setItem("userCredential", JSON.stringify(userCredential));
         state.signin.successMessage = action.payload.message;
         state.signin.errorMessage = null;
         state.signin.isAuthenticate = true;
@@ -136,11 +161,22 @@ const authSlice = createSlice({
       })
       .addCase(addAddress.rejected, (state, action) => {
         console.log("rejected");
+      })
+      // handel get user address to the
+      .addCase(getUserData.pending, (state, action) => {
+        console.log("pending");
+      })
+      .addCase(getUserData.fulfilled, (state, action) => {
+        state.user.userData = action.payload.data;
+      })
+      .addCase(getUserData.rejected, (state, action) => {
+        console.log("rejected");
       });
   },
 });
 
-export const userData = (state) => state.auth.signin.userData;
+export const userCredential = (state) => state.auth.signin.userCredential;
 
-export const { logout, loadLocalStorage } = authSlice.actions;
+export const { logout, loadLocalStorage, setSelectedAddress } =
+  authSlice.actions;
 export default authSlice.reducer;

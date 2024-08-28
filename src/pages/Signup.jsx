@@ -23,9 +23,9 @@ const Signup = () => {
         toast.success(auth.signup.successMessage);
         navigate("/signin");
       }
-      if (auth.signup.errorMessage) {
-        toast.error(auth.signup.errorMessage);
-      }
+    }
+    if (auth.signup.errorMessage) {
+      toast.error(auth.signup.errorMessage);
     }
   };
 

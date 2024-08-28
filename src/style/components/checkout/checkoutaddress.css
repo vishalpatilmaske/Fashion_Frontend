@@ -13,3 +13,8 @@
 .modal-dialog label {
   font-weight: 700;
 }
+
+.delivery-address p {
+  padding: 0;
+  margin: 0;
+}

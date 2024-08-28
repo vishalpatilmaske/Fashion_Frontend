@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "../../style/components/checkout/checkoutaddress.css";
-import { addAddress, loadLocalStorage } from "../../store/slice/authSlice";
+import {
+  addAddress,
+  getUserData,
+  loadLocalStorage,
+} from "../../store/slice/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import CheckoutAddNewAddress from "./CheckoutAddNewAddress";
 
 const CheckoutAddress = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  // load the login user data
+  // Load the login user data
   useEffect(() => {
     dispatch(loadLocalStorage());
-  }, []);
-  const userData = useSelector((state) => state.auth.signin.userData);
+  }, [dispatch]);
+
+  const userCredential = useSelector(
+    (state) => state.auth.signin.userCredential
+  );
+  const userId = userCredential?._id;
+
+  // Dispatch the request to get the user data
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUserData({ userId }));
+    }
+  }, [dispatch, userId]);
+
   // Form state
   const [formData, setFormData] = useState({
     fullname: "",
@@ -22,11 +37,17 @@ const CheckoutAddress = () => {
     area: "",
     landmark: "",
     dist: "",
+    primaryaddress: true,
   });
 
+  // Handle the color of the text onclick
   const [textColor, setTextColor] = useState("black");
 
-  const handleClick = () => {
+  // State to toggle address visibility
+  const [isAddressVisible, setIsAddressVisible] = useState(true);
+
+  const handleClickChange = () => {
+    setIsAddressVisible(!isAddressVisible);
     setTextColor(textColor === "black" ? "brown" : "black");
   };
 
@@ -34,11 +55,11 @@ const CheckoutAddress = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Dispatch the form data as the address
   const handleToAddAddress = () => {
-    // Dispatch the form data as the address
     dispatch(
       addAddress({
-        userId: userData._id,
+        userId: userId,
         address: formData,
       })
     );
@@ -51,206 +72,62 @@ const CheckoutAddress = () => {
       landmark: "",
       dist: "",
     });
+    setIsAddressVisible(true); // Show address after adding
   };
+
+  // Get user's address
+  const address = useSelector((state) => state.auth.user.userData.address);
+
+  // get the selected address from the auth alice
+  const seletedAddress = useSelector(
+    (state) => state.auth.user.selectedAddress
+  );
 
   return (
     <>
-      {/* address */}
+      {/* Address Section */}
       <div className="d-flex justify-content-between">
-        <strong
-          data-bs-toggle="collapse"
-          id="address"
-          href="#collapseAddress"
-          role="button"
-          aria-expanded="false"
-          aria-controls="collapseAddress"
-          style={{ color: textColor }}
-          onClick={handleClick}
-        >
+        <strong id="address" style={{ color: textColor }}>
           1 Delivery Address
         </strong>
-
-        <span
-          data-bs-toggle="collapse"
-          id="close-button"
-          data-bs-target="#collapseAddress"
-          aria-expanded="false"
-          aria-controls="collapseAddress"
-          style={{ color: textColor }}
-          onClick={handleClick}
-        >
-          Close
-        </span>
-      </div>
-
-      <div className="collapse mt-2" id="collapseAddress">
-        <div className="card card-body">
-          <div>
-            <h6>Your address</h6>
-            <hr />
-            <p
-              data-bs-toggle="modal"
-              data-bs-target="#staticBackdrop"
-              className="addnewaddress"
-            >
-              + Add a new address
+        {isAddressVisible && seletedAddress ? (
+          <div className="delivery-address">
+            <p>{seletedAddress.fullname}</p>
+            <p>
+              {seletedAddress.housenumber} , {seletedAddress.area}
             </p>
+            <p>{seletedAddress.landmark}</p>
+            <p>
+              {seletedAddress.dist}, {seletedAddress.pincode}
+            </p>
+          </div>
+        ) : (
+          false
+        )}
 
-            <div
-              className="modal fade"
-              id="staticBackdrop"
-              data-bs-backdrop="static"
-              data-bs-keyboard="false"
-              tabIndex={-1}
-              aria-labelledby="staticBackdropLabel"
-              aria-hidden="true"
-            >
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                      Add New Address
-                    </h1>
-                    <button
-                      type="button"
-                      className="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    />
-                  </div>
-                  <div className="modal-body">
-                    {/* Form inputs */}
-                    <form className="w-80">
-                      <div className="mb-3">
-                        <label htmlFor="fullNameInput" className="form-label">
-                          Full Name (First and Last name)
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="fullNameInput"
-                          name="fullname"
-                          value={formData.fullname}
-                          onChange={handleInputChange}
-                          placeholder="Enter your full name"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label
-                          htmlFor="mobileNumberInput"
-                          className="form-label"
-                        >
-                          Mobile Number
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="mobileNumberInput"
-                          name="mobile"
-                          value={formData.mobile}
-                          onChange={handleInputChange}
-                          placeholder="Enter your mobile number"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="pinCodeInput" className="form-label">
-                          Pin Code
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="pinCodeInput"
-                          name="pincode"
-                          value={formData.pincode}
-                          onChange={handleInputChange}
-                          placeholder="6-digit PIN code"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="addressInput" className="form-label">
-                          Flat, House No., Building, Company
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="addressInput"
-                          name="housenumber"
-                          value={formData.housenumber}
-                          onChange={handleInputChange}
-                          placeholder="Enter your address"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="areaInput" className="form-label">
-                          Area, Street, Sector, Village
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="areaInput"
-                          name="area"
-                          value={formData.area}
-                          onChange={handleInputChange}
-                          placeholder="Enter your area"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="landmarkInput" className="form-label">
-                          Landmark
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="landmarkInput"
-                          name="landmark"
-                          value={formData.landmark}
-                          onChange={handleInputChange}
-                          placeholder="E.g., near temple"
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="distInput" className="form-label">
-                          Dist
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="distInput"
-                          name="dist"
-                          value={formData.dist}
-                          onChange={handleInputChange}
-                          placeholder="Enter your dist"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                  <div className="modal-footer d-flex justify-content-start">
-                    <button
-                      type="button"
-                      className="btn btn-warning btn-sm px-3 rounded-pill"
-                      onClick={handleToAddAddress}
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      Use this address
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <hr />
-            <button
-              type="button"
-              className="btn btn-warning btn-sm px-3 rounded-pill"
-              onClick={handleToAddAddress}
-            >
-              Use this address
-            </button>
-          </div>
+        <div>
+          <span
+            data-bs-toggle="collapse"
+            id="close-button"
+            data-bs-target="#collapseAddress"
+            aria-expanded="false"
+            aria-controls="collapseAddress"
+            style={{ color: "#007185" }}
+            onClick={handleClickChange}
+          >
+            {isAddressVisible ? "change" : "cancel"}
+          </span>
         </div>
       </div>
+      {/* component for add new delivery address of change delivery address */}
+      <CheckoutAddNewAddress
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleToAddAddress={handleToAddAddress}
+        address={address}
+        setIsAddressVisible={setIsAddressVisible}
+        handleClickChange={handleClickChange}
+      />
       <hr />
     </>
   );

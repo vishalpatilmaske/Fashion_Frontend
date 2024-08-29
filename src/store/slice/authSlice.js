@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, Tuple } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useCallback } from "react";
 import { AiFillFileText } from "react-icons/ai";
@@ -61,6 +61,23 @@ export const getUserData = createAsyncThunk(
       const response = await axios.get(
         `http://localhost:5000/user/${userId}/data`
       );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
+// update user address
+export const updateUserAddress = createAsyncThunk(
+  "user/updateUserAddress",
+  async ({ userId, addressId }) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/user/${userId}/update-address/${addressId}`,
+        { primaryaddress: true }
+      );
+      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");

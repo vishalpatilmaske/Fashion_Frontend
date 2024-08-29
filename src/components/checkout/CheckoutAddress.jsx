@@ -46,8 +46,12 @@ const CheckoutAddress = () => {
   // State to toggle address visibility
   const [isAddressVisible, setIsAddressVisible] = useState(true);
 
+  // State to toggle add new address visibility
+  const [isNewAddressVisible, setIsNewAddressVisible] = useState(false);
+
   const handleClickChange = () => {
     setIsAddressVisible(!isAddressVisible);
+    setIsNewAddressVisible(!isNewAddressVisible);
     setTextColor(textColor === "black" ? "brown" : "black");
   };
 
@@ -57,12 +61,9 @@ const CheckoutAddress = () => {
 
   // Dispatch the form data as the address
   const handleToAddAddress = () => {
-    dispatch(
-      addAddress({
-        userId: userId,
-        address: formData,
-      })
-    );
+    dispatch(addAddress({ userId, address: formData })).then(() => {
+      dispatch(getUserData({ userId }));
+    });
     setFormData({
       fullname: "",
       mobile: "",
@@ -73,15 +74,19 @@ const CheckoutAddress = () => {
       dist: "",
     });
     setIsAddressVisible(true); // Show address after adding
+    setIsNewAddressVisible(false); // Hide new address form after adding
   };
 
   // Get user's address
   const address = useSelector((state) => state.auth.user.userData.address);
 
-  // get the selected address from the auth alice
-  const seletedAddress = useSelector(
-    (state) => state.auth.user.selectedAddress
-  );
+  let selectedAddress = null;
+  for (const key in address) {
+    if (address[key].primaryaddress === true) {
+      selectedAddress = address[key];
+      break;
+    }
+  }
 
   return (
     <>
@@ -90,15 +95,15 @@ const CheckoutAddress = () => {
         <strong id="address" style={{ color: textColor }}>
           1 Delivery Address
         </strong>
-        {isAddressVisible && seletedAddress ? (
+        {isAddressVisible && selectedAddress ? (
           <div className="delivery-address">
-            <p>{seletedAddress.fullname}</p>
+            <p>{selectedAddress.fullname}</p>
             <p>
-              {seletedAddress.housenumber} , {seletedAddress.area}
+              {selectedAddress.housenumber}, {selectedAddress.area}
             </p>
-            <p>{seletedAddress.landmark}</p>
+            <p>{selectedAddress.landmark}</p>
             <p>
-              {seletedAddress.dist}, {seletedAddress.pincode}
+              {selectedAddress.dist}, {selectedAddress.pincode}
             </p>
           </div>
         ) : (
@@ -106,28 +111,24 @@ const CheckoutAddress = () => {
         )}
 
         <div>
-          <span
-            data-bs-toggle="collapse"
-            id="close-button"
-            data-bs-target="#collapseAddress"
-            aria-expanded="false"
-            aria-controls="collapseAddress"
-            style={{ color: "#007185" }}
-            onClick={handleClickChange}
-          >
+          <span style={{ color: "#007185" }} onClick={handleClickChange}>
             {isAddressVisible ? "change" : "cancel"}
           </span>
         </div>
       </div>
-      {/* component for add new delivery address of change delivery address */}
-      <CheckoutAddNewAddress
-        formData={formData}
-        handleInputChange={handleInputChange}
-        handleToAddAddress={handleToAddAddress}
-        address={address}
-        setIsAddressVisible={setIsAddressVisible}
-        handleClickChange={handleClickChange}
-      />
+      {/* component for add new delivery address */}
+      {isNewAddressVisible && (
+        <CheckoutAddNewAddress
+          formData={formData}
+          handleInputChange={handleInputChange}
+          handleToAddAddress={handleToAddAddress}
+          isNewAddressVisible={isNewAddressVisible}
+          setIsNewAddressVisible={setIsNewAddressVisible}
+          setIsAddressVisible={setIsAddressVisible}
+          isAddressVisible={isAddressVisible}
+          address={address}
+        />
+      )}
       <hr />
     </>
   );

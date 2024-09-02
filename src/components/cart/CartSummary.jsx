@@ -1,25 +1,37 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../style/components/cart/cartsummary.css";
+import { getSelectedCartItems } from "../../store/slice/cartSlice";
 
 const CartSummary = () => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const cartProducts = useSelector((state) => state.product.cartProducts);
   const navigate = useNavigate();
 
-  // State for subtotal
-  const [subtotal, setSubtotal] = useState(0);
-
+  // get user selected items to buy
   useEffect(() => {
-    // Calculate subtotal
-    const calculatedSubtotal = cartProducts.reduce((accumulator, current) => {
-      return accumulator + current.price * current.quantity;
-    }, 0);
+    const cartId = cart.cartId;
+    if (cartId) dispatch(getSelectedCartItems({ cartId }));
+  }, [cart.cartId]);
 
-    // Update the state
-    setSubtotal(calculatedSubtotal);
-  }, [cartProducts]);
+  // Memoize total products calculation
+  const totalProducts = useMemo(() => {
+    return cart.selectedItems.reduce((acc, curr) => acc + curr.quantity, 0);
+  }, [cart.selectedItems, cart]);
+
+  // Memoize subtotal calculation
+  const subtotal = useMemo(() => {
+    return cart.selectedItems.reduce((acc, item) => {
+      const product = cartProducts.find((p) => p._id === item.productId);
+      if (product) {
+        return acc + product.price * item.quantity;
+      }
+      return acc;
+    }, 0);
+  }, [cart.items, cartProducts]);
+
   return (
     <div className="sub-total d-inline-block ms-sm-4 mt-sm-0">
       <div>
@@ -31,7 +43,7 @@ const CartSummary = () => {
           <tbody>
             <tr>
               <td>Items :</td>
-              <td>{cart.items.length}</td>
+              <td>{totalProducts}</td>
             </tr>
             <tr>
               <td>Subtotal :</td>
@@ -53,9 +65,11 @@ const CartSummary = () => {
           <button
             type="button"
             className="mt-2 btn btn-warning add-to-cart-button px-4 rounded-pill me-3 btn-sm"
-            onClick={() => {
-              navigate("/checkout");
-            }}
+            onClick={() =>
+              navigate("/checkout", {
+                state: { totalProducts, subtotal },
+              })
+            }
           >
             Proceed to Buy
           </button>

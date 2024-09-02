@@ -77,7 +77,6 @@ export const updateUserAddress = createAsyncThunk(
         `http://localhost:5000/user/${userId}/update-address/${addressId}`,
         { primaryaddress: true }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
@@ -101,7 +100,6 @@ const authSlice = createSlice({
       isAuthenticate: false,
     },
     user: {
-      selectedAddress: null,
       userData: {},
     },
   },
@@ -124,10 +122,6 @@ const authSlice = createSlice({
         state.signin.success = true;
         state.signin.isAuthenticate = true;
       }
-    },
-    // user seleted address or the primary address to delivery of the product
-    setSelectedAddress: (state, action) => {
-      state.user.selectedAddress = action.payload;
     },
   },
   extraReducers: (builder) => {

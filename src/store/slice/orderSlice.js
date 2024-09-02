@@ -1,17 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { act } from "react";
 
 // Async thunk to create an order
 export const createOrder = createAsyncThunk(
   "order/createOrder",
-  async ({ userId, products, quantity }, { rejectWithValue }) => {
+  async ({ userId, ...orderDetails }, { rejectWithValue }) => {
     try {
-      console.log("Hello");
-      const response = await axios.post(`http://localhost:5000/order `, {
-        userId,
-        products,
-        quantity,
-      });
+      console.log(orderDetails);
+      const response = await axios.post(
+        `http://localhost:5000/api/order/${userId}/create-order `,
+        {
+          orderDetails,
+        }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
@@ -23,11 +25,14 @@ export const createOrder = createAsyncThunk(
 const orderSlice = createSlice({
   name: "order",
   initialState: {
-    orderStatus: "idle",
+    paymentMethod: null,
     orderDetails: null,
-    error: null,
   },
-  reducers: {},
+  reducers: {
+    updatePaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createOrder.pending, (state) => {
@@ -45,5 +50,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setSelectedAddress } = orderSlice.actions;
+export const { updatePaymentMethod } = orderSlice.actions;
 export default orderSlice.reducer;

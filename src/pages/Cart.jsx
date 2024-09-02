@@ -21,7 +21,7 @@ function Cart() {
   useEffect(() => {
     if (cart.cartDetailsLoaded && isAuthenticate && user?._id) {
       // Check if the cart is already loaded or not
-      if (!cart.cartId) {
+      if (!cart.cartId && cart.cartId == undefined) {
         dispatch(createCart(user._id));
       }
     }

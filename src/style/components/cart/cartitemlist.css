@@ -27,6 +27,16 @@
   cursor: pointer;
 }
 
+.toggle-item-selection {
+  font-size: 14px;
+}
+
+.toggle-item-selection span {
+  font-size: 14px;
+  color: #007185;
+  cursor: pointer;
+}
+
 /* for mobile screen */
 @media screen and (max-width: 570px) {
   .product-image {

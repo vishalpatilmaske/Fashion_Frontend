@@ -111,7 +111,10 @@ const CheckoutAddress = () => {
         )}
 
         <div>
-          <span style={{ color: "#007185" }} onClick={handleClickChange}>
+          <span
+            style={{ color: "#007185", cursor: "pointer" }}
+            onClick={handleClickChange}
+          >
             {isAddressVisible ? "change" : "cancel"}
           </span>
         </div>

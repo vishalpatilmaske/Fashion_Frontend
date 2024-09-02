@@ -5,17 +5,16 @@ import CheckoutPayment from "../components/checkout/CheckoutPayment";
 import CheckoutOrderSummary from "../components/checkout/CheckoutOrderSummary";
 import CheckoutHeader from "../components/checkout/CheckoutHeader";
 import { useLocation } from "react-router-dom";
-import { createOrder } from "../store/slice/orderSlice";
 
 const Checkout = () => {
   const [textColor, setTextColor] = useState("black");
-  const HandleClick = () => {
-    setTextColor(textColor === "black" ? "brown" : "black");
+  const handleClick = () => {
+    setTextColor((prevColor) => (prevColor === "black" ? "brown" : "black"));
   };
 
+  // Data from the cart and the productDetails page
   const location = useLocation();
   const data = location.state || {};
-
   return (
     <>
       {/* Header */}
@@ -25,31 +24,31 @@ const Checkout = () => {
           <div className="col-12 col-sm-8 address">
             {/* Address */}
             <CheckoutAddress />
-            {/* payment */}
+            {/* Payment */}
             <CheckoutPayment />
-            {/* offer */}
+            {/* Offers */}
             <div className="d-flex justify-content-between">
               <strong
                 id="address"
                 style={{ color: textColor }}
-                onClick={HandleClick}
+                onClick={handleClick}
               >
                 3 Offers
               </strong>
             </div>
             <hr />
-            {/*item delivery  */}
+            {/* Item Delivery */}
             <div className="d-flex justify-content-between">
               <strong
                 id="address"
                 style={{ color: textColor }}
-                onClick={HandleClick}
+                onClick={handleClick}
               >
-                4 Items and delivery{" "}
+                4 Items and Delivery
               </strong>
             </div>
           </div>
-          {/* order summary */}
+          {/* Order Summary */}
           <CheckoutOrderSummary product={data} />
         </div>
       </section>

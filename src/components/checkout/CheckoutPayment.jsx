@@ -1,18 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePaymentMethod } from "../../store/slice/orderSlice";
 
 const CheckoutPayment = () => {
+  const dispatch = useDispatch();
+  // handel the color of the text onClick the text
   const [textColor, setTextColor] = useState("black");
-
   const handleClick = () => {
     setTextColor(textColor === "black" ? "brown" : "black");
   };
 
-  const [selectedPayment, setSelectedPayment] = useState("UPI");
-
-  const handlePaymentChange = (event) => {
-    setSelectedPayment(event.target.value);
-  };
-
+  // handel to change the payment method
+  const paymentMethod = useSelector((state) => state.order.paymentMethod);
+  const [payment, setPayment] = useState();
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -23,7 +23,6 @@ const CheckoutPayment = () => {
           aria-expanded="false"
           aria-controls="collapsePayment"
           style={{ color: textColor }}
-          onClick={handleClick}
         >
           2 Payment Method
         </strong>
@@ -32,10 +31,10 @@ const CheckoutPayment = () => {
           data-bs-target="#collapsePayment"
           aria-expanded="false"
           aria-controls="collapsePayment"
-          style={{ color: textColor }}
+          style={{ color: "#007184", cursor: "pointer" }}
           onClick={handleClick}
         >
-          Close
+          close
         </span>
       </div>
       <div className="collapse mt-2" id="collapsePayment">
@@ -48,8 +47,11 @@ const CheckoutPayment = () => {
                 name="paymentMethod"
                 id="cashOnDelivery"
                 value="Cash on Delivery"
-                checked={selectedPayment === "Cash on Delivery"}
-                onChange={handlePaymentChange}
+                style={{ cursor: "pointer" }}
+                onClick={(e) => {
+                  setPayment(e.target.value);
+                }}
+                checked={payment === "Cash on Delivery"}
               />
               <label className="form-check-label" htmlFor="cashOnDelivery">
                 Cash on Delivery / Pay on Delivery
@@ -62,8 +64,11 @@ const CheckoutPayment = () => {
                 name="paymentMethod"
                 id="upiPayment"
                 value="UPI"
-                checked={selectedPayment === "UPI"}
-                onChange={handlePaymentChange}
+                style={{ cursor: "pointer" }}
+                onChange={(e) => {
+                  setPayment(e.target.value);
+                }}
+                checked={payment === "UPI"}
               />
               <label className="form-check-label" htmlFor="upiPayment">
                 UPI app
@@ -75,6 +80,9 @@ const CheckoutPayment = () => {
             <button
               type="button"
               className="btn btn-warning btn-sm px-3 rounded-pill"
+              onClick={() => {
+                dispatch(updatePaymentMethod(payment));
+              }}
             >
               Use this payment method
             </button>

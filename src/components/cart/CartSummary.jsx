@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../style/components/cart/cartsummary.css";
 import { getSelectedCartItems } from "../../store/slice/cartSlice";
+import { SlEarphones } from "react-icons/sl";
 
 const CartSummary = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const CartSummary = () => {
   // Memoize total products calculation
   const totalProducts = useMemo(() => {
     return cart.selectedItems.reduce((acc, curr) => acc + curr.quantity, 0);
-  }, [cart.selectedItems, cart]);
+  }, [cart.selectedItems]);
 
   // Memoize subtotal calculation
   const subtotal = useMemo(() => {
@@ -30,8 +31,10 @@ const CartSummary = () => {
       }
       return acc;
     }, 0);
-  }, [cart.items, cartProducts]);
+  }, [cart.items, cartProducts, cart.selectedItems]);
 
+  // products  to send to the checkout page
+  const products = cart.selectedItems;
   return (
     <div className="sub-total d-inline-block ms-sm-4 mt-sm-0">
       <div>
@@ -67,7 +70,7 @@ const CartSummary = () => {
             className="mt-2 btn btn-warning add-to-cart-button px-4 rounded-pill me-3 btn-sm"
             onClick={() =>
               navigate("/checkout", {
-                state: { totalProducts, subtotal },
+                state: { products, subtotal },
               })
             }
           >

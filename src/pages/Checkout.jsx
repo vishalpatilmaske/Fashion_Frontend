@@ -14,7 +14,7 @@ const Checkout = () => {
 
   // Data from the cart and the productDetails page
   const location = useLocation();
-  const data = location.state || {};
+  const { products, subtotal } = location.state || {};
   return (
     <>
       {/* Header */}
@@ -25,7 +25,7 @@ const Checkout = () => {
             {/* Address */}
             <CheckoutAddress />
             {/* Payment */}
-            <CheckoutPayment />
+            <CheckoutPayment products={products} subtotal={subtotal} />
             {/* Offers */}
             <div className="d-flex justify-content-between">
               <strong
@@ -49,7 +49,7 @@ const Checkout = () => {
             </div>
           </div>
           {/* Order Summary */}
-          <CheckoutOrderSummary product={data} />
+          <CheckoutOrderSummary product={products} />
         </div>
       </section>
     </>

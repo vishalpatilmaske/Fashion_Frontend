@@ -1,13 +1,8 @@
 import React, { useCallback, useMemo, useState } from "react";
 import "../../style/components/checkout/ordersummary.css";
 import { useDispatch, useSelector } from "react-redux";
-import { createOrder } from "../../store/slice/orderSlice";
 
 const CheckoutOrderSummary = ({ product }) => {
-  const dispatch = useDispatch();
-  // users credention user Id
-  const userId = useSelector((state) => state.auth.signin.userCredential?._id);
-
   // product detials
   let productDetails = [];
   productDetails = product;
@@ -25,7 +20,7 @@ const CheckoutOrderSummary = ({ product }) => {
 
   // handel the make order
   const handelOrder = () => {
-    dispatch(createOrder({ userId }));
+    // dispatch(createOrder({ userId }));
   };
 
   return (
@@ -34,10 +29,12 @@ const CheckoutOrderSummary = ({ product }) => {
         <div className="modal-footer d-flex justify-content-center my-2">
           <button
             type="button"
-            className="btn btn-warning btn-sm px-5 rounded-pill"
+            className="btn btn-warning btn-sm px-4 rounded-pill"
             onClick={paymentMethod ? handelOrder : undefined}
           >
-            {paymentMethod ? "Place Order" : "Select payment method"}
+            {paymentMethod
+              ? "Place Your Order and Pay"
+              : "Select payment method"}
           </button>
           <hr />
         </div>

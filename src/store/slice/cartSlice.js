@@ -88,7 +88,6 @@ export const addSelectedCartItems = createAsyncThunk(
 export const getSelectedCartItems = createAsyncThunk(
   "cart/getSelectedCartItems",
   async ({ cartId }, { rejectWithValue }) => {
-    console.log(cartId);
     try {
       const response = await axios.get(
         `http://localhost:5000/cart/${cartId}/get-selected-cart-items`
@@ -105,13 +104,13 @@ export const deselectSelectedCartItems = createAsyncThunk(
   "cart/deselectSelectedCartItems",
   async ({ cartId, productId }, { rejectWithValue }) => {
     try {
-      console.log(cartId, productId);
       const response = await axios.post(
         `http://localhost:5000/cart/${cartId}/deselect-selected-cart-items`,
         {
           productId,
         }
       );
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
@@ -222,7 +221,7 @@ const cartSlice = createSlice({
       // deselect selcted cart items
       .addCase(deselectSelectedCartItems.pending, (state, action) => {})
       .addCase(deselectSelectedCartItems.fulfilled, (state, action) => {
-        state.selectedItems = action.payload.data;
+        state.selectedItems = action.payload.cart.selectedItems;
       })
       .addCase(deselectSelectedCartItems.rejected, (state, action) => {});
   },

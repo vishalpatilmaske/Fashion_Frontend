@@ -1,18 +1,34 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePaymentMethod } from "../../store/slice/orderSlice";
+import { initiatePayment } from "../../store/slice/orderSlice";
 
-const CheckoutPayment = () => {
+const CheckoutPayment = ({ products, subtotal }) => {
   const dispatch = useDispatch();
+  // handel to change the payment method
+  const [payment, setPayment] = useState();
   // handel the color of the text onClick the text
   const [textColor, setTextColor] = useState("black");
   const handleClick = () => {
     setTextColor(textColor === "black" ? "brown" : "black");
   };
 
-  // handel to change the payment method
-  const paymentMethod = useSelector((state) => state.order.paymentMethod);
-  const [payment, setPayment] = useState();
+  // users credention user Id
+  const userId = useSelector((state) => state.auth.signin.userCredential?._id);
+
+  // list of products to order
+  const productsList = products;
+
+  // get the shipping address fromt he store
+  const address = useSelector((state) => state.auth.user.userData.address);
+
+  let selectedAddress = null;
+  for (const key in address) {
+    if (address[key].primaryaddress === true) {
+      selectedAddress = address[key];
+      break;
+    }
+  }
+
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -46,12 +62,12 @@ const CheckoutPayment = () => {
                 type="radio"
                 name="paymentMethod"
                 id="cashOnDelivery"
-                value="Cash on Delivery"
+                value="cash_on_delivery"
                 style={{ cursor: "pointer" }}
                 onClick={(e) => {
                   setPayment(e.target.value);
                 }}
-                checked={payment === "Cash on Delivery"}
+                checked={payment === "cash_on_delivery"}
               />
               <label className="form-check-label" htmlFor="cashOnDelivery">
                 Cash on Delivery / Pay on Delivery
@@ -62,16 +78,16 @@ const CheckoutPayment = () => {
                 className="form-check-input"
                 type="radio"
                 name="paymentMethod"
-                id="upiPayment"
-                value="UPI"
+                id="onlinePayment"
+                value="online_payment"
                 style={{ cursor: "pointer" }}
                 onChange={(e) => {
                   setPayment(e.target.value);
                 }}
-                checked={payment === "UPI"}
+                checked={payment === "online_payment"}
               />
-              <label className="form-check-label" htmlFor="upiPayment">
-                UPI app
+              <label className="form-check-label" htmlFor="onlinePayment">
+                Online Payment
               </label>
             </div>
           </div>
@@ -81,10 +97,26 @@ const CheckoutPayment = () => {
               type="button"
               className="btn btn-warning btn-sm px-3 rounded-pill"
               onClick={() => {
-                dispatch(updatePaymentMethod(payment));
+                dispatch(
+                  initiatePayment({
+                    userId: userId,
+                    cartItems: productsList,
+                    amount: subtotal,
+                    orderStatus: "shipped",
+                    payment: {
+                      method: payment,
+                      status: null,
+                      transactionId: null,
+                    },
+                    isPaid: null,
+                    shippingAddress: selectedAddress._id,
+                  })
+                );
               }}
             >
-              Use this payment method
+              {payment == "online_payment"
+                ? " Pay now"
+                : "Use this payment method"}
             </button>
           </div>
         </div>

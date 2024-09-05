@@ -12,6 +12,7 @@ import {
   deselectSelectedCartItems,
 } from "../../store/slice/cartSlice";
 import { getCartProducts } from "../../store/slice/productSlice";
+import { SlEarphones, SlExclamation } from "react-icons/sl";
 
 const CartItemList = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const CartItemList = () => {
 
   // state to track selected items
   const selectedItems = useSelector((state) => state.cart.selectedItems);
+
   // Load cart details from the local storage only once on component mount
   useEffect(() => {
     // dispatch(getCartItem({ cartId }));
@@ -101,18 +103,21 @@ const CartItemList = () => {
   };
 
   // Handle deselect all purches
-  const handleDeselectAllItems = () => {};
-
+  const handleDeselectAllItems = () => {
+    dispatch(deselectSelectedCartItems({ cartId }));
+  };
+  // console.log(selectedItems);
   return (
     <div className="cart-item-list mb-5">
       <h4>Shopping Cart</h4>
       <div className="d-flex justify-content-between">
         <p className="align-baseline mb-0 ms-2 toggle-item-selection">
-          {Object.keys(selectedItems).length === cart.items.length ? (
+          {selectedItems.length === cart.items.length ? (
             <span onClick={handleDeselectAllItems}>Deselect all items</span>
           ) : (
             <>
-              No items selected.
+              {selectedItems.length === 0 ? "No items selected." : false}
+
               <span
                 onClick={() => {
                   const productId = cart.items;

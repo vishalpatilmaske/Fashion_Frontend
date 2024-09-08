@@ -9,7 +9,7 @@ export const userSignup = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/user/signup",
+        `${import.meta.env.VITE_API_URL}/api/user/signup`,
         { email, password },
         { withCredentials: true }
       );
@@ -26,7 +26,7 @@ export const userSignin = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/user/login",
+        `${import.meta.env.VITE_API_URL}/api/user/login`,
         { email, password },
         { withCredentials: true }
       );
@@ -43,7 +43,7 @@ export const addAddress = createAsyncThunk(
   async ({ userId, address }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/user/${userId}/address`,
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}/address`,
         address
       );
       return response.data;
@@ -59,7 +59,7 @@ export const getUserData = createAsyncThunk(
   async ({ userId }, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/user/${userId}/data`
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}/data`
       );
       return response.data;
     } catch (error) {
@@ -74,7 +74,9 @@ export const updateUserAddress = createAsyncThunk(
   async ({ userId, addressId }) => {
     try {
       const response = await axios.patch(
-        `http://localhost:5000/user/${userId}/update-address/${addressId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/user/${userId}/update-address/${addressId}`,
         { primaryaddress: true }
       );
       return response.data;
@@ -130,7 +132,6 @@ const authSlice = createSlice({
       .addCase(userSignup.pending, (state) => {
         state.signup.success = false;
         state.signup.errorMessage = null;
-        console.log("reject");
         state.signup.successMessage = null;
       })
       .addCase(userSignup.fulfilled, (state, action) => {

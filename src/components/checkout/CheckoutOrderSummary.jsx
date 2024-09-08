@@ -1,23 +1,10 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React from "react";
 import "../../style/components/checkout/ordersummary.css";
 import { useDispatch, useSelector } from "react-redux";
 
-const CheckoutOrderSummary = ({ product }) => {
-  // product detials
-  let productDetails = [];
-  productDetails = product;
-
-  // Function to calculate the total
-  const handleTotal = () => {
-    if (product && product.productDetails) {
-      return product.quantity * product.productDetails.price;
-    }
-    return 0;
-  };
-
+const CheckoutOrderSummary = ({ products, subtotal }) => {
   // get paymetn method from order slice
-  const paymentMethod = useSelector((state) => state.order.paymentMethod);
-
+  const paymentMethod = useSelector((state) => state.checkout.paymentMethod);
   // handel the make order
   const handelOrder = () => {
     // dispatch(createOrder({ userId }));
@@ -44,18 +31,20 @@ const CheckoutOrderSummary = ({ product }) => {
             <tr>
               <td className="p-2">Items :</td>
               <td className="p-2">
-                {product.totalProducts || product.quantity}
+                {products.reduce((accumulator, currentValue) => {
+                  return currentValue.quantity + accumulator;
+                }, 0)}
               </td>
             </tr>
             <tr>
               <td className="p-2">Total:</td>
-              <td className="p-2">{product.subtotal || handleTotal()}</td>{" "}
+              <td className="p-2">{subtotal}</td>
             </tr>
           </tbody>
         </table>
         <hr />
         <strong className="p-3 order-total">Order Total:</strong>
-        <span>{product.subtotal || handleTotal()}</span>
+        <span>{subtotal}</span>
       </div>
     </div>
   );

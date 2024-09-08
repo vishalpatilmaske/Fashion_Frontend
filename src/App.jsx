@@ -5,7 +5,8 @@ import Header from "./components/home/Header.jsx";
 import WatchList from "./pages/WatchList.jsx";
 import Cart from "./pages/Cart.jsx";
 import Home from "./pages/Home.jsx";
-import Women from "./pages/Women.jsx";
+import WomenProductListing from "./pages/WomenProductListing.jsx";
+import MenProductListing from "./pages/MenProductListing.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Profile from "./pages/Profile.jsx";
 import Checkout from "./pages/Checkout.jsx";
@@ -31,7 +32,11 @@ const MyRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/women" element={<Women />} />
+        <Route
+          path="/women-product-listing"
+          element={<WomenProductListing />}
+        />
+        <Route path="/men-product-listing" element={<MenProductListing />} />
         <Route path="/product-details" element={<ProductDetails />} />
         <Route path="*" element={<NotFound />} />
         {/* Private routes */}

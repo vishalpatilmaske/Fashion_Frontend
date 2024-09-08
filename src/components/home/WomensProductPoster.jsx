@@ -17,16 +17,22 @@ function WomensProductPoster() {
     <div className="container-fluid">
       <ul className="row product-list mb-3">
         {products &&
-          products.map((item, index) => (
-            <li key={item._id || index} className="col-3 col-sm-3 col-md-2">
-              <img
-                src={item.image}
-                className="womens-product"
-                alt="poster image"
-                onClick={() => {
-                  navigate("/product-details", { state: item });
-                }}
-              />
+          products.slice(0, 6).map((item, index) => (
+            <li
+              key={item._id || index}
+              className="col-6 col-sm-4 col-md-3 col-lg-2"
+            >
+              <div className="card womens-card">
+                <img
+                  src={item.image}
+                  className="card-img-top womens-product img-fluid"
+                  alt="poster image"
+                  onClick={() => {
+                    navigate("/product-details", { state: item });
+                  }}
+                />
+                <div className="card-body"></div>
+              </div>
             </li>
           ))}
       </ul>

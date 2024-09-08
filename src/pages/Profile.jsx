@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import "../style/page/profile.css";
-import image from "/public/assets/images/poster/poster1.jpg";
 import { MdOutlineEdit } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
-import { loadLocalStorage } from "../store/slice/authSlice";
+import { loadLocalStorage } from "../store/slice/authSlice.js";
+import ProfileComponent from "../components/profile/ProfileComponent.jsx";
+import ProfileDetials from "../components/profile/ProfileDetials.jsx";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -18,26 +19,20 @@ function Profile() {
 
   return (
     <>
-      <div className="row container m-auto mt-4 profile">
-        <div className="col-md-4 d-flex justify-content-start flex-column text-center">
-          <img
-            src={image}
-            alt="Profile"
-            className="rounded-circle profile-image mx-auto"
-          />
-          <div>
-            <strong>{userCredential?.name || "Vishal Vijay Maske"}</strong>
-            <p>{userCredential?.email || "your.email@example.com"}</p>
-            <MdOutlineEdit />
+      <div className="d-flex justify-content-center">
+        {" "}
+        <div>
+          <div className="container d-flex justify-content-start">
+            <h4 className="my-3">Your Account</h4>
           </div>
-          <div className="modal-dialog modal-dialog-centered">...</div>
-        </div>
-        <div className="col-md-8">
-          <h1>Your Profile</h1>
-          <p>
-            Your profile preferences help us personalize recommendations for
-            you.
-          </p>
+          <div className="container d-flex justify-content-between">
+            <div className="col-md-4">
+              <ProfileComponent />
+            </div>
+            <div className="col-md-8">
+              <ProfileDetials />
+            </div>
+          </div>
         </div>
       </div>
     </>

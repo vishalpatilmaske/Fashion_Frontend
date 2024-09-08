@@ -49,7 +49,7 @@ const Checkout = () => {
             </div>
           </div>
           {/* Order Summary */}
-          <CheckoutOrderSummary product={products} />
+          <CheckoutOrderSummary products={products} subtotal={subtotal} />
         </div>
       </section>
     </>

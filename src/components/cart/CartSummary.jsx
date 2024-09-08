@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../style/components/cart/cartsummary.css";
 import { getSelectedCartItems } from "../../store/slice/cartSlice";
-import { SlEarphones } from "react-icons/sl";
 
 const CartSummary = () => {
   const dispatch = useDispatch();

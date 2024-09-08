@@ -8,24 +8,31 @@ import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { loadLocalStorage, logout } from "../../store/slice/authSlice";
+import { loadCartDetials, getCartItems } from "../../store/slice/cartSlice";
 
 function Header() {
-  const cart = useSelector((state) => state.cart);
+  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(loadLocalStorage());
+    dispatch(loadCartDetials());
   }, [dispatch]);
+  const cartId = useSelector((state) => state.cart.cartId);
+  useEffect(() => {
+    dispatch(getCartItems({ cartId }));
+  }, [cartId]);
 
   const { userCredential, success } = useSelector((state) => state.auth.signin);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+    // navbar-light bg-body-tertiary
+    <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container py-2 header">
         <NavLink to="/">
           <h4>
-            <strong>Fashion</strong>
+            <strong className="text-white">Fashion</strong>
             <strong className="navbarbrand">Flick</strong>
           </h4>
         </NavLink>
@@ -43,12 +50,20 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 ">
             <li className="nav-item px-4">
-              <NavLink className="nav-link" aria-current="page" to="/Women">
+              <NavLink
+                className="nav-link text-white"
+                aria-current="page"
+                to="/women-product-listing
+              "
+              >
                 Women
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/men">
+            <li className="nav-item ">
+              <NavLink
+                className="nav-link text-white"
+                to="/men-product-listing"
+              >
                 Men
               </NavLink>
             </li>
@@ -74,25 +89,33 @@ function Header() {
                 aria-current="page"
                 to="/cart"
               >
-                <PiHandbagSimpleBold className="icon-size" />
-                {cart.length > 0 && <sup>{cart.length}</sup>}
+                <PiHandbagSimpleBold className="icon-size" color="white" />
+
+                {cartItems.length > 0 && (
+                  <sup>
+                    {cartItems.reduce((accumulator, current) => {
+                      return accumulator + current.quantity;
+                    }, 0)}
+                  </sup>
+                )}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 className="nav-link pe-sm-3"
                 aria-current="page"
+                color="white"
                 to="/watchlist"
               >
-                <VscHeart className="icon-size" />
+                <VscHeart className="icon-size" color="white" />
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link " to="/profile">
-                <AiOutlineUser className="icon-size" />
+                <AiOutlineUser className="icon-size" color="white" />
               </NavLink>
             </li>
-            <li className="nav-item login">
+            <li className="nav-item login text-white">
               <p
                 onClick={() => {
                   if (!success) navigate("/signin");

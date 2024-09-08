@@ -6,7 +6,9 @@ export const getAllProducts = createAsyncThunk(
   "product/getAllProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5000/product");
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/product`
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
@@ -30,7 +32,7 @@ export const getCartProducts = createAsyncThunk(
         return null;
       }
       const response = await axios.get(
-        `http://localhost:5000/product/${productId}`
+        `${import.meta.env.VITE_API_URL}/api/product/${productId}`
       );
 
       const quantity = cart.items.find(

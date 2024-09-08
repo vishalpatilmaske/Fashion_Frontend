@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initiatePayment } from "../../store/slice/orderSlice";
+import { initiatePayment } from "../../store/slice/checkoutSlice";
+import { toast } from "react-toastify";
 
 const CheckoutPayment = ({ products, subtotal }) => {
   const dispatch = useDispatch();
@@ -112,10 +113,14 @@ const CheckoutPayment = ({ products, subtotal }) => {
                     shippingAddress: selectedAddress._id,
                   })
                 );
+
+                if (selectedAddress === null) {
+                  toast.warn("Please select the delivery address");
+                }
               }}
             >
               {payment == "online_payment"
-                ? " Pay now"
+                ? "pay now"
                 : "Use this payment method"}
             </button>
           </div>

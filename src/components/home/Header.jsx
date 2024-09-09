@@ -31,9 +31,9 @@ function Header() {
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container py-2 header">
         <NavLink to="/">
-          <h4>
-            <strong className="text-white">Fashion</strong>
-            <strong className="navbarbrand">Flick</strong>
+          <h4 className="d-inline">
+            <strong className="text-white h4 h3-md">Fashion</strong>
+            <strong className="navbarbrand h4 h3-md">Flick</strong>
           </h4>
         </NavLink>
         <button
@@ -91,7 +91,7 @@ function Header() {
               >
                 <PiHandbagSimpleBold className="icon-size" color="white" />
 
-                {cartItems.length > 0 && (
+                {cartItems?.length > 0 && (
                   <sup>
                     {cartItems.reduce((accumulator, current) => {
                       return accumulator + current.quantity;

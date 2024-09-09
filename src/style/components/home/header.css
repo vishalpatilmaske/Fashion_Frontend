@@ -56,6 +56,7 @@ h4:first-child {
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
 }
 
+/* for mobile */
 @media screen and (max-width: 480px) {
   .search {
     width: 100%;

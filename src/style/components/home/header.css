@@ -1,7 +1,7 @@
 .navbarbrand {
   color: rgb(212, 109, 50);
 }
-h4 {
+h4 strong {
   cursor: pointer;
 }
 h4:first-child {
@@ -56,20 +56,16 @@ h4:first-child {
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
 }
 
-/* for mobile */
+/* for mobile screen */
 @media screen and (max-width: 480px) {
-  .search {
-    width: 100%;
+  h4 {
+    font-size: 1.7rem;
+    cursor: pointer;
   }
-
   .navbar-nav {
     display: flex;
     flex-direction: row;
     justify-content: center;
-  }
-
-  .navbar-nav .nav-item {
-    margin: 10px;
   }
 }
 

@@ -30,25 +30,14 @@ function Header() {
     // navbar-light bg-body-tertiary
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container py-2 header">
-        <NavLink to="/">
-          <h4 className="d-inline">
-            <strong className="text-white h4 h3-md">Fashion</strong>
-            <strong className="navbarbrand h4 h3-md">Flick</strong>
-          </h4>
-        </NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0 ">
+        <div className="d-flex justify-content-between w-100 d-inline">
+          <NavLink to="/">
+            <h4 className="d-inline">
+              <strong className="text-white">Fashion</strong>
+              <strong className="navbarbrand">Flick</strong>
+            </h4>
+          </NavLink>{" "}
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0 d-none d-sm-block ">
             <li className="nav-item px-4">
               <NavLink
                 className="nav-link text-white"
@@ -69,7 +58,7 @@ function Header() {
             </li>
           </ul>
           <form
-            className="d-flex input-group input-group-sm search"
+            className="d-flex input-group input-group-sm search d-none d-sm-block"
             role="search"
           >
             <input
@@ -100,7 +89,7 @@ function Header() {
                 )}
               </NavLink>
             </li>
-            <li className="nav-item">
+            <li className="nav-item px-3">
               <NavLink
                 className="nav-link pe-sm-3"
                 aria-current="page"
@@ -115,7 +104,7 @@ function Header() {
                 <AiOutlineUser className="icon-size" color="white" />
               </NavLink>
             </li>
-            <li className="nav-item login text-white">
+            <li className="nav-item login text-white d-none d-sm-block">
               <p
                 onClick={() => {
                   if (!success) navigate("/signin");

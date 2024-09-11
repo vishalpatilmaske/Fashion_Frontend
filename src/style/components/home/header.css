@@ -1,23 +1,18 @@
+/* Common Styles */
 .navbarbrand {
   color: rgb(212, 109, 50);
 }
+
 h4 strong {
   cursor: pointer;
 }
-h4:first-child {
-  color: black;
-}
-.search {
-  width: 50%;
-}
-.search > * {
-  border: 0.5px solid black;
-}
+
 .icon-size {
   font-size: 1.5rem;
-  color: black;
   margin: 0 10px;
+  color: white;
 }
+
 .navbar-nav sup {
   color: #f08804;
   font-weight: 900;
@@ -43,57 +38,132 @@ h4:first-child {
   font-size: 0.9rem;
 }
 
-.nav-item.login {
-  display: inline-block;
-}
-
-.dropdown-toggle {
-  cursor: pointer;
-}
-
-.dropdown-menu {
-  border-radius: 0.25rem;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
-}
-
-/* for mobile screen */
-@media screen and (max-width: 480px) {
-  h4 {
-    font-size: 1.7rem;
-    cursor: pointer;
-  }
-  .navbar-nav {
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .navbar {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
   }
-}
 
-/* tablet screen  */
+  .navbarbrand {
+    font-size: 1.3rem;
+  }
 
-@media screen and (min-width: 481px) and (max-width: 1024px) {
+  .search-input {
+    display: none;
+  }
+
+  .icon-size {
+    font-size: 1.2rem;
+  }
+
   .navbar-toggler {
     display: none;
   }
 
-  .collapse {
-    display: flex !important;
+  .login p {
+    font-size: 0.5rem;
   }
-  .navbar-nav {
+
+  .nav-item.login {
+    font-size: 0.8rem;
+  }
+
+  .product-category {
+    display: none;
+  }
+
+  .icons {
     display: flex;
     flex-direction: row;
+    margin-left: 80px;
+    width: 100%;
+  }
+}
+
+/* For Tablet Screens */
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbarbrand {
+    font-size: 1.5rem;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 300px;
+    margin-right: 10px;
+  }
+
+  .navbar-nav {
     justify-content: center;
   }
 
-  .navbar-nav .nav-item {
-    margin: 10px;
-  }
-  h1 {
-    font-size: 1.5rem;
-    display: inline-block;
+  .icon-size {
+    font-size: 1.3rem;
   }
 
-  .nav-link {
-    font-size: 1rem;
+  .icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: auto;
+  }
+
+  .product-category {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: auto;
+  }
+}
+
+/* For Desktop Screens */
+@media screen and (min-width: 769px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbarbrand {
+    font-size: 1.7rem;
+  }
+
+  /* Wider search bar for desktop */
+  .search-input {
+    width: 100%;
+    max-width: 500px;
+    margin-right: 10px;
+  }
+
+  .icon-size {
+    font-size: 1.5rem;
+  }
+
+  .navbar-nav {
+    justify-content: center;
+  }
+
+  .login p {
+    font-size: 0.7rem;
+  }
+
+  .product-category {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }

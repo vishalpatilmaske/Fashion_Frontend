@@ -17,7 +17,7 @@ function WomensProductPoster() {
     <div className="container-fluid">
       <ul className="row product-list mb-3">
         {products &&
-          products.slice(0, 6).map((item, index) => (
+          products.slice(0, 4).map((item, index) => (
             <li
               key={item._id || index}
               className="col-6 col-sm-4 col-md-3 col-lg-2"

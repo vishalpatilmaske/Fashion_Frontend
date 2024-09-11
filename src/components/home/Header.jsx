@@ -19,98 +19,93 @@ function Header() {
     dispatch(loadLocalStorage());
     dispatch(loadCartDetials());
   }, [dispatch]);
+
   const cartId = useSelector((state) => state.cart.cartId);
   useEffect(() => {
-    dispatch(getCartItems({ cartId }));
-  }, [cartId]);
+    if (cartId) {
+      dispatch(getCartItems({ cartId }));
+    }
+  }, [cartId, dispatch]);
 
   const { userCredential, success } = useSelector((state) => state.auth.signin);
 
   return (
-    // navbar-light bg-body-tertiary
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container py-2 header">
-        <div className="d-flex justify-content-between w-100 d-inline">
-          <NavLink to="/">
-            <h4 className="d-inline">
+        <div className="container">
+          <NavLink to="/" className="navbar-brand d-flex align-items-center">
+            <h4 className="m-0">
               <strong className="text-white">Fashion</strong>
               <strong className="navbarbrand">Flick</strong>
             </h4>
-          </NavLink>{" "}
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0 d-none d-sm-block ">
-            <li className="nav-item px-4">
+          </NavLink>
+          <ul className="navbar-nav product-category ms-2 mb-2 mb-lg-0">
+            <li className="nav-item">
               <NavLink
                 className="nav-link text-white"
-                aria-current="page"
-                to="/women-product-listing
-              "
+                to="/women-product-listing"
               >
                 Women
               </NavLink>
             </li>
-            <li className="nav-item ">
+            <li className="nav-item">
               <NavLink
-                className="nav-link text-white"
+                className="nav-link text-white ms-3"
                 to="/men-product-listing"
               >
                 Men
               </NavLink>
             </li>
           </ul>
-          <form
-            className="d-flex input-group input-group-sm search d-none d-sm-block"
-            role="search"
-          >
-            <input
-              className="form-control rounded-5 rounded-end-0"
-              type="search"
-              placeholder="Search for items and brands"
-              aria-label="Search"
-            />
-            <button className="btn rounded-5 rounded-start-0" type="submit">
-              <FaSearch />
-            </button>
-          </form>
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink
-                className="nav-link pe-sm-3"
-                aria-current="page"
-                to="/cart"
-              >
-                <PiHandbagSimpleBold className="icon-size" color="white" />
 
+          <div className="input-group search-input mx-auto">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Explore products"
+              aria-label="Search"
+              aria-describedby="search-icon"
+            />
+            <span
+              className="input-group-text"
+              id="search-icon"
+              style={{ cursor: "pointer" }}
+            >
+              <FaSearch />
+            </span>
+          </div>
+
+          <ul className="navbar-nav icons">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/cart">
+                <PiHandbagSimpleBold className="icon-size" />
                 {cartItems?.length > 0 && (
                   <sup>
-                    {cartItems.reduce((accumulator, current) => {
-                      return accumulator + current.quantity;
-                    }, 0)}
+                    {cartItems.reduce(
+                      (accumulator, current) => accumulator + current.quantity,
+                      0
+                    )}
                   </sup>
                 )}
               </NavLink>
             </li>
-            <li className="nav-item px-3">
-              <NavLink
-                className="nav-link pe-sm-3"
-                aria-current="page"
-                color="white"
-                to="/watchlist"
-              >
-                <VscHeart className="icon-size" color="white" />
+            <li className="nav-item mx-3">
+              <NavLink className="nav-link" to="/watchlist">
+                <VscHeart className="icon-size" />
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link " to="/profile">
-                <AiOutlineUser className="icon-size" color="white" />
+              <NavLink className="nav-link" to="/profile">
+                <AiOutlineUser className="icon-size" />
               </NavLink>
             </li>
-            <li className="nav-item login text-white d-none d-sm-block">
+            {/* <li className="nav-item login">
               <p
                 onClick={() => {
                   if (!success) navigate("/signin");
                 }}
               >
-                Hello,
+                Hello,{" "}
                 <strong>
                   {success ? userCredential.email.slice(0, 6) : "signin"}
                 </strong>
@@ -127,18 +122,18 @@ function Header() {
                   <ul className="dropdown-menu">
                     <li className="mx-auto">
                       <p
-                        className="dropdown-item px-3 py-2"
+                        className="dropdown-item"
                         onClick={() => {
                           dispatch(logout());
                         }}
                       >
-                        logout
+                        Logout
                       </p>
                     </li>
                   </ul>
                 </div>
               )}
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

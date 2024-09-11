@@ -13,8 +13,8 @@
 }
 
 .womens-card {
-  width: 12rem;
-  height: 14rem;
+  width: 12vw;
+  height: 14vh;
   background-color: #fff;
   border-radius: 8px;
   overflow: hidden;
@@ -33,14 +33,13 @@
   object-fit: contain;
   border-radius: 8px;
 }
-
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 767px) {
   .product-list li {
     margin-bottom: 10px;
   }
 
-  .womens-card {
-    width: 10rem;
-    height: 12rem;
+  .womens-card img {
+    width: 100%;
+    height: 100%;
   }
 }

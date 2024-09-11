@@ -31,7 +31,7 @@ const CheckoutOrderSummary = ({ products, subtotal }) => {
             <tr>
               <td className="p-2">Items :</td>
               <td className="p-2">
-                {products.reduce((accumulator, currentValue) => {
+                {products?.reduce((accumulator, currentValue) => {
                   return currentValue.quantity + accumulator;
                 }, 0)}
               </td>

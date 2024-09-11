@@ -30,7 +30,7 @@ const ProfileComponent = () => {
       />
       <div className="card-body">
         <p className="card-text text-center">
-          {userData.address ? userData.address[0].fullname : "user name"}
+          {userData.address ? userData.address[0]?.fullname : "user name"}
         </p>
       </div>
     </div>

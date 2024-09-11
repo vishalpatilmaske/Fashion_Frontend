@@ -64,15 +64,7 @@ const MyRoutes = () => {
             </PrivateRoutes>
           }
         />
-        {/* <Route
-          path="/checkout"
-          element={
-            <PrivateRoutes>
-              <Checkout />
-              //{" "}
-            </PrivateRoutes>
-          }
-        /> */}
+
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
       {shouldShowHeaderFooter && <Footer />}

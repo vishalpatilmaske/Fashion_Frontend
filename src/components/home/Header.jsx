@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { isValidElement, useEffect } from "react";
 import "../../style/globle.css";
 import "../../style/components/home/header.css";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -27,8 +27,25 @@ function Header() {
     }
   }, [cartId, dispatch]);
 
-  const { userCredential, success } = useSelector((state) => state.auth.signin);
+  const { isAuthenticate, success } = useSelector((state) => state.auth.signin);
 
+  // handel click on profile
+  const handelClickOnProfile = () => {
+    if (isAuthenticate) {
+      navigate("/profile");
+    } else {
+      navigate("/signin");
+    }
+  };
+
+  // handel click on the cart
+  const handelClickOnCart = () => {
+    if (isAuthenticate) {
+      navigate("/cart");
+    } else {
+      navigate("/signin");
+    }
+  };
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container py-2 header">
@@ -77,7 +94,7 @@ function Header() {
 
           <ul className="navbar-nav icons">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/cart">
+              <span className="nav-link" onClick={handelClickOnCart}>
                 <PiHandbagSimpleBold className="icon-size" />
                 {cartItems?.length > 0 && (
                   <sup>
@@ -87,7 +104,7 @@ function Header() {
                     )}
                   </sup>
                 )}
-              </NavLink>
+              </span>
             </li>
             <li className="nav-item mx-3">
               <NavLink className="nav-link" to="/watchlist">
@@ -95,45 +112,10 @@ function Header() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/profile">
+              <span className="nav-link" onClick={handelClickOnProfile}>
                 <AiOutlineUser className="icon-size" />
-              </NavLink>
+              </span>
             </li>
-            {/* <li className="nav-item login">
-              <p
-                onClick={() => {
-                  if (!success) navigate("/signin");
-                }}
-              >
-                Hello,{" "}
-                <strong>
-                  {success ? userCredential.email.slice(0, 6) : "signin"}
-                </strong>
-              </p>
-              {success && (
-                <div className="dropdown-center">
-                  <p
-                    className="dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Account
-                  </p>
-                  <ul className="dropdown-menu">
-                    <li className="mx-auto">
-                      <p
-                        className="dropdown-item"
-                        onClick={() => {
-                          dispatch(logout());
-                        }}
-                      >
-                        Logout
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </li> */}
           </ul>
         </div>
       </div>

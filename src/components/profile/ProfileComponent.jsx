@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import image from "../../../public/assets/images/poster/poster1.jpg";
+import profileImage from "../../../public/assets/images/profile/profile_png_image.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData } from "../../store/slice/authSlice";
+import { getUserData, logout } from "../../store/slice/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const ProfileComponent = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userId = useSelector((state) => state.auth.signin.userCredential._id);
   // get the user data form the backend
-  console.log(userId);
   useEffect(() => {
     dispatch(getUserData({ userId }));
   }, [userId]);
@@ -17,7 +18,7 @@ const ProfileComponent = () => {
   return (
     <div className="card mb-5 p-3 me-3" style={{ width: "18rem" }}>
       <img
-        src={image}
+        src={profileImage}
         className="card-img-top"
         style={{
           borderRadius: "50%",
@@ -32,6 +33,18 @@ const ProfileComponent = () => {
         <p className="card-text text-center">
           {userData.address ? userData.address[0]?.fullname : "user name"}
         </p>
+        <div className="d-flex">
+          <button
+            className="btn btn-sm btn-success mx-auto "
+            onClick={() => {
+              if (dispatch(logout())) {
+                navigate("/signin");
+              }
+            }}
+          >
+            logout
+          </button>
+        </div>
       </div>
     </div>
   );

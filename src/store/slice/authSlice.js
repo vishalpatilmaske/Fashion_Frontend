@@ -1,7 +1,5 @@
-import { createAsyncThunk, createSlice, Tuple } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useCallback } from "react";
-import { AiFillFileText } from "react-icons/ai";
 
 // Async thunk for signing up a user
 export const userSignup = createAsyncThunk(

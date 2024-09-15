@@ -8,11 +8,17 @@
   cursor: pointer;
 }
 
-.product-image {
+.cart-card {
+  width: 50vw;
   height: 40vh;
-  width: 14vw;
+  border: none;
 }
-
+.product-image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
 .cart-item-details table {
   width: 100%;
 }

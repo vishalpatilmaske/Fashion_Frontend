@@ -95,7 +95,7 @@ const CheckoutAddress = () => {
         <strong id="address" style={{ color: textColor }}>
           1 Delivery Address
         </strong>
-        {isAddressVisible && selectedAddress ? (
+        {/* {isAddressVisible && selectedAddress ? (
           <div className="delivery-address">
             <p>{selectedAddress.fullname}</p>
             <p>
@@ -107,20 +107,33 @@ const CheckoutAddress = () => {
             </p>
           </div>
         ) : (
-          false
-        )}
-
-        <div>
+          <p style={{ color: "rgb(6, 141, 37)" }}>
+            {" "}
+            No address on file. Add a new address to continue.
+          </p>
+        )} 
+         <div>
           <span
             style={{ color: "#007185", cursor: "pointer" }}
             onClick={handleClickChange}
           >
-            {isAddressVisible ? "change" : "cancel"}
+            {isAddressVisible && selectedAddress ? "change" : "add"}
           </span>
-        </div>
+        </div>*/}
       </div>
+      <CheckoutAddNewAddress
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleToAddAddress={handleToAddAddress}
+        isNewAddressVisible={isNewAddressVisible}
+        setIsNewAddressVisible={setIsNewAddressVisible}
+        setIsAddressVisible={setIsAddressVisible}
+        isAddressVisible={isAddressVisible}
+        address={address}
+      />
+
       {/* component for add new delivery address */}
-      {isNewAddressVisible && (
+      {/* {isNewAddressVisible && (
         <CheckoutAddNewAddress
           formData={formData}
           handleInputChange={handleInputChange}
@@ -131,7 +144,7 @@ const CheckoutAddress = () => {
           isAddressVisible={isAddressVisible}
           address={address}
         />
-      )}
+      )} */}
       <hr />
     </>
   );

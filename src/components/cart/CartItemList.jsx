@@ -12,7 +12,6 @@ import {
   deselectSelectedCartItems,
 } from "../../store/slice/cartSlice";
 import { getCartProducts } from "../../store/slice/productSlice";
-import { SlEarphones, SlExclamation } from "react-icons/sl";
 
 const CartItemList = () => {
   const dispatch = useDispatch();
@@ -29,7 +28,6 @@ const CartItemList = () => {
 
   // Load cart details from the local storage only once on component mount
   useEffect(() => {
-    // dispatch(getCartItem({ cartId }));
     dispatch(loadCartDetials());
   }, [dispatch]);
 
@@ -38,7 +36,7 @@ const CartItemList = () => {
     if (cartId) {
       dispatch(getCartItems({ cartId }));
     }
-  }, [dispatch, cartId]);
+  }, [dispatch, cartId, cart]);
 
   // Fetch product details for items in the cart, memoize the product IDs
   useEffect(() => {
@@ -164,11 +162,19 @@ const CartItemList = () => {
                         }
                       }}
                     />
-                    <img
+                    {/* <img
                       src={productDetails.image}
+                      // style={{ width: "100%", height: "100%" }}
                       alt="product"
-                      className="product-image"
-                    />
+                      className="product-image img-fluid"
+                    /> */}
+                    <div className="card cart-card">
+                      <img
+                        src={productDetails.image}
+                        className="card-img-top product-image img-fluid"
+                        alt="image"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="col-8">

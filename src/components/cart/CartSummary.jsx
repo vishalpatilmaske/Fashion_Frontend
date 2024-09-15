@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "../../style/components/cart/cartsummary.css";
 import { getSelectedCartItems } from "../../store/slice/cartSlice";
+import { toast } from "react-toastify";
 
 const CartSummary = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const cartProducts = useSelector((state) => state.product.cartProducts);
+
   const navigate = useNavigate();
 
   // get user selected items to buy
@@ -67,11 +69,15 @@ const CartSummary = () => {
           <button
             type="button"
             className="mt-2 btn btn-warning add-to-cart-button px-4 rounded-pill me-3 btn-sm"
-            onClick={() =>
-              navigate("/checkout", {
-                state: { products, subtotal },
-              })
-            }
+            onClick={() => {
+              if (cart.selectedItems.length == 0) {
+                toast.warn("Please select product !");
+              } else {
+                navigate("/checkout", {
+                  state: { products, subtotal },
+                });
+              }
+            }}
           >
             Proceed to Buy
           </button>

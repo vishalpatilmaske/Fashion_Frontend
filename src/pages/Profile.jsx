@@ -4,7 +4,9 @@ import { MdOutlineEdit } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { loadLocalStorage } from "../store/slice/authSlice.js";
 import ProfileComponent from "../components/profile/ProfileComponent.jsx";
-import ProfileDetials from "../components/profile/ProfileDetials.jsx";
+import ProfileDetails from "../components/profile/ProfileDetails.jsx";
+import LoginSecurity from "../components/profile/LoginSecurity.jsx";
+import OrderDetails from "../components/profile/OrderDetails.jsx";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -30,7 +32,9 @@ function Profile() {
               <ProfileComponent />
             </div>
             <div className="col-md-8">
-              <ProfileDetials />
+              <ProfileDetails />
+              <LoginSecurity />
+              <OrderDetails />
             </div>
           </div>
         </div>

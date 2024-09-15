@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 const CheckoutOrderSummary = ({ products, subtotal }) => {
   // get paymetn method from order slice
   const paymentMethod = useSelector((state) => state.checkout.paymentMethod);
+
+  // Get user's address
+  const address = useSelector((state) => state.auth.user.userData.address);
+
   // handel the make order
   const handelOrder = () => {
     // dispatch(createOrder({ userId }));
@@ -19,8 +23,8 @@ const CheckoutOrderSummary = ({ products, subtotal }) => {
             className="btn btn-warning btn-sm px-4 rounded-pill"
             onClick={paymentMethod ? handelOrder : undefined}
           >
-            {paymentMethod
-              ? "Place Your Order and Pay"
+            {address?.length == 0
+              ? "Select delivery address"
               : "Select payment method"}
           </button>
           <hr />

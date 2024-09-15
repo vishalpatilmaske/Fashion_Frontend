@@ -21,6 +21,7 @@ export const initiatePayment = createAsyncThunk(
         { amount }
       );
 
+      console.log(orderResponse);
       if (!orderResponse.data.success) {
         console.error("Error creating Razorpay order");
         return;
@@ -148,21 +149,21 @@ const checkoutSlice = createSlice({
     orderDetails: null,
   },
   reducers: {},
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(createOrder.pending, (state) => {
-  //       state.orderStatus = "loading";
-  //       state.error = null;
-  //     })
-  //     .addCase(createOrder.fulfilled, (state, action) => {
-  //       state.orderStatus = "succeeded";
-  //       state.orderDetails = action.payload;
-  //     })
-  //     .addCase(createOrder.rejected, (state, action) => {
-  //       state.orderStatus = "failed";
-  //       state.error = action.payload;
-  //     });
-  // },
+  extraReducers: (builder) => {
+    builder;
+    // .addCase(createOrder.pending, (state) => {
+    //   state.orderStatus = "loading";
+    //   state.error = null;
+    // })
+    // .addCase(createOrder.fulfilled, (state, action) => {
+    //   state.orderStatus = "succeeded";
+    //   state.orderDetails = action.payload;
+    // })
+    // .addCase(createOrder.rejected, (state, action) => {
+    //   state.orderStatus = "failed";
+    //   state.error = action.payload;
+    // });
+  },
 });
 
 export default checkoutSlice.reducer;

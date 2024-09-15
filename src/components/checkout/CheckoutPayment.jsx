@@ -98,24 +98,24 @@ const CheckoutPayment = ({ products, subtotal }) => {
               type="button"
               className="btn btn-warning btn-sm px-3 rounded-pill"
               onClick={() => {
-                dispatch(
-                  initiatePayment({
-                    userId: userId,
-                    cartItems: productsList,
-                    amount: subtotal,
-                    orderStatus: "shipped",
-                    payment: {
-                      method: payment,
-                      status: null,
-                      transactionId: null,
-                    },
-                    isPaid: null,
-                    shippingAddress: selectedAddress._id,
-                  })
-                );
-
-                if (selectedAddress === null) {
-                  toast.warn("Please select the delivery address");
+                if (selectedAddress !== null) {
+                  dispatch(
+                    initiatePayment({
+                      userId: userId,
+                      cartItems: productsList,
+                      amount: subtotal,
+                      orderStatus: "shipped",
+                      payment: {
+                        method: payment,
+                        status: null,
+                        transactionId: null,
+                      },
+                      isPaid: null,
+                      shippingAddress: selectedAddress._id,
+                    })
+                  );
+                } else {
+                  toast.warn(" select the delivery address");
                 }
               }}
             >

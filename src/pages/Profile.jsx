@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import "../style/page/profile.css";
-import { MdOutlineEdit } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { loadLocalStorage } from "../store/slice/authSlice.js";
 import ProfileComponent from "../components/profile/ProfileComponent.jsx";
-import ProfileDetails from "../components/profile/ProfileDetails.jsx";
+import AddressDetails from "../components/profile/AddressDetails.jsx";
 import LoginSecurity from "../components/profile/LoginSecurity.jsx";
 import OrderDetails from "../components/profile/OrderDetails.jsx";
 
@@ -21,19 +20,24 @@ function Profile() {
 
   return (
     <>
-      <div className="d-flex justify-content-center">
-        {" "}
-        <div>
-          <div className="container d-flex justify-content-start">
-            <h4 className="my-3">Your Account</h4>
+      <div className="mb-5 ">
+        {/* <div>
+          <h4 className="my-3 ps-2 ps-sm-5 your-account">Your Account</h4>
+        </div> */}
+        <h2 className="ps-4 pt-3">Your Account</h2>
+        <div className="container-lg row mx-auto profile-page-main-container">
+          <div className="col-sm-3 col-md-4">
+            <ProfileComponent />
           </div>
-          <div className="container d-flex justify-content-between">
-            <div className="col-md-4">
-              <ProfileComponent />
+          <div className="con-sm-9 col-md-8 d-flex justify-content-between flex-wrap p-3 ">
+            <div className="col-sm-6 col-md-6">
+              <AddressDetails />
             </div>
-            <div className="col-md-8">
-              <ProfileDetails />
-              <LoginSecurity />
+            <div className="col-sm-6 col-md-6 mt-3 mb-3 mt-sm-0">
+              <LoginSecurity />{" "}
+            </div>
+            <div className="col-sm-6 col-md-6 mt-3-sm">
+              {" "}
               <OrderDetails />
             </div>
           </div>

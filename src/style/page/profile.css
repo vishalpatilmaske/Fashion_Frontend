@@ -1,7 +1,26 @@
+.your-account {
+  margin-left: 10%;
+}
 .profile-image {
   width: 10vw;
   height: 20vh;
 }
 .profile {
   height: 70vh;
+}
+/* for mobile screen */
+@media screen and (max-width: 540px) {
+  .your-account {
+    margin-left: 2%;
+  }
+}
+
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .your-account {
+    background-color: red;
+  }
+  .profile-page-main-container {
+    margin-bottom: 16rem;
+  }
 }

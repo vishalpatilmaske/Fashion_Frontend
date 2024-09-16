@@ -1,0 +1,29 @@
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .order-logo {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .order-logo {
+    width: 10rem;
+    height: 3rem;
+  }
+  .order-details {
+    width: 14rem;
+    font-size: 1rem;
+  }
+  .order-details h5 {
+    font-size: 1.1rem;
+  }
+  .order-details p {
+    font-size: 0.9rem;
+  }
+  .card-body {
+    padding: 5px 0;
+    margin: 0;
+  }
+}

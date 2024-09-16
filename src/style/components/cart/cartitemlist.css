@@ -45,9 +45,14 @@
 
 /* for mobile screen */
 @media screen and (max-width: 570px) {
+  .cart-card {
+    width: 80vw !important;
+    height: 30vh !important;
+    border: none;
+  }
   .product-image {
-    height: 20vh;
-    width: 20vw;
+    height: 50vh;
+    width: 50vw;
   }
   .cart-item-details p,
   b {
@@ -61,5 +66,18 @@
   }
   .button-container button {
     padding: 2px 3px;
+  }
+}
+
+/* for tablet screen */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .cart-card {
+    width: 80vw !important;
+    height: 30vh !important;
+    border: none;
+  }
+  .product-image {
+    height: 50vh;
+    width: 50vw;
   }
 }

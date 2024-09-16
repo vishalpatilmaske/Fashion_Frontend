@@ -1,0 +1,29 @@
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .login-logo {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .login-logo {
+    width: 10rem;
+    height: 3rem;
+  }
+  .login-details {
+    width: 14rem;
+    font-size: 1rem;
+  }
+  .login-details h5 {
+    font-size: 1.1rem;
+  }
+  .login-details p {
+    font-size: 0.9rem;
+  }
+  .card-body {
+    padding: 0;
+    margin: 0;
+  }
+}

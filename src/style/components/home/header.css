@@ -13,7 +13,7 @@ h4 strong {
   color: white;
 }
 
-.navbar-nav sup {
+.navbar-nav span {
   color: #f08804;
   font-weight: 900;
   font-size: 1rem;
@@ -22,20 +22,13 @@ h4 strong {
 .header ul li {
   font-weight: bold;
 }
-
-.login p {
-  padding: 0;
-  margin: 0;
-  font-size: 0.6rem;
+.serach-bar {
+  max-height: 10px;
+  margin-top: 10px;
 }
-
-.dropdown-menu {
-  min-width: 80px;
-  padding: 0;
-}
-
-.dropdown-item {
-  font-size: 0.9rem;
+.number-of-cart-itmes {
+  position: absolute;
+  top: 15px;
 }
 
 /* For Mobile Screens */
@@ -45,60 +38,54 @@ h4 strong {
     justify-content: space-between;
     align-items: center;
   }
-
-  .navbarbrand {
-    font-size: 1.3rem;
+  .navbar-brand h4 {
+    font-size: 1.2rem;
   }
 
-  .search-input {
+  .navbarbrand {
+    font-size: 1.1rem;
+  }
+
+  .product-category {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+  }
+  .product-category li {
+    font-size: 14px;
+  }
+  .serach-bar-main-container {
     display: none;
   }
 
   .icon-size {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .navbar-toggler {
     display: none;
   }
 
-  .login p {
-    font-size: 0.5rem;
-  }
-
   .nav-item.login {
     font-size: 0.8rem;
-  }
-
-  .product-category {
-    display: none;
   }
 
   .icons {
     display: flex;
     flex-direction: row;
-    margin-left: 80px;
-    width: 100%;
   }
 }
 
 /* For Tablet Screens */
-@media screen and (min-width: 576px) and (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .navbar {
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-
-  .navbarbrand {
+  .navbar-brand h4 {
     font-size: 1.5rem;
-  }
-
-  .search-input {
-    width: 100%;
-    max-width: 300px;
-    margin-right: 10px;
   }
 
   .navbar-nav {
@@ -106,7 +93,7 @@ h4 strong {
   }
 
   .icon-size {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
   .icons {
@@ -121,6 +108,11 @@ h4 strong {
     flex-direction: row;
     justify-content: space-around;
     width: auto;
+    font-size: 1rem;
+  }
+  .serach-bar-main-container {
+    width: 50rem;
+    margin: 0 10px;
   }
 }
 
@@ -135,13 +127,6 @@ h4 strong {
 
   .navbarbrand {
     font-size: 1.7rem;
-  }
-
-  /* Wider search bar for desktop */
-  .search-input {
-    width: 100%;
-    max-width: 500px;
-    margin-right: 10px;
   }
 
   .icon-size {

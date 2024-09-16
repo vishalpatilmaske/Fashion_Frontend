@@ -10,15 +10,15 @@
   width: 30vh;
 }
 /* for tablet screen */
-@media screen and(min-width:768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .girlshop-poster img {
-    height: 40vh;
+    height: 30vh;
   }
   .poster-heading {
     font-size: 1.5rem;
   }
-  .girlshop-poster div:nth-child(1) {
-    width: 75%;
+  .girlshop-poster div:nth-child(2) {
+    margin-left: 1rem;
   }
 }
 

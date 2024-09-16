@@ -140,7 +140,7 @@ const CartItemList = () => {
 
           return (
             productDetails && (
-              <div key={productDetails._id} className="row">
+              <div key={productDetails._id} className="row ">
                 <div className="col-4 col-sm-3">
                   <div className="d-flex align-items-center justify-content-between cart-item">
                     <input
@@ -162,12 +162,6 @@ const CartItemList = () => {
                         }
                       }}
                     />
-                    {/* <img
-                      src={productDetails.image}
-                      // style={{ width: "100%", height: "100%" }}
-                      alt="product"
-                      className="product-image img-fluid"
-                    /> */}
                     <div className="card cart-card">
                       <img
                         src={productDetails.image}
@@ -191,7 +185,7 @@ const CartItemList = () => {
                             </p>
                           </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td>
                             <b>Size :</b>
                           </td>
@@ -202,7 +196,7 @@ const CartItemList = () => {
                             <b>Color :</b>
                           </td>
                           <td>{getCartItem(productDetails._id)?.color}</td>
-                        </tr>
+                        </tr> */}
                         <tr className="d-flex justify-content-start">
                           <td>
                             <b>Quantity :</b>

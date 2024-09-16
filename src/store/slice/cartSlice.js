@@ -185,7 +185,7 @@ const cartSlice = createSlice({
       })
       .addCase(createCart.rejected, (state, action) => {
         // if user has already cart then store old cart data
-        const cartId = action.payload.data._id;
+        const cartId = action.payload.data?._id;
         localStorage.setItem("cartId", cartId);
         state.cartId = cartId;
         state.error = action.payload;

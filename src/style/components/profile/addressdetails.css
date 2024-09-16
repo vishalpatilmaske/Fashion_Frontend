@@ -1,0 +1,29 @@
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .address-logo {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .address-logo {
+    width: 10rem;
+    height: 3rem;
+  }
+  .address-details {
+    width: 14rem;
+    font-size: 1rem;
+  }
+  .address-details h5 {
+    font-size: 1.1rem;
+  }
+  .address-details p {
+    font-size: 0.9rem;
+  }
+  .card-body {
+    padding: 5px 0;
+    margin: 0;
+  }
+}

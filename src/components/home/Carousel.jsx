@@ -13,7 +13,11 @@ function Carousel() {
       >
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src={image1} className="d-block w-100 img-fluid" alt="image" />
+            <img
+              src={image1}
+              className="d-block w-100  img-fluid"
+              alt="image"
+            />
           </div>
           <div className="carousel-item">
             <img src={image2} className="d-block w-100 img-fluid" alt="image" />

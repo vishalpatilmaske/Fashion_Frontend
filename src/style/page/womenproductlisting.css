@@ -11,10 +11,13 @@
   display: flex;
   justify-content: center;
 }
+.product-description {
+  font-size: 1rem;
+}
 
 .womens-product-listing-card {
-  width: 12rem;
-  height: 14rem;
+  width: 50vw;
+  height: 70vh;
   background-color: #fff;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -27,19 +30,51 @@
 }
 
 .womens-product-image {
-  width: 100%;
-  height: 100%;
+  max-width: 40rem;
+  max-height: 12rem;
   object-fit: contain;
   border-radius: 8px;
 }
 
-@media screen and (max-width: 480px) {
+/* for mobile screen */
+@media screen and (max-width: 540px) {
   .product-list li {
     margin-bottom: 10px;
   }
+  .product-description {
+    font-size: 0.8rem;
+  }
+  .product-price {
+    font-size: 1rem;
+  }
+  .womens-product-listing-card {
+    width: 50vw !important;
+    height: 50vh !important;
+  }
+  .womens-product-image {
+    padding-top: 5px;
+    max-height: 10rem;
+  }
+}
 
-  .womens-card {
-    width: 10rem;
-    height: 12rem;
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 1024px) {
+  .product-list li {
+    margin-bottom: 10px;
+  }
+  .product-description {
+    font-size: 0.8rem;
+  }
+  .product-price {
+    font-size: 1rem;
+  }
+  .womens-product-listing-card {
+    width: 60vw !important;
+    height: 50vh !important;
+  }
+  .womens-product-image {
+    padding-top: 5px;
+    max-height: 10rem;
+    max-width: 30rem;
   }
 }

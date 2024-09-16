@@ -53,11 +53,25 @@ function ProductDetails() {
   return (
     <div className="dashboard-container">
       <div className="container-fluid container-md mt-3">
-        <div className="row">
-          <div className="col-sm-6 d-flex flex-column align-items-center">
+        <div className="row mb-5">
+          <div className="col-sm-6 d-flex flex-column align-items-center pt-4">
             <div className="product-images mb-3"></div>
-            <div className="border main-image">
-              <img src={productDetails.image} alt="Product" />
+            {/* <div className="border main-image">
+              <img
+                src={productDetails.image}
+                alt="product-image"
+                className="img-fluid"
+              />
+            </div> */}
+            <div className="card main-image">
+              <img
+                src={productDetails.image}
+                className="card-img-top img-fluid"
+                alt="poster image"
+                onClick={() => {
+                  navigate("/product-details", { state: item });
+                }}
+              />
             </div>
           </div>
           <div className="col-sm-6 p-5">
@@ -67,6 +81,10 @@ function ProductDetails() {
               <p className="price">
                 <sup>₹</sup>
                 {productDetails.price}
+                <sub style={{ fontSize: "0.7rem" }} className="text-secondary">
+                  {" "}
+                  M.R.P
+                </sub>
               </p>
             </div>
             <hr />
@@ -104,14 +122,14 @@ function ProductDetails() {
             <div className="row">
               <button
                 type="button"
-                className="col-6 btn btn-warning add-to-cart-button px-5 rounded-pill me-3"
+                className="col-6 btn btn-warning add-to-cart-button px-2 md-px-5 rounded-pill me-3"
                 onClick={handleAddToCart}
               >
                 Add to Cart
               </button>
               <button
                 type="button"
-                className="col-6 btn btn-warning buy-now-button px-5 rounded-pill"
+                className="col-6 btn btn-warning buy-now-button px-2 md-px-5 rounded-pill"
                 onClick={() => {
                   handleAddToCart();
                   navigate("/checkout", {

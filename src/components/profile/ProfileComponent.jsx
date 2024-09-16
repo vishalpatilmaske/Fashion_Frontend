@@ -3,6 +3,7 @@ import profileImage from "../../../public/assets/images/profile/profile_png_imag
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData, logout } from "../../store/slice/authSlice";
 import { useNavigate } from "react-router-dom";
+import "../../style/components/profile/profilecomponent.css";
 
 const ProfileComponent = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const ProfileComponent = () => {
   const userData = useSelector((state) => state.auth.user.userData);
 
   return (
-    <div className="card mb-5 p-3 me-3" style={{ width: "18rem" }}>
+    <div className="card mx-auto pb-5 profile-component">
       <img
         src={profileImage}
         className="card-img-top"

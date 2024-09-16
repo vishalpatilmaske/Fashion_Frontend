@@ -15,11 +15,14 @@ ul {
   height: 70vh;
   margin-bottom: 10rem;
 }
-
-.main-image img {
-  padding: 10px;
+.main-image {
+  width: 28vw;
   height: 80vh;
-  width: 30vw;
+}
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* Product images */
@@ -87,12 +90,17 @@ h3 {
   background-color: orange;
 }
 
-@media screen and (max-width: 480px) {
+/* for mobile screen */
+@media screen and (max-width: 540px) {
   .dashboard .main-image img {
     max-width: 100%;
     height: auto;
   }
 
+  .main-image {
+    width: 90vw;
+    height: 60vh;
+  }
   .main-image img {
     padding: 5px;
     height: 50vh;
@@ -135,5 +143,20 @@ h3 {
   .buy-now-button {
     margin-bottom: 0;
     background-color: orange;
+  }
+}
+
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  h3 {
+    font-size: 1.3rem;
+  }
+  .price {
+    font-size: 1.5rem;
+    padding-left: 0;
+  }
+  .main-image {
+    width: 40vw;
+    height: 80vh;
   }
 }

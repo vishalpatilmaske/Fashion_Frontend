@@ -1,20 +1,18 @@
 import securityPngImage from "../../../public/assets/images/profile/security_png_image.png";
+import "../../style/components/profile/loginsecurity.css";
 
 const LoginSecurity = () => {
   return (
-    <div
-      className="card mb-3 me-5"
-      style={{ maxWidth: "540px", cursor: "pointer" }}
-    >
-      <div className="row g-0">
-        <div className="col-md-4">
+    <div className="card ms-sm-3 login-details">
+      <div className="d-flex py-2 px-1">
+        <div className="col-sm-3 d-flex align-items-center justify-content-center p-sm-2">
           <img
             src={securityPngImage}
-            className="img-fluid rounded-start"
+            className="img-fluid rounded-start login-logo"
             alt="..."
           />
         </div>
-        <div className="col-md-8">
+        <div className="col-sm-9">
           <div className="card-body">
             <h5 className="card-title">Login and Security</h5>
             <p className="card-text">Edit login, name, and mobile number</p>

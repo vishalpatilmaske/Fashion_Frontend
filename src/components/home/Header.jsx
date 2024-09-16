@@ -48,15 +48,16 @@ function Header() {
   };
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
-      <div className="container py-2 header">
-        <div className="container">
-          <NavLink to="/" className="navbar-brand d-flex align-items-center">
-            <h4 className="m-0">
+      <div className="container-fluid py-1 header ">
+        <div className="container d-flex justify-content-around">
+          <NavLink to="/" className="navbar-brand  d-flex align-items-center">
+            <h4>
               <strong className="text-white">Fashion</strong>
               <strong className="navbarbrand">Flick</strong>
             </h4>
           </NavLink>
-          <ul className="navbar-nav product-category ms-2 mb-2 mb-lg-0">
+          {/* category  */}
+          <ul className="navbar-nav product-category ms-2 mb-2 mb-lg-0 d-flex align-items-center">
             <li className="nav-item">
               <NavLink
                 className="nav-link text-white"
@@ -74,35 +75,35 @@ function Header() {
               </NavLink>
             </li>
           </ul>
-
-          <div className="input-group search-input mx-auto">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Explore products"
-              aria-label="Search"
-              aria-describedby="search-icon"
-            />
-            <span
-              className="input-group-text"
-              id="search-icon"
-              style={{ cursor: "pointer" }}
-            >
-              <FaSearch />
-            </span>
+          {/* search   */}
+          <div className="w-50 serach-bar-main-container">
+            <div class="input-group input-group-sm serach-bar d-flex align-items-center ">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Explor products"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm"
+              />
+              <span class="input-group-text" id="inputGroup-sizing-sm">
+                <span style={{ cursor: "pointer" }}>
+                  <FaSearch />
+                </span>
+              </span>
+            </div>
           </div>
-
-          <ul className="navbar-nav icons">
+          {/* icons */}
+          <ul className="navbar-nav icons d-flex align-items-center ">
             <li className="nav-item">
               <span className="nav-link" onClick={handelClickOnCart}>
                 <PiHandbagSimpleBold className="icon-size" />
                 {cartItems?.length > 0 && (
-                  <sup>
+                  <span className="number-of-cart-itmes">
                     {cartItems.reduce(
                       (accumulator, current) => accumulator + current.quantity,
                       0
                     )}
-                  </sup>
+                  </span>
                 )}
               </span>
             </li>

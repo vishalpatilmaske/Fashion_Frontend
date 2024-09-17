@@ -49,7 +49,8 @@ function Header() {
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container-fluid py-1 header ">
-        <div className="container d-flex justify-content-around">
+        <div className="container d-flex justify-content-between justify-content-sm-around ">
+          {/* logo */}
           <NavLink to="/" className="navbar-brand  d-flex align-items-center">
             <h4>
               <strong className="text-white">Fashion</strong>
@@ -93,7 +94,7 @@ function Header() {
             </div>
           </div>
           {/* icons */}
-          <ul className="navbar-nav icons d-flex align-items-center ">
+          <ul className="navbar-nav icons d-flex align-items-center">
             <li className="nav-item">
               <span className="nav-link" onClick={handelClickOnCart}>
                 <PiHandbagSimpleBold className="icon-size" />

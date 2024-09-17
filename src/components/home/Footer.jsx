@@ -38,9 +38,9 @@ function Footer() {
             </div>
 
             {/* display only on small screen  */}
-            <h2 className="d-block d-md-none">
+            {/* <h2 className="d-block d-md-none">
               Fashion<strong className="navbarbrand">Flick</strong>
-            </h2>
+            </h2> */}
             <div className="row pt-2">
               <div className="col-2">
                 <a

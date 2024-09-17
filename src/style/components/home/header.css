@@ -46,13 +46,8 @@ h4 strong {
     font-size: 1.1rem;
   }
 
-  .product-category {
-    margin-top: 8px;
-    display: flex;
-    flex-direction: row;
-  }
   .product-category li {
-    font-size: 14px;
+    display: none;
   }
   .serach-bar-main-container {
     display: none;

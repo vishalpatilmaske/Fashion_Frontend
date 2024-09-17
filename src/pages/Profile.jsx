@@ -24,13 +24,13 @@ function Profile() {
         {/* <div>
           <h4 className="my-3 ps-2 ps-sm-5 your-account">Your Account</h4>
         </div> */}
-        <h2 className="ps-4 pt-3">Your Account</h2>
+        <h2 className="ps-4 pt-3 your-account">Your Account</h2>
         <div className="container-lg row mx-auto profile-page-main-container">
           <div className="col-sm-3 col-md-4">
             <ProfileComponent />
           </div>
-          <div className="con-sm-9 col-md-8 d-flex justify-content-between flex-wrap p-3 ">
-            <div className="col-sm-6 col-md-6">
+          <div className="con-sm-9 col-md-8 d-flex justify-content-between flex-wrap ">
+            <div className="col-sm-6 col-md-6 mt-3 mt-sm-0">
               <AddressDetails />
             </div>
             <div className="col-sm-6 col-md-6 mt-3 mb-3 mt-sm-0">

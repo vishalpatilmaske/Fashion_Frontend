@@ -5,23 +5,26 @@ import { toast } from "react-toastify";
 
 const CheckoutPayment = ({ products, subtotal }) => {
   const dispatch = useDispatch();
-  // handel to change the payment method
+
+  // Handle change for the payment method
   const [payment, setPayment] = useState();
-  // handel the color of the text onClick the text
+
+  // Handle the color of the text onClick
   const [textColor, setTextColor] = useState("black");
   const handleClick = () => {
     setTextColor(textColor === "black" ? "brown" : "black");
   };
 
-  // users credention user Id
+  // User's credential: user ID
   const userId = useSelector((state) => state.auth.signin.userCredential?._id);
 
-  // list of products to order
+  // List of products to order
   const productsList = products;
 
-  // get the shipping address fromt he store
+  // Get the shipping address from the store
   const address = useSelector((state) => state.auth.user.userData.address);
 
+  // Find the primary address
   let selectedAddress = null;
   for (const key in address) {
     if (address[key].primaryaddress === true) {
@@ -65,9 +68,7 @@ const CheckoutPayment = ({ products, subtotal }) => {
                 id="cashOnDelivery"
                 value="cash_on_delivery"
                 style={{ cursor: "pointer" }}
-                onClick={(e) => {
-                  setPayment(e.target.value);
-                }}
+                onChange={(e) => setPayment(e.target.value)} // Fix: use onChange
                 checked={payment === "cash_on_delivery"}
               />
               <label className="form-check-label" htmlFor="cashOnDelivery">
@@ -82,9 +83,7 @@ const CheckoutPayment = ({ products, subtotal }) => {
                 id="onlinePayment"
                 value="online_payment"
                 style={{ cursor: "pointer" }}
-                onChange={(e) => {
-                  setPayment(e.target.value);
-                }}
+                onChange={(e) => setPayment(e.target.value)} // Fix: use onChange
                 checked={payment === "online_payment"}
               />
               <label className="form-check-label" htmlFor="onlinePayment">
@@ -115,12 +114,12 @@ const CheckoutPayment = ({ products, subtotal }) => {
                     })
                   );
                 } else {
-                  toast.warn(" select the delivery address");
+                  toast.warn("Please select a delivery address");
                 }
               }}
             >
-              {payment == "online_payment"
-                ? "pay now"
+              {payment === "online_payment"
+                ? "Pay Now"
                 : "Use this payment method"}
             </button>
           </div>

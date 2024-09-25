@@ -47,7 +47,8 @@ const CheckoutAddNewAddress = ({
                   name="address"
                   id={`address${index}`}
                   onClick={() => setAddressId(data._id)}
-                  checked={data.primaryaddress === true}
+                  onChange={() => setAddressId(data._id)} // Add onChange handler
+                  checked={addressId === data._id} // Compare with addressId
                 />
                 <label className="form-check-label" htmlFor={`address${index}`}>
                   {data.fullname} {data.housenumber}, {data.area},{" "}

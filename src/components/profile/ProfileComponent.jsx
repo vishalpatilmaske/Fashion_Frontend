@@ -8,7 +8,7 @@ import "../../style/components/profile/profilecomponent.css";
 const ProfileComponent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state) => state.auth.signin.userCredential._id);
+  const userId = useSelector((state) => state.auth.signin.userCredential?._id);
   // get the user data form the backend
   useEffect(() => {
     dispatch(getUserData({ userId }));
@@ -47,6 +47,14 @@ const ProfileComponent = () => {
           </button>
         </div>
       </div>
+      <button
+        className="btn btn-warning mx-3"
+        onClick={() => {
+          navigate("/admin-dashboard");
+        }}
+      >
+        Dashboard
+      </button>
     </div>
   );
 };

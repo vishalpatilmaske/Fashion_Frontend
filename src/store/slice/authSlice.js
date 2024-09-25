@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../config/axiosConfig";
+import Cookies from "js-cookie";
 
 // Async thunk for signing up a user
 export const userSignup = createAsyncThunk(
   "user/signupUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/user/signup`,
         { email, password },
         { withCredentials: true }
@@ -23,7 +24,7 @@ export const userSignin = createAsyncThunk(
   "user/signinUser",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/user/login`,
         { email, password },
         { withCredentials: true }
@@ -40,7 +41,7 @@ export const addAddress = createAsyncThunk(
   "user/addUserAddress",
   async ({ userId, address }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/user/${userId}/address`,
         address
       );
@@ -56,7 +57,7 @@ export const getUserData = createAsyncThunk(
   "user/getUserData",
   async ({ userId }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/api/user/${userId}/data`
       );
       return response.data;
@@ -71,7 +72,7 @@ export const updateUserAddress = createAsyncThunk(
   "user/updateUserAddress",
   async ({ userId, addressId }) => {
     try {
-      const response = await axios.patch(
+      const response = await axiosInstance.patch(
         `${
           import.meta.env.VITE_API_URL
         }/api/user/${userId}/update-address/${addressId}`,
@@ -110,8 +111,11 @@ const authSlice = createSlice({
       state.signin.userCredential = null;
       state.signin.successMessage = null;
       state.signin.errorMessage = null;
+      state.signin.isAuthenticate = false;
+      Cookies.remove("access_key");
       localStorage.removeItem("userCredential");
       localStorage.removeItem("cartId");
+      localStorage.removeItem("accessToken");
     },
 
     // get the local storage data
@@ -134,7 +138,7 @@ const authSlice = createSlice({
       })
       .addCase(userSignup.fulfilled, (state, action) => {
         state.signup.success = true;
-        state.signup.successMessage = action.payload;
+        state.signup.successMessage = action.payload.message;
         state.signup.errorMessage = null;
       })
       .addCase(userSignup.rejected, (state, action) => {
@@ -152,7 +156,9 @@ const authSlice = createSlice({
         state.signin.success = true;
         // Save user data to localStorage
         const userCredential = action.payload.data;
+        const token = action.payload.accessToken;
         localStorage.setItem("userCredential", JSON.stringify(userCredential));
+        localStorage.setItem("accessToken", JSON.stringify(token));
         state.signin.successMessage = action.payload.message;
         state.signin.errorMessage = null;
         state.signin.isAuthenticate = true;
@@ -164,13 +170,13 @@ const authSlice = createSlice({
       })
       // handel add address to the
       .addCase(addAddress.pending, (state, action) => {
-        console.log("pending");
+        console.log("pending to add address");
       })
       .addCase(addAddress.fulfilled, (state, action) => {
-        console.log("fullfield");
+        console.log("fullfield to add address");
       })
       .addCase(addAddress.rejected, (state, action) => {
-        console.log("rejected");
+        console.log("rejected to add address");
       })
       // handel get user address to the
       .addCase(getUserData.pending, (state, action) => {
@@ -180,7 +186,7 @@ const authSlice = createSlice({
         state.user.userData = action.payload.data;
       })
       .addCase(getUserData.rejected, (state, action) => {
-        console.log("rejected");
+        console.log("Error while getting users data");
       });
   },
 });

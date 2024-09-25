@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import axiosInstance from "../../config/axiosConfig";
 
 // Create a cart when user was first time login
 export const createCart = createAsyncThunk(
   "cart/createCart",
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/cart/${userId}`
       );
 
@@ -26,7 +27,7 @@ export const addItemsToCart = createAsyncThunk(
   "cart/addItemsToCart",
   async ({ cartId, productId, quantity }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/cart/${cartId}/add`,
         { productId, quantity }
       );
@@ -42,7 +43,7 @@ export const getCartItems = createAsyncThunk(
   "cart/getCartItems",
   async ({ cartId }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/api/cart/${cartId}`
       );
       return response.data;
@@ -57,7 +58,7 @@ export const updateItemQuantity = createAsyncThunk(
   "cart/updateQuantiy",
   async ({ cartId, productId, quantity }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(
+      const response = await axiosInstance.patch(
         `${import.meta.env.VITE_API_URL}/api/cart/${cartId}/update`,
         {
           productId,
@@ -76,7 +77,7 @@ export const addSelectedCartItems = createAsyncThunk(
   "cart/addSelectedCartItems",
   async ({ cartId, productId, quantity }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${
           import.meta.env.VITE_API_URL
         }/api/cart/${cartId}/add-selected-cart-items`,
@@ -94,7 +95,7 @@ export const getSelectedCartItems = createAsyncThunk(
   "cart/getSelectedCartItems",
   async ({ cartId }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${
           import.meta.env.VITE_API_URL
         }/api/cart/${cartId}/get-selected-cart-items`
@@ -111,7 +112,7 @@ export const deselectSelectedCartItems = createAsyncThunk(
   "cart/deselectSelectedCartItems",
   async ({ cartId, productId }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${
           import.meta.env.VITE_API_URL
         }/api/cart/${cartId}/deselect-selected-cart-items`,
@@ -132,7 +133,7 @@ export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
   async ({ cartId, productId }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(
+      const response = await axiosInstance.patch(
         `${import.meta.env.VITE_API_URL}/api/cart/${cartId}/remove`,
         {
           productId,

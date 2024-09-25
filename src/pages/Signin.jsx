@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../style/page/signin.css";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignin } from "../store/slice/authSlice";
@@ -9,50 +9,29 @@ const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
+  // Get the path where the user was trying to go before signing in
+  const from = location.state?.from?.pathname || "/";
+
   // handle submit
-  const handelSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(userSignin({ email, password }));
-    if (auth.signin.success) {
-      toast.success(auth.signin.successMessage);
-      navigate("/");
-    } else {
-      toast.error(auth.signin.errorMessage);
-    }
   };
 
-  // validate the data at client side
-  const validation = () => {
-    if (email.trim() === "") {
-      toast.warn("Email can't be empty");
-      return false;
+  // Monitor authentication status and redirect after success
+  useEffect(() => {
+    if (auth.signin.isAuthenticate) {
+      toast.success(auth.signin.successMessage || "Signed in successfully");
+      // Redirect to the previous page or homepage
+      navigate(from, { replace: true });
+    } else if (auth.signin.errorMessage) {
+      toast.error(auth.signin.errorMessage);
     }
-    if (password.trim() === "") {
-      toast.warn("Password can't be empty");
-      return false;
-    }
-    const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-    if (!specialCharacters.test(password)) {
-      toast.warn("Password must contain at least one special character");
-      return false;
-    }
-    if (!/\d/.test(password)) {
-      toast.warn("Password must contain at least one number");
-      return false;
-    }
-    if (!/[A-Z]/.test(password)) {
-      toast.warn("Password must contain at least one uppercase letter");
-      return false;
-    }
-    if (!/[a-z]/.test(password)) {
-      toast.warn("Password must contain at least one lowercase letter");
-      return false;
-    }
-    return true;
-  };
+  }, [auth.signin.isAuthenticate, auth.signin.errorMessage, navigate, from]);
 
   return (
     <div className="row d-flex justify-content-center ">
@@ -70,7 +49,7 @@ const Signin = () => {
         id="show-login"
         name="login_form"
         className="w-100 mt-4"
-        onSubmit={handelSubmit}
+        onSubmit={handleSubmit}
         style={{ maxWidth: "400px" }}
       >
         <div className="card p-4 shadow-sm">

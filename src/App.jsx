@@ -13,16 +13,19 @@ import Checkout from "./pages/Checkout.jsx";
 import Signin from "./pages/Signin.jsx";
 import Signup from "./pages/Signup.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import PrivateRoutes from "./components/auth/PrivateRoutes.jsx";
+import PrivateRoutes from "../src/routes/PrivateRoutes.jsx";
+import PrivateAdminRoutes from "./routes/AdminRoutes.jsx";
+import AdminDashboard from "./admin-panel/AdminDashboard.jsx";
 
 const MyRoutes = () => {
   const location = useLocation();
   const isCheckoutPage = location.pathname === "/checkout";
   const isSigninPage = location.pathname === "/signin";
   const isSignupPage = location.pathname === "/signup";
+  const isAdminDashboard = location.pathname === "/admin-dashboard";
 
   const shouldShowHeaderFooter =
-    !isCheckoutPage && !isSignupPage && !isSigninPage;
+    !isCheckoutPage && !isSignupPage && !isSigninPage && !isAdminDashboard;
 
   return (
     <>
@@ -32,6 +35,8 @@ const MyRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+
         <Route
           path="/women-product-listing"
           element={<WomenProductListing />}
@@ -39,6 +44,7 @@ const MyRoutes = () => {
         <Route path="/men-product-listing" element={<MenProductListing />} />
         <Route path="/product-details" element={<ProductDetails />} />
         <Route path="*" element={<NotFound />} />
+
         {/* Private routes */}
         <Route
           path="/watchlist"
@@ -65,7 +71,24 @@ const MyRoutes = () => {
           }
         />
 
-        <Route path="/checkout" element={<Checkout />} />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoutes>
+              <Checkout />
+            </PrivateRoutes>
+          }
+        />
+
+        {/* routes for admin  */}
+        <Route
+          path="/admin-dashboard"
+          element={
+            <PrivateAdminRoutes>
+              <AdminDashboard />
+            </PrivateAdminRoutes>
+          }
+        />
       </Routes>
       {shouldShowHeaderFooter && <Footer />}
     </>

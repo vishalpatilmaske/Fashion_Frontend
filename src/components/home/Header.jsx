@@ -1,7 +1,7 @@
 import React, { isValidElement, useEffect } from "react";
 import "../../style/globle.css";
 import "../../style/components/home/header.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { VscHeart } from "react-icons/vsc";
 import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
@@ -78,15 +78,15 @@ function Header() {
           </ul>
           {/* search   */}
           <div className="w-50 serach-bar-main-container">
-            <div class="input-group input-group-sm serach-bar d-flex align-items-center ">
+            <div className="input-group input-group-sm serach-bar d-flex align-items-center ">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Explor products"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-sm"
               />
-              <span class="input-group-text" id="inputGroup-sizing-sm">
+              <span className="input-group-text" id="inputGroup-sizing-sm">
                 <span style={{ cursor: "pointer" }}>
                   <FaSearch />
                 </span>
@@ -94,8 +94,8 @@ function Header() {
             </div>
           </div>
           {/* icons */}
-          <ul className="navbar-nav icons d-flex align-items-center">
-            <li className="nav-item">
+          <ul className="navbar-nav icons d-flex align-items-between  ">
+            <li className="nav-item me-3">
               <span className="nav-link" onClick={handelClickOnCart}>
                 <PiHandbagSimpleBold className="icon-size" />
                 {cartItems?.length > 0 && (
@@ -108,12 +108,13 @@ function Header() {
                 )}
               </span>
             </li>
-            <li className="nav-item mx-3">
+            {/* watchlist icon */}
+            {/* <li className="nav-item mx-3">
               <NavLink className="nav-link" to="/watchlist">
                 <VscHeart className="icon-size" />
               </NavLink>
-            </li>
-            <li className="nav-item">
+            </li> */}
+            <li className="nav-item ms-3">
               <span className="nav-link" onClick={handelClickOnProfile}>
                 <AiOutlineUser className="icon-size" />
               </span>

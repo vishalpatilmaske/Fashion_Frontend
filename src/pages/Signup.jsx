@@ -4,6 +4,7 @@ import "../style/page/signup.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../store/slice/authSlice";
+import { IoEllipseSharp } from "react-icons/io5";
 // import { validation } from "../utils/validation.js/signupValidation";
 
 const Signup = () => {
@@ -17,7 +18,11 @@ const Signup = () => {
   // handel the submit data
   const handleSubmitData = async (event) => {
     event.preventDefault();
-    dispatch(userSignup({ email, password }));
+    if (password === conPassword) {
+      dispatch(userSignup({ email, password }));
+    } else {
+      toast.warn("password should match");
+    }
     if (auth.signup.success) {
       if (auth.signup.successMessage) {
         toast.success(auth.signup.successMessage);

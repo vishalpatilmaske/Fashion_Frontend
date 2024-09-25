@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../../config/axiosConfig";
 import { toast } from "react-toastify";
 
 // Async thunk to create an order
@@ -16,7 +16,7 @@ export const initiatePayment = createAsyncThunk(
   }) => {
     try {
       // Step 1: Create Razorpay order on the backend
-      const orderResponse = await axios.post(
+      const orderResponse = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/order/create-razorpay-order`,
         { amount }
       );
@@ -98,7 +98,7 @@ const verifyAndPlaceOrder = async (
 ) => {
   try {
     // Step 6: Verify payment on backend
-    const verifyResponse = await axios.post(
+    const verifyResponse = await axiosInstance.post(
       `${import.meta.env.VITE_API_URL}/api/order/verify-payment`,
       paymentData
     );
@@ -125,7 +125,7 @@ const verifyAndPlaceOrder = async (
       };
 
       // Step 7: Place order
-      const order = await axios.post(
+      const order = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/order/${userId}/create-order`,
         orderData
       );

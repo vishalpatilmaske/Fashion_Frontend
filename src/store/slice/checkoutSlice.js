@@ -3,7 +3,6 @@ import axiosInstance from "../../config/axiosConfig";
 import { toast } from "react-toastify";
 
 // Async thunk to create an order
-
 export const initiatePayment = createAsyncThunk(
   "order/createRazorpayOrder",
   async ({
@@ -21,7 +20,6 @@ export const initiatePayment = createAsyncThunk(
         { amount }
       );
 
-      console.log(orderResponse);
       if (!orderResponse.data.success) {
         console.error("Error creating Razorpay order");
         return;
@@ -61,7 +59,7 @@ export const initiatePayment = createAsyncThunk(
           };
 
           // Verify payment and place order
-          await verifyAndPlaceOrder(
+          const createdOrder = await verifyAndPlaceOrder(
             paymentData,
             cartItems,
             shippingAddress,
@@ -70,6 +68,9 @@ export const initiatePayment = createAsyncThunk(
             orderStatus,
             payment
           );
+
+          // Return the created order
+          return createdOrder || null;
         },
         prefill: {
           name: "vishal vijay maske",
@@ -83,6 +84,7 @@ export const initiatePayment = createAsyncThunk(
       paymentObject.open();
     } catch (error) {
       console.error("Error initiating payment:", error);
+      throw error;
     }
   }
 );
@@ -129,17 +131,37 @@ const verifyAndPlaceOrder = async (
         `${import.meta.env.VITE_API_URL}/api/order/${userId}/create-order`,
         orderData
       );
-      console.log(order);
-      toast.success("Payment successful, order placed!");
 
-      return orderResponse.data;
+      toast.success("Order placed successfully!");
+      // Return the placed order data
+      return order.data;
     } else {
       toast.error("Payment verification failed!");
+      return null;
     }
   } catch (error) {
     console.error("Error verifying payment or placing order:", error);
+    throw error;
   }
 };
+
+// get all orders of the users
+export const getAllOrders = createAsyncThunk(
+  "checkout/getAllOrders",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(
+        `${import.meta.env.VITE_API_URL}/api/order/${userId}/get-orders`
+      );
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
 
 // Slice for order
 const checkoutSlice = createSlice({
@@ -147,22 +169,33 @@ const checkoutSlice = createSlice({
   initialState: {
     paymentMethod: null,
     orderDetails: null,
+    orders: [],
+    orderCreated: null, // Store the created order data here
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder;
-    // .addCase(createOrder.pending, (state) => {
-    //   state.orderStatus = "loading";
-    //   state.error = null;
-    // })
-    // .addCase(createOrder.fulfilled, (state, action) => {
-    //   state.orderStatus = "succeeded";
-    //   state.orderDetails = action.payload;
-    // })
-    // .addCase(createOrder.rejected, (state, action) => {
-    //   state.orderStatus = "failed";
-    //   state.error = action.payload;
-    // });
+    builder
+      .addCase(initiatePayment.pending, (state) => {
+        state.orderCreated = null; // Reset the state when the payment starts
+      })
+      .addCase(initiatePayment.fulfilled, (state, action) => {
+        // Store the created order in state
+        console.log(action);
+        state.orderCreated = action.payload;
+      })
+      .addCase(initiatePayment.rejected, (state, action) => {
+        toast.error("Payment initiation failed!");
+      })
+      // Get user orders
+      .addCase(getAllOrders.pending, (state) => {
+        // Handle pending state for fetching orders
+      })
+      .addCase(getAllOrders.fulfilled, (state, action) => {
+        state.orders = action.payload.data;
+      })
+      .addCase(getAllOrders.rejected, (state, action) => {
+        console.error("Error while fetching user's order details");
+      });
   },
 });
 

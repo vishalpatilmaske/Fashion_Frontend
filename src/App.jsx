@@ -12,20 +12,26 @@ import Profile from "./pages/Profile.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import Signin from "./pages/Signin.jsx";
 import Signup from "./pages/Signup.jsx";
-import NotFound from "./pages/NotFound.jsx";
-import PrivateRoutes from "../src/routes/PrivateRoutes.jsx";
-import PrivateAdminRoutes from "./routes/AdminRoutes.jsx";
+import AddressDetails from "./components/profile/AddressDetails.jsx";
+import LoginSecurity from "./components/profile/LoginSecurity.jsx";
+import OrderDetails from "./components/profile/OrderDetails.jsx";
 import AdminDashboard from "./admin-panel/AdminDashboard.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import PrivateRoutes from "./routes/PrivateRoutes.jsx";
+import PrivateAdminRoutes from "./routes/AdminRoutes.jsx";
 
 const MyRoutes = () => {
   const location = useLocation();
-  const isCheckoutPage = location.pathname === "/checkout";
-  const isSigninPage = location.pathname === "/signin";
-  const isSignupPage = location.pathname === "/signup";
-  const isAdminDashboard = location.pathname === "/admin-dashboard";
+  const hideHeaderFooterPaths = [
+    "/checkout",
+    "/signin",
+    "/signup",
+    "/admin-dashboard",
+  ];
 
-  const shouldShowHeaderFooter =
-    !isCheckoutPage && !isSignupPage && !isSigninPage && !isAdminDashboard;
+  const shouldShowHeaderFooter = !hideHeaderFooterPaths.includes(
+    location.pathname
+  );
 
   return (
     <>
@@ -35,17 +41,46 @@ const MyRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
-
         <Route
           path="/women-product-listing"
           element={<WomenProductListing />}
         />
         <Route path="/men-product-listing" element={<MenProductListing />} />
         <Route path="/product-details" element={<ProductDetails />} />
-        <Route path="*" element={<NotFound />} />
 
-        {/* Private routes */}
+        {/* Private Routes */}
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoutes>
+              <Profile />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/profile-address"
+          element={
+            <PrivateRoutes>
+              <AddressDetails />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/profile-login-security"
+          element={
+            <PrivateRoutes>
+              <LoginSecurity />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          path="/profile-orders"
+          element={
+            <PrivateRoutes>
+              <OrderDetails />
+            </PrivateRoutes>
+          }
+        />
         <Route
           path="/watchlist"
           element={
@@ -63,15 +98,6 @@ const MyRoutes = () => {
           }
         />
         <Route
-          path="/profile"
-          element={
-            <PrivateRoutes>
-              <Profile />
-            </PrivateRoutes>
-          }
-        />
-
-        <Route
           path="/checkout"
           element={
             <PrivateRoutes>
@@ -80,7 +106,7 @@ const MyRoutes = () => {
           }
         />
 
-        {/* routes for admin  */}
+        {/* Admin Routes */}
         <Route
           path="/admin-dashboard"
           element={
@@ -89,6 +115,9 @@ const MyRoutes = () => {
             </PrivateAdminRoutes>
           }
         />
+
+        {/* Fallback Route */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
       {shouldShowHeaderFooter && <Footer />}
     </>

@@ -16,11 +16,6 @@ export const validation = () => {
     toast.warn("Passwords do not match");
     return false;
   }
-  const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-  if (!specialCharacters.test(password)) {
-    toast.warn("Password must contain at least one special character");
-    return false;
-  }
   if (!/\d/.test(password)) {
     toast.warn("Password must contain at least one number");
     return false;

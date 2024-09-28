@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -19,19 +20,42 @@ const Signin = () => {
   // handle submit
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(userSignin({ email, password }));
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length === 0) {
+      dispatch(userSignin({ email, password }));
+    } else {
+      setErrors(validationErrors);
+    }
+  };
+
+  // Form validation function
+  const validateForm = () => {
+    const errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) {
+      errors.email = "Email is required";
+    } else if (!emailRegex.test(email)) {
+      errors.email = "Invalid email format";
+    }
+
+    if (!password) {
+      errors.password = "Password is required";
+    }
+
+    return errors;
   };
 
   // Monitor authentication status and redirect after success
   useEffect(() => {
     if (auth.signin.isAuthenticate) {
-      toast.success(auth.signin.successMessage || "Signed in successfully");
       // Redirect to the previous page or homepage
+      toast.success("User login successfully");
       navigate(from, { replace: true });
     } else if (auth.signin.errorMessage) {
       toast.error(auth.signin.errorMessage);
     }
-  }, [auth.signin.isAuthenticate, auth.signin.errorMessage, navigate, from]);
+  }, [auth, navigate, from]);
 
   return (
     <div className="row d-flex justify-content-center ">
@@ -40,6 +64,7 @@ const Signin = () => {
           onClick={() => {
             navigate("/");
           }}
+          style={{ cursor: "pointer" }}
         >
           <strong>Fashion</strong>
           <strong className="flick">Flick</strong>
@@ -68,12 +93,15 @@ const Signin = () => {
             </label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${errors.email ? "is-invalid" : ""}`}
               name="email"
               autoComplete="username"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && (
+              <div className="invalid-feedback text-danger">{errors.email}</div>
+            )}
           </div>
           <div className="form-group mb-3 text-start">
             <label htmlFor="password" className="form-label">
@@ -81,12 +109,17 @@ const Signin = () => {
             </label>
             <input
               type="password"
-              className="form-control"
+              className={`form-control ${errors.password ? "is-invalid" : ""}`}
               name="password"
               value={password}
               autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
+            {errors.password && (
+              <div className="invalid-feedback text-danger">
+                {errors.password}
+              </div>
+            )}
           </div>
           <div className="mb-3 text-end">
             <p className="mb-0">

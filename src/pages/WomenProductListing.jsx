@@ -22,6 +22,7 @@ const WomenProductListing = () => {
   const handleAddToCart = (productId, quantity = 1) => {
     if (isAuthenticate) {
       dispatch(addItemsToCart({ cartId, productId, quantity }));
+      navigate("/cart");
     }
   };
   const products = useSelector((state) => state.product.allProducts.data);

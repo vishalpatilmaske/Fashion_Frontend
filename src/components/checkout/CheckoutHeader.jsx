@@ -6,13 +6,14 @@ const CheckoutHeader = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="container row checkout-main-container">
+      <div className="sm-container row checkout-main-container">
         <section className="row py-2">
-          <div className="col-5">
+          <div className="col-5 ">
             <h3
               onClick={() => {
                 navigate("/");
               }}
+              className="site-logo"
             >
               <strong>Fashion</strong>
               <strong className="navbarbrand">Flick</strong>

@@ -35,7 +35,6 @@ const useAdminRole = () => {
 const AdminRoutes = ({ children }) => {
   const location = useLocation();
   const { isAdmin, loading } = useAdminRole();
-  const navigate = useNavigate(); // Get navigate function from useNavigate
 
   // While loading, you might want to show a loader or nothing
   if (loading) {
@@ -43,11 +42,7 @@ const AdminRoutes = ({ children }) => {
   }
 
   // Protect admin routes
-  return isAdmin ? (
-    children
-  ) : (
-    <Navigate to="/" state={{ from: location }} /> // Use Navigate for redirect
-  );
+  return isAdmin ? children : <Navigate to="/" state={{ from: location }} />;
 };
 
 export default AdminRoutes;

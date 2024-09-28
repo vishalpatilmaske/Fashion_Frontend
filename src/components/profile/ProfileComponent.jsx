@@ -11,7 +11,9 @@ const ProfileComponent = () => {
   const userId = useSelector((state) => state.auth.signin.userCredential?._id);
   // get the user data form the backend
   useEffect(() => {
-    dispatch(getUserData({ userId }));
+    if (userId) {
+      dispatch(getUserData({ userId }));
+    }
   }, [userId]);
 
   const userData = useSelector((state) => state.auth.user.userData);
@@ -47,14 +49,6 @@ const ProfileComponent = () => {
           </button>
         </div>
       </div>
-      <button
-        className="btn btn-warning mx-3"
-        onClick={() => {
-          navigate("/admin-dashboard");
-        }}
-      >
-        Dashboard
-      </button>
     </div>
   );
 };

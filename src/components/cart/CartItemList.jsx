@@ -36,7 +36,7 @@ const CartItemList = () => {
     if (cartId) {
       dispatch(getCartItems({ cartId }));
     }
-  }, [dispatch, cartId, cart]);
+  }, [dispatch]);
 
   // Fetch product details for items in the cart, memoize the product IDs
   useEffect(() => {

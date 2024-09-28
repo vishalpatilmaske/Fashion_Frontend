@@ -173,7 +173,8 @@ const authSlice = createSlice({
         console.log("pending to add address");
       })
       .addCase(addAddress.fulfilled, (state, action) => {
-        console.log("fullfield to add address");
+        const useraddress = action.payload.data.address;
+        localStorage.setItem("userAddress", JSON.stringify(useraddress));
       })
       .addCase(addAddress.rejected, (state, action) => {
         console.log("rejected to add address");
@@ -186,7 +187,7 @@ const authSlice = createSlice({
         state.user.userData = action.payload.data;
       })
       .addCase(getUserData.rejected, (state, action) => {
-        console.log("Error while getting users data");
+        console.log("Error while getting users data", action.payload);
       });
   },
 });

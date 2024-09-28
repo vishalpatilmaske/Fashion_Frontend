@@ -41,10 +41,9 @@ h3 {
   display: flex;
   line-height: 50px;
 }
-
-.price {
+.productdetials-price {
   text-align: start;
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding-left: 20px;
 }
 

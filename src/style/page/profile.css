@@ -8,6 +8,14 @@
 .profile {
   height: 70vh;
 }
+.profile-componets .card {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+.profile-componets .card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 /* for mobile screen */
 @media screen and (max-width: 540px) {
   .your-account {
@@ -22,5 +30,98 @@
   }
   .profile-page-main-container {
     margin-bottom: 16rem;
+  }
+}
+
+/* order detials css for  */
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .address-logo {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .address-logo {
+    width: 10rem;
+    height: 3rem;
+  }
+  .address-details {
+    width: 14rem;
+    font-size: 1rem;
+  }
+  .address-details h5 {
+    font-size: 1.1rem;
+  }
+  .address-details p {
+    font-size: 0.9rem;
+  }
+  .card-body {
+    padding: 5px 0;
+    margin: 0;
+  }
+}
+
+/* login security status  */
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .login-logo {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .login-logo {
+    width: 10rem;
+    height: 3rem;
+  }
+  .login-details {
+    width: 14rem;
+    font-size: 1rem;
+  }
+  .login-details h5 {
+    font-size: 1.1rem;
+  }
+  .login-details p {
+    font-size: 0.9rem;
+  }
+  .card-body {
+    padding: 0;
+    margin: 0;
+  }
+}
+/* order details status  */
+
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .order-logo {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .order-logo {
+    width: 10rem;
+    height: 3rem;
+  }
+  .order-details {
+    width: 14rem;
+    font-size: 1rem;
+  }
+  .order-details h5 {
+    font-size: 1.1rem;
+  }
+  .order-details p {
+    font-size: 0.9rem;
+  }
+  .card-body {
+    padding: 5px 0;
+    margin: 0;
   }
 }

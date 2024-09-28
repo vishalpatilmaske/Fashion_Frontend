@@ -15,13 +15,14 @@ const Checkout = () => {
   // Data from the cart and the productDetails page
   const location = useLocation();
   const { products, subtotal } = location.state || {};
+
   return (
     <>
       {/* Header */}
       <CheckoutHeader />
       <section className="mt-5">
         <div className="row container m-auto">
-          <div className="col-12 col-sm-8 address">
+          <div className="col-12 col-sm-8 checkout-address">
             {/* Address */}
             <CheckoutAddress />
             {/* Payment */}

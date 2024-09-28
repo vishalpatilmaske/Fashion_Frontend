@@ -68,7 +68,7 @@ const CheckoutPayment = ({ products, subtotal }) => {
                 id="cashOnDelivery"
                 value="cash_on_delivery"
                 style={{ cursor: "pointer" }}
-                onChange={(e) => setPayment(e.target.value)} // Fix: use onChange
+                onChange={(e) => setPayment(e.target.value)}
                 checked={payment === "cash_on_delivery"}
               />
               <label className="form-check-label" htmlFor="cashOnDelivery">
@@ -83,7 +83,7 @@ const CheckoutPayment = ({ products, subtotal }) => {
                 id="onlinePayment"
                 value="online_payment"
                 style={{ cursor: "pointer" }}
-                onChange={(e) => setPayment(e.target.value)} // Fix: use onChange
+                onChange={(e) => setPayment(e.target.value)}
                 checked={payment === "online_payment"}
               />
               <label className="form-check-label" htmlFor="onlinePayment">

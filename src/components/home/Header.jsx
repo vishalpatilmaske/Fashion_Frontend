@@ -1,8 +1,8 @@
-import React, { isValidElement, useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import "../../style/globle.css";
 import "../../style/components/home/header.css";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { VscHeart } from "react-icons/vsc";
+import { NavLink, useNavigate } from "react-router-dom";
+
 import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
@@ -15,6 +15,7 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Load user data and cart details on mount
   useEffect(() => {
     dispatch(loadLocalStorage());
     dispatch(loadCartDetials());
@@ -27,9 +28,19 @@ function Header() {
     }
   }, [cartId, dispatch]);
 
-  const { isAuthenticate, success } = useSelector((state) => state.auth.signin);
+  const { isAuthenticate } = useSelector((state) => state.auth.signin);
 
-  // handel click on profile
+  // Calculate total cart item count
+  const totalCartItems = useMemo(() => {
+    return (
+      cartItems?.reduce(
+        (accumulator, current) => accumulator + current.quantity,
+        0
+      ) || 0
+    );
+  }, [cartItems]);
+
+  // Handle click on profile
   const handelClickOnProfile = () => {
     if (isAuthenticate) {
       navigate("/profile");
@@ -38,7 +49,7 @@ function Header() {
     }
   };
 
-  // handel click on the cart
+  // Handle click on the cart
   const handelClickOnCart = () => {
     if (isAuthenticate) {
       navigate("/cart");
@@ -46,6 +57,7 @@ function Header() {
       navigate("/signin");
     }
   };
+
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container-fluid py-1 header ">
@@ -57,7 +69,7 @@ function Header() {
               <strong className="navbarbrand">Flick</strong>
             </h4>
           </NavLink>
-          {/* category  */}
+          {/* category */}
           <ul className="navbar-nav product-category ms-2 mb-2 mb-lg-0 d-flex align-items-center">
             <li className="nav-item">
               <NavLink
@@ -76,13 +88,13 @@ function Header() {
               </NavLink>
             </li>
           </ul>
-          {/* search   */}
+          {/* search */}
           <div className="w-50 serach-bar-main-container">
             <div className="input-group input-group-sm serach-bar d-flex align-items-center ">
               <input
                 type="text"
                 className="form-control"
-                placeholder="Explor products"
+                placeholder="Explore products"
                 aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-sm"
               />
@@ -94,26 +106,15 @@ function Header() {
             </div>
           </div>
           {/* icons */}
-          <ul className="navbar-nav icons d-flex align-items-between  ">
+          <ul className="navbar-nav icons d-flex align-items-between">
             <li className="nav-item me-3">
               <span className="nav-link" onClick={handelClickOnCart}>
                 <PiHandbagSimpleBold className="icon-size" />
-                {cartItems?.length > 0 && (
-                  <span className="number-of-cart-itmes">
-                    {cartItems.reduce(
-                      (accumulator, current) => accumulator + current.quantity,
-                      0
-                    )}
-                  </span>
+                {totalCartItems > 0 && (
+                  <span className="number-of-cart-items">{totalCartItems}</span>
                 )}
               </span>
             </li>
-            {/* watchlist icon */}
-            {/* <li className="nav-item mx-3">
-              <NavLink className="nav-link" to="/watchlist">
-                <VscHeart className="icon-size" />
-              </NavLink>
-            </li> */}
             <li className="nav-item ms-3">
               <span className="nav-link" onClick={handelClickOnProfile}>
                 <AiOutlineUser className="icon-size" />

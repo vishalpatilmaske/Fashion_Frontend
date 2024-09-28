@@ -78,7 +78,7 @@ function ProductDetails() {
             <h3>{productDetails.description}</h3>
             <hr />
             <div className="price-container mb-3">
-              <p className="price">
+              <p className="productdetials-price">
                 <sup>₹</sup>
                 {productDetails.price}
                 <sub style={{ fontSize: "0.7rem" }} className="text-secondary">
@@ -131,9 +131,17 @@ function ProductDetails() {
                 type="button"
                 className="col-6 btn btn-warning buy-now-button px-2 md-px-5 rounded-pill"
                 onClick={() => {
-                  handleAddToCart();
+                  console.log();
                   navigate("/checkout", {
-                    state: { productDetails, quantity },
+                    state: {
+                      products: [
+                        {
+                          productId: productDetails._id,
+                          quantity: quantity,
+                        },
+                      ],
+                      subtotal: quantity * productDetails.price,
+                    },
                   });
                 }}
               >

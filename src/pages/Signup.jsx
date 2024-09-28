@@ -1,33 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../style/page/signup.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../store/slice/authSlice";
-import { IoEllipseSharp } from "react-icons/io5";
-// import { validation } from "../utils/validation.js/signupValidation";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPassword, setConPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
-  // handel the submit data
+  // Validation function
+  const validateForm = () => {
+    let formErrors = {};
+    let isValid = true;
+
+    // Email validation
+    if (!email) {
+      isValid = false;
+      formErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      isValid = false;
+      formErrors.email = "Invalid email format";
+    }
+
+    // Password validation
+    if (!password) {
+      isValid = false;
+      formErrors.password = "Password is required";
+    } else if (password.length < 6) {
+      isValid = false;
+      formErrors.password = "Password must be at least 6 characters";
+    }
+
+    // Confirm password validation
+    if (!conPassword) {
+      isValid = false;
+      formErrors.conPassword = "Confirm password is required";
+    } else if (password !== conPassword) {
+      isValid = false;
+      formErrors.conPassword = "Passwords do not match";
+    }
+
+    setErrors(formErrors);
+    return isValid;
+  };
+
+  // Handle the submit data
   const handleSubmitData = async (event) => {
     event.preventDefault();
-    if (password === conPassword) {
+    const isValid = validateForm();
+
+    if (isValid) {
       dispatch(userSignup({ email, password }));
-    } else {
-      toast.warn("password should match");
     }
+
+    // Handle response from auth state
     if (auth.signup.success) {
-      if (auth.signup.successMessage) {
-        toast.success(auth.signup.successMessage);
-        navigate("/signin");
-      }
+      toast.success(auth.signup.successMessage);
+      navigate("/signin");
     }
     if (auth.signup.errorMessage) {
       toast.error(auth.signup.errorMessage);
@@ -35,7 +70,7 @@ const Signup = () => {
   };
 
   return (
-    <div className=" row d-flex justify-content-center mx-auto ">
+    <div className="row d-flex justify-content-center mx-auto">
       <div className="py-3 signup-header ">
         <h3
           onClick={() => {
@@ -64,6 +99,8 @@ const Signup = () => {
           <div className="text-center mb-4">
             <h2>Sign up</h2>
           </div>
+
+          {/* Email Field */}
           <div className="form-group mb-3">
             <input
               type="email"
@@ -73,7 +110,12 @@ const Signup = () => {
               autoComplete="new-password"
               onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && (
+              <small className="text-danger">{errors.email}</small>
+            )}
           </div>
+
+          {/* Password Field */}
           <div className="form-group mb-3">
             <input
               type="password"
@@ -83,7 +125,12 @@ const Signup = () => {
               autoComplete="new-password"
               onChange={(e) => setPassword(e.target.value)}
             />
+            {errors.password && (
+              <small className="text-danger">{errors.password}</small>
+            )}
           </div>
+
+          {/* Confirm Password Field */}
           <div className="form-group mb-3">
             <input
               type="password"
@@ -93,7 +140,11 @@ const Signup = () => {
               autoComplete="new-password"
               onChange={(e) => setConPassword(e.target.value)}
             />
+            {errors.conPassword && (
+              <small className="text-danger">{errors.conPassword}</small>
+            )}
           </div>
+
           <button type="submit" className="btn btn-warning btn-block">
             Sign up
           </button>

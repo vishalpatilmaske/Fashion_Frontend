@@ -1,29 +1,57 @@
-/* For Mobile Screens */
-@media screen and (max-width: 576px) {
-  .address-logo {
-    width: 5rem;
-    height: 5rem;
-  }
+.address-main-container {
+  margin-bottom: 20vh !important;
+}
+.add-new-address {
+  width: 30%;
+  border: 2px rgb(143, 143, 143);
+  cursor: pointer;
+}
+.address {
+  width: 30%;
+  cursor: pointer;
 }
 
-/* for tablate screen */
-@media (min-width: 576px) and (max-width: 991.98px) {
-  .address-logo {
-    width: 10rem;
-    height: 3rem;
+.address h5 {
+  font-size: 1rem;
+}
+.address p {
+  font-size: 0.9rem;
+}
+
+.address span {
+  color: #007185;
+}
+
+/* for mobile screen */
+@media screen and (max-width: 570px) {
+  .add-new-address {
+    width: 100%;
+    border: 2px dotted rgb(143, 143, 143);
+    cursor: pointer;
   }
-  .address-details {
-    width: 14rem;
+  .add-new-address h5 {
     font-size: 1rem;
   }
-  .address-details h5 {
-    font-size: 1.1rem;
+  .address {
+    width: 100%;
+    cursor: pointer;
   }
-  .address-details p {
-    font-size: 0.9rem;
+}
+/* for tablate screen */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .address-main-container {
+    margin-bottom: 34vh !important;
   }
-  .card-body {
-    padding: 5px 0;
-    margin: 0;
+  .add-new-address {
+    width: 45%;
+    border: 2px dotted rgb(143, 143, 143);
+    cursor: pointer;
+  }
+  .add-new-address h5 {
+    font-size: 1rem;
+  }
+  .address {
+    width: 45%;
+    cursor: pointer;
   }
 }

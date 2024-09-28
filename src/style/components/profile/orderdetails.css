@@ -1,29 +1,109 @@
-/* For Mobile Screens */
-@media screen and (max-width: 576px) {
-  .order-logo {
-    width: 5rem;
-    height: 5rem;
+.orders-navbar a {
+  color: #007185;
+}
+.order-card-nav div p {
+  line-height: 7px;
+  font-size: 0.8rem;
+}
+.date,
+.price {
+  font-size: 0.9rem !important;
+}
+.image-card {
+  width: 15vw;
+  height: 40vh;
+  border: none;
+}
+.order-product-image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.order-id {
+  font-size: 0.9rem;
+  color: #007185 !important;
+  cursor: pointer;
+}
+.order-product-description p {
+  line-height: 2rem;
+  font-size: 1rem;
+}
+
+/* for mobile screen */
+@media screen and (max-width: 570px) {
+  .order-card-nav div p {
+    line-height: 7px;
+    font-size: 0.7rem;
+  }
+  .date,
+  .price {
+    font-size: 0.7rem !important;
+  }
+  .image-card {
+    width: 20vw;
+    height: 20vh;
+    border: none;
+  }
+  .order-product-image {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  .order-id {
+    font-size: 0.7rem;
+    color: #007185 !important;
+    cursor: pointer;
+  }
+  .order-product-description p {
+    line-height: 1.4rem;
+    font-size: 0.8rem;
+  }
+  .order-product-description b {
+    line-height: 1.4rem;
+    font-size: 0.8rem;
+  }
+  .cancel-button {
+    font-size: 0.7rem;
   }
 }
 
 /* for tablate screen */
 @media (min-width: 576px) and (max-width: 991.98px) {
-  .order-logo {
-    width: 10rem;
-    height: 3rem;
-  }
-  .order-details {
-    width: 14rem;
-    font-size: 1rem;
-  }
-  .order-details h5 {
-    font-size: 1.1rem;
-  }
-  .order-details p {
+  .order-card-nav div p {
+    line-height: 7px;
     font-size: 0.9rem;
   }
-  .card-body {
-    padding: 5px 0;
-    margin: 0;
+  .date,
+  .price {
+    font-size: 0.9rem !important;
+  }
+  .image-card {
+    width: 20vw;
+    height: 20vh;
+    border: none;
+  }
+  .order-product-image {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  .order-id {
+    font-size: 0.7rem;
+    color: #007185 !important;
+    cursor: pointer;
+  }
+  .order-product-description p {
+    line-height: 1.4rem;
+    font-size: 0.9rem;
+  }
+  .order-product-description b {
+    line-height: 1.4rem;
+    font-size: 0.9rem;
+  }
+  .cancel-button {
+    font-size: 0.9rem;
   }
 }

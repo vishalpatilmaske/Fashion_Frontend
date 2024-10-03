@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { initiatePayment } from "../../store/slice/checkoutSlice";
+import {
+  initiatePayment,
+  CreateOrderCashOnDelivery,
+  getUserOrders,
+} from "../../store/slice/checkoutSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPayment = ({ products, subtotal }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Handle change for the payment method
   const [payment, setPayment] = useState();
@@ -98,21 +104,57 @@ const CheckoutPayment = ({ products, subtotal }) => {
               className="btn btn-warning btn-sm px-3 rounded-pill"
               onClick={() => {
                 if (selectedAddress !== null) {
-                  dispatch(
-                    initiatePayment({
-                      userId: userId,
-                      cartItems: productsList,
-                      amount: subtotal,
-                      orderStatus: "shipped",
-                      payment: {
-                        method: payment,
-                        status: null,
-                        transactionId: null,
-                      },
-                      isPaid: null,
-                      shippingAddress: selectedAddress._id,
-                    })
-                  );
+                  if (payment === "online_payment") {
+                    dispatch(
+                      initiatePayment({
+                        userId: userId,
+                        cartItems: productsList,
+                        amount: subtotal,
+                        orderStatus: "shipped",
+                        payment: {
+                          method: payment,
+                          status: null,
+                          transactionId: null,
+                        },
+                        isPaid: null,
+                        shippingAddress: selectedAddress._id,
+                      })
+                    );
+                    // dispatch(getUserOrders(userId)).then((data) => {
+                    //   console.log(data);
+                    // });
+                  }
+                  // cashn on delivery
+                  if (payment === "cash_on_delivery") {
+                    const orderData = {
+                      orders: [
+                        {
+                          products: productsList.map((item) => ({
+                            productId: item.productId,
+                            quantity: item.quantity,
+                          })),
+                          shippingAddress: selectedAddress._id,
+                          orderStatus: "shipped",
+                          payment: {
+                            method: "cash_on_delivery",
+                            status: "pending",
+                          },
+                          isPaid: false,
+                          totalPrice: 1000 / 100,
+                        },
+                      ],
+                    };
+                    if (orderData) {
+                      dispatch(
+                        CreateOrderCashOnDelivery({ userId, orderData })
+                      ).then((data) => {
+                        if (data.payload.data.message) {
+                          toast.success(data.payload.data.message);
+                          navigate("/profile-orders");
+                        }
+                      });
+                    }
+                  }
                 } else {
                   toast.warn("Please select a delivery address");
                 }

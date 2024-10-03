@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 // Custom hook for checking admin role
 const useAdminRole = () => {
@@ -10,10 +11,10 @@ const useAdminRole = () => {
   useEffect(() => {
     const checkAdminRole = () => {
       const token = localStorage.getItem("accessToken");
+
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
-          console.log(decodedToken);
           // Check if the user has the admin role
           setIsAdmin(decodedToken.role === "admin");
         } catch (error) {
@@ -40,6 +41,8 @@ const AdminRoutes = ({ children }) => {
   if (loading) {
     return <div>Loading...</div>; // You can replace this with a loading spinner
   }
+  if (!isAdmin)
+    toast.warn("Access Denied. Please log in with an admin account.");
 
   // Protect admin routes
   return isAdmin ? children : <Navigate to="/" state={{ from: location }} />;

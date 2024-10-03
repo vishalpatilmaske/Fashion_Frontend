@@ -70,7 +70,7 @@ export const initiatePayment = createAsyncThunk(
           );
 
           // Return the created order
-          return createdOrder || null;
+          return createdOrder.data || null;
         },
         prefill: {
           name: "vishal vijay maske",
@@ -131,10 +131,10 @@ const verifyAndPlaceOrder = async (
         `${import.meta.env.VITE_API_URL}/api/order/${userId}/create-order`,
         orderData
       );
-
-      toast.success("Order placed successfully!");
       // Return the placed order data
-      return order.data;
+      toast.success("Order Placed Successfully!");
+
+      return order;
     } else {
       toast.error("Payment verification failed!");
       return null;
@@ -144,20 +144,53 @@ const verifyAndPlaceOrder = async (
     throw error;
   }
 };
+// create cash order
 
-// get all orders of the users
+export const CreateOrderCashOnDelivery = createAsyncThunk(
+  "order/CreateOrderCashOnDelivery",
+  async ({ userId, orderData }, { rejectWithValue }) => {
+    try {
+      console.log(userId, orderData);
+      const order = await axiosInstance.post(
+        `${import.meta.env.VITE_API_URL}/api/order/${userId}/create-order`,
+        orderData
+      );
+      return order;
+      toast.success("Order placed successfully!");
+      return order.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
+// get single user orders
 export const getAllOrders = createAsyncThunk(
-  "checkout/getAllOrders",
+  "orders/getAllOrders",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `${import.meta.env.VITE_API_URL}/api/order/get-all-orders`
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
+// get single user orders
+export const getUserOrders = createAsyncThunk(
+  "orders/getUserOrders",
   async (userId, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/order/${userId}/get-orders`
       );
+
       return response.data;
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        return rejectWithValue(error.response.data);
-      }
       return rejectWithValue(error.response?.data?.error || "Network Error");
     }
   }
@@ -170,31 +203,63 @@ const checkoutSlice = createSlice({
     paymentMethod: null,
     orderDetails: null,
     orders: [],
-    orderCreated: null, // Store the created order data here
+    allOrders: null,
+    orderCreated: null,
+    loding: true,
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(initiatePayment.pending, (state) => {
-        state.orderCreated = null; // Reset the state when the payment starts
+        state.orderCreated = null;
       })
       .addCase(initiatePayment.fulfilled, (state, action) => {
-        // Store the created order in state
         console.log(action);
         state.orderCreated = action.payload;
       })
       .addCase(initiatePayment.rejected, (state, action) => {
         toast.error("Payment initiation failed!");
       })
-      // Get user orders
-      .addCase(getAllOrders.pending, (state) => {
-        // Handle pending state for fetching orders
+      // Create cash on delivery order
+      .addCase(CreateOrderCashOnDelivery.pending, (state) => {
+        state.loding = true;
+        state.error = null;
       })
-      .addCase(getAllOrders.fulfilled, (state, action) => {
+      .addCase(CreateOrderCashOnDelivery.fulfilled, (state, action) => {
+        state.loding = false;
+      })
+      .addCase(CreateOrderCashOnDelivery.rejected, (state, action) => {
+        state.loding = false;
+        state.error = null;
+        console.log(action);
+      })
+      // Get user single user orders
+      .addCase(getUserOrders.pending, (state) => {
+        state.loding = true;
+        state.error = null;
+      })
+      .addCase(getUserOrders.fulfilled, (state, action) => {
+        state.loding = false;
         state.orders = action.payload.data;
       })
+      .addCase(getUserOrders.rejected, (state, action) => {
+        state.loding = true;
+        state.error = null;
+      })
+
+      // Get all users  orders
+      .addCase(getAllOrders.pending, (state) => {
+        state.loding = true;
+        state.error = null;
+      })
+      .addCase(getAllOrders.fulfilled, (state, action) => {
+        state.loding = false;
+        state.allOrders = action.payload.data;
+      })
       .addCase(getAllOrders.rejected, (state, action) => {
-        console.error("Error while fetching user's order details");
+        state.loding = true;
+        state.error = null;
       });
   },
 });

@@ -135,7 +135,7 @@ function Profile() {
               <div
                 className="card ms-sm-3  order-details"
                 onClick={() => {
-                  navigate("/admin-dashboard");
+                  navigate("/admin-panel/dashboard");
                 }}
               >
                 <div className="d-flex py-2 px-1">

@@ -6,6 +6,7 @@ import axiosInstance from "../../config/axiosConfig";
 export const createCart = createAsyncThunk(
   "cart/createCart",
   async (userId, { rejectWithValue }) => {
+    console.log("function called");
     try {
       const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/cart/${userId}`
@@ -176,11 +177,14 @@ const cartSlice = createSlice({
     builder
       // create new cart
       .addCase(createCart.pending, (state, action) => {
+        console.log("fullfield");
+
         state.loading = true;
       })
       .addCase(createCart.fulfilled, (state, action) => {
         const cartId = action.payload._id;
         localStorage.setItem("cartId", cartId);
+        console.log("fullfield");
         state.cartId = cartId;
         state.loading = false;
       })
@@ -188,6 +192,7 @@ const cartSlice = createSlice({
         // if user has already cart then store old cart data
         const cartId = action.payload.data?._id;
         localStorage.setItem("cartId", cartId);
+        console.log("rejected");
         state.cartId = cartId;
         state.error = action.payload;
       })

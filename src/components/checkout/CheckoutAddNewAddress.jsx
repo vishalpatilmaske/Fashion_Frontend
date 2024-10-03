@@ -292,7 +292,7 @@ const CheckoutAddNewAddress = ({
           </div>
         </div>
 
-        <div className="d-grid">
+        <div className="">
           <p
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"

@@ -1,0 +1,21 @@
+.coustomer-order .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.coustomer-order .table thead {
+  background-color: #f8f9fa;
+}
+
+.coustomer-order .table tbody tr td {
+  font-size: 0.9rem;
+  padding: 8px;
+}
+
+.coustomer-order .table th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid #dee2e6;
+  color: #495057;
+}

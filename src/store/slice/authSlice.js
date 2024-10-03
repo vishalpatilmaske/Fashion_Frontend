@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosConfig";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 // Async thunk for signing up a user
 export const userSignup = createAsyncThunk(
@@ -35,7 +36,6 @@ export const userSignin = createAsyncThunk(
     }
   }
 );
-
 // Async thunk for adding user address
 export const addAddress = createAsyncThunk(
   "user/addUserAddress",
@@ -51,7 +51,22 @@ export const addAddress = createAsyncThunk(
     }
   }
 );
+// update user details
+export const updateUser = createAsyncThunk(
+  "user/updateUser",
+  async ({ userId, formData }) => {
+    try {
+      const response = axiosInstance.patch(
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}/update-user`,
+        formData
+      );
 
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
 // get user data
 export const getUserData = createAsyncThunk(
   "user/getUserData",
@@ -60,13 +75,13 @@ export const getUserData = createAsyncThunk(
       const response = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/api/user/${userId}/data`
       );
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
     }
   }
 );
-
 // update user address
 export const updateUserAddress = createAsyncThunk(
   "user/updateUserAddress",
@@ -79,6 +94,32 @@ export const updateUserAddress = createAsyncThunk(
         { primaryaddress: true }
       );
       return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+//  get all users form data base
+export const getAllUsers = createAsyncThunk("user/getAllUsers", async () => {
+  try {
+    const response = await axiosInstance.get(
+      `${import.meta.env.VITE_API_URL}/api/user/`
+    );
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response?.data?.error || "Network Error");
+  }
+});
+
+// delete  a user
+export const deleteUser = createAsyncThunk(
+  "user/deleteUser",
+  async (userId) => {
+    try {
+      const response = axiosInstance.delete(
+        `${import.meta.env.VITE_API_URL}/api/user/${userId}`
+      );
+      return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
     }
@@ -102,6 +143,9 @@ const authSlice = createSlice({
     },
     user: {
       userData: {},
+      allUsers: null,
+      loading: false,
+      error: null,
     },
   },
   reducers: {
@@ -114,8 +158,8 @@ const authSlice = createSlice({
       state.signin.isAuthenticate = false;
       Cookies.remove("access_key");
       localStorage.removeItem("userCredential");
-      localStorage.removeItem("cartId");
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("userAddress");
     },
 
     // get the local storage data
@@ -170,24 +214,62 @@ const authSlice = createSlice({
       })
       // handel add address to the
       .addCase(addAddress.pending, (state, action) => {
-        console.log("pending to add address");
+        console.log("pending to add address", action.payload);
       })
       .addCase(addAddress.fulfilled, (state, action) => {
-        const useraddress = action.payload.data.address;
-        localStorage.setItem("userAddress", JSON.stringify(useraddress));
+        toast.success("Address added successfully!");
       })
       .addCase(addAddress.rejected, (state, action) => {
         console.log("rejected to add address");
       })
-      // handel get user address to the
+      // handel get user data
       .addCase(getUserData.pending, (state, action) => {
-        console.log("pending");
+        state.user.loading = true;
       })
       .addCase(getUserData.fulfilled, (state, action) => {
         state.user.userData = action.payload.data;
       })
       .addCase(getUserData.rejected, (state, action) => {
         console.log("Error while getting users data", action.payload);
+      })
+
+      // handel to get all users from the data base
+      .addCase(getAllUsers.pending, (state, action) => {
+        state.user.loading = true;
+        state.user.error = null;
+      })
+      .addCase(getAllUsers.fulfilled, (state, action) => {
+        state.user.loading = false;
+        state.user.allUsers = action.payload.data;
+      })
+      .addCase(getAllUsers.rejected, (state, action) => {
+        state.user.error = action.payload;
+      })
+      // update user data
+      .addCase(updateUser.pending, (state, action) => {
+        state.user.loading = true;
+        state.user.error = null;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user.loading = false;
+        toast.success("Changes successfull !");
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.user.error = action.payload;
+      })
+      // delete user
+      .addCase(deleteUser.pending, (state, action) => {
+        state.user.loading = true;
+        state.user.error = null;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.user.loading = false;
+        if (action.payload.data.success) {
+          toast.success(action.payload.data.message);
+        }
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.user.error = action.payload;
       });
   },
 });

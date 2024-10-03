@@ -1,0 +1,11 @@
+table {
+  cursor: pointer;
+}
+h4 {
+  font-family: "Roboto", sans-serif;
+  cursor: pointer;
+}
+.png-image {
+  width: 1.4rem;
+  height: 1.4rem;
+}

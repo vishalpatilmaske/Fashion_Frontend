@@ -1,0 +1,7 @@
+.dashboard-card {
+  cursor: pointer;
+}
+.dashboard-card img {
+  height: 5rem;
+  width: 5rem;
+}

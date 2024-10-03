@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllOrders } from "../../store/slice/checkoutSlice";
+import { getUserOrders } from "../../store/slice/checkoutSlice";
+import { jwtDecode } from "jwt-decode";
 import moment from "moment";
 
 const OrderDetails = () => {
   const [activeTab, setActiveTab] = useState("orders");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.signin.userCredential);
-  const orders = useSelector((state) => state.checkout.orders);
+
+  const token = localStorage.getItem("accessToken");
+
+  let userId;
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    userId = decodedToken?.id;
+  }
 
   // call the API to get user orders
   useEffect(() => {
-    if (user?._id) {
-      dispatch(getAllOrders(user._id));
+    if (userId) {
+      dispatch(getUserOrders(userId));
     }
-  }, [dispatch, user]);
-
+  }, [dispatch]);
+  const orders = useSelector((state) => state.checkout.orders);
   const ordersList = orders.filter((order) => order.orders);
-
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
@@ -62,7 +68,6 @@ const OrderDetails = () => {
                   const formattedDate = moment(order.orderDate).format(
                     "DD MMM YYYY"
                   );
-
                   return (
                     <div className="card text-center mt-4" key={index}>
                       <div className="card-header d-flex justify-content-between py-1">
@@ -93,7 +98,7 @@ const OrderDetails = () => {
                                   <th rowSpan={2}>
                                     <div className="image-card">
                                       <img
-                                        src={order.products[0].productId.image}
+                                        src={order.product.productId.image}
                                         alt="product-image"
                                         className="order-product-image"
                                       />
@@ -106,14 +111,11 @@ const OrderDetails = () => {
                                   >
                                     <div>
                                       <p>
-                                        {
-                                          order.products[0].productId
-                                            .description
-                                        }
+                                        {order.product.productId.description}
                                       </p>
                                       <p>
                                         <b>Quantity :</b>
-                                        {order.products[0].quantity}
+                                        {order.product.quantity}
                                       </p>
                                       <p>
                                         <b>Price :</b> ₹{order.totalPrice}

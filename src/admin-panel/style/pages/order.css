@@ -1,0 +1,74 @@
+.all-orders .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.all-orders .table thead {
+  background-color: #f8f9fa;
+}
+
+.all-orders .table tbody tr td {
+  font-size: 0.9rem;
+  padding: 8px;
+}
+
+.all-orders .table th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid #dee2e6;
+  color: #495057;
+}
+
+.all-orders .table th:nth-child(1) {
+  width: 5%;
+}
+.all-orders .table th:nth-child(2) {
+  width: 15%;
+}
+.all-orders .table th:nth-child(3) {
+  width: 10%;
+}
+.all-orders .table th:nth-child(4) {
+  width: 10%;
+}
+.all-orders .table th:nth-child(5) {
+  width: 10%;
+}
+.all-orders .table th:nth-child(6) {
+  width: 10%;
+}
+.all-orders .table th:nth-child(7) {
+  width: 10%;
+}
+.all-orders .table th:nth-child(8) {
+  width: 10%;
+}
+.all-orders .table th:nth-child(9) {
+  width: 15%;
+}
+.all-orders .table th:nth-child(10) {
+  width: 5%;
+}
+
+@media (max-width: 576px) {
+  .all-orders .table th {
+    padding: 4px;
+  }
+
+  .all-orders .table th:nth-child(1),
+  .all-orders .table th:nth-child(10) {
+    display: none;
+  }
+
+  .all-orders .table th:nth-child(2),
+  .all-orders .table th:nth-child(3),
+  .all-orders .table th:nth-child(4),
+  .all-orders .table th:nth-child(5),
+  .all-orders .table th:nth-child(6),
+  .all-orders .table th:nth-child(7),
+  .all-orders .table th:nth-child(8),
+  .all-orders .table th:nth-child(9) {
+    width: 100%;
+  }
+}

@@ -15,10 +15,10 @@ import Signup from "./pages/Signup.jsx";
 import AddressDetails from "./components/profile/AddressDetails.jsx";
 import LoginSecurity from "./components/profile/LoginSecurity.jsx";
 import OrderDetails from "./components/profile/OrderDetails.jsx";
-import AdminDashboard from "./admin-panel/AdminDashboard.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import PrivateRoutes from "./routes/PrivateRoutes.jsx";
 import PrivateAdminRoutes from "./routes/AdminRoutes.jsx";
+import AdminRoutes from "../src/admin-panel/AdminRoutes.jsx";
 
 const MyRoutes = () => {
   const location = useLocation();
@@ -26,11 +26,12 @@ const MyRoutes = () => {
     "/checkout",
     "/signin",
     "/signup",
-    "/admin-dashboard",
+    "/admin-panel",
+    "/admin-panel/*",
   ];
 
-  const shouldShowHeaderFooter = !hideHeaderFooterPaths.includes(
-    location.pathname
+  const shouldShowHeaderFooter = !hideHeaderFooterPaths.some((path) =>
+    location.pathname.startsWith(path)
   );
 
   return (
@@ -108,10 +109,10 @@ const MyRoutes = () => {
 
         {/* Admin Routes */}
         <Route
-          path="/admin-dashboard"
+          path="/admin-panel/*"
           element={
             <PrivateAdminRoutes>
-              <AdminDashboard />
+              <AdminRoutes />
             </PrivateAdminRoutes>
           }
         />

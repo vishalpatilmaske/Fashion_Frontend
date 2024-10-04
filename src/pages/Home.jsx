@@ -10,20 +10,15 @@ import { useEffect } from "react";
 function Home() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.signin.userCredential);
-  const cart = useSelector((state) => state.cart);
-  // Load cart details
-  useEffect(() => {
-    dispatch(loadCartDetials());
-  }, [dispatch]);
+  const cartId = localStorage.getItem("cartId");
 
-  // When cart details are loaded, check if cart exists or not
   useEffect(() => {
-    if (cart.cartDetailsLoaded && user?._id) {
-      if (!cart.cartId && cart.cartId == undefined) {
-        dispatch(createCart(user._id));
-      }
+    if (user?._id) {
+      cartId
+        ? console.log("allready cart created")
+        : dispatch(createCart(user._id));
     }
-  }, [dispatch, cart.cartDetailsLoaded, user?._id, cart.cartId]);
+  }, [dispatch, user?._id]);
 
   return (
     <>

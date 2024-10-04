@@ -162,7 +162,7 @@ const cartSlice = createSlice({
     // load the localstorage data
     loadCartDetials: (state) => {
       const cartId = localStorage.getItem("cartId");
-      cartId != undefined ? (state.cartId = cartId) : console.log("aldskj");
+      cartId != undefined ? (state.cartId = cartId) : console.log("hello");
       state.cartDetailsLoaded = true;
     },
     // update selected items array

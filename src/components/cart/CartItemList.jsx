@@ -21,6 +21,7 @@ const CartItemList = () => {
   const isAuthenticate = useSelector(
     (state) => state.auth.signin.isAuthenticate
   );
+
   const cartId = cart.cartId;
 
   // state to track selected items

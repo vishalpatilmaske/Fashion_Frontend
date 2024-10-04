@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import axiosInstance from "../../config/axiosConfig";
 
 // Create a cart when user was first time login
 export const createCart = createAsyncThunk(
   "cart/createCart",
   async (userId, { rejectWithValue }) => {
-    console.log("function called");
     try {
       const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/cart/${userId}`
@@ -164,13 +162,12 @@ const cartSlice = createSlice({
     // load the localstorage data
     loadCartDetials: (state) => {
       const cartId = localStorage.getItem("cartId");
-      cartId ? (state.cartId = cartId) : null;
+      cartId != undefined ? (state.cartId = cartId) : console.log("aldskj");
       state.cartDetailsLoaded = true;
     },
     // update selected items array
     updateSelectedItems: (state, action) => {
       state.selectedItems.push(action.payload);
-      console.log(JSON.parse(JSON.stringify(state.selectedItems)));
     },
   },
   extraReducers: (builder) => {

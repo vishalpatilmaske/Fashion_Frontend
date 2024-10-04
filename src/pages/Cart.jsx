@@ -19,7 +19,6 @@ function Cart() {
     if (cart.cartDetailsLoaded && user?._id) {
       // Check if the cart is already loaded or not
       if (!cart.cartId && cart.cartId == undefined) {
-        console.log("cart function called");
         dispatch(createCart(user._id));
       }
     }

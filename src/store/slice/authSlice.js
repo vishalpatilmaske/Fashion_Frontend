@@ -160,6 +160,7 @@ const authSlice = createSlice({
       localStorage.removeItem("userCredential");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userAddress");
+      localStorage.removeItem("cartId");
     },
 
     // get the local storage data

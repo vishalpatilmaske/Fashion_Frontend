@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import CartItemList from "../components/cart/CartItemList";
 import CartSummary from "../components/cart/CartSummary";
-import { useDispatch, useSelector } from "react-redux";
-import { createCart, loadCartDetials } from "../store/slice/cartSlice";
 
 function Cart() {
   return (

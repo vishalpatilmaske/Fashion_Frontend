@@ -150,7 +150,6 @@ export const CreateOrderCashOnDelivery = createAsyncThunk(
   "order/CreateOrderCashOnDelivery",
   async ({ userId, orderData }, { rejectWithValue }) => {
     try {
-      console.log(userId, orderData);
       const order = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/order/${userId}/create-order`,
         orderData

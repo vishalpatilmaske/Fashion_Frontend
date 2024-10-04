@@ -214,9 +214,7 @@ const authSlice = createSlice({
         state.signin.successMessage = null;
       })
       // handel add address to the
-      .addCase(addAddress.pending, (state, action) => {
-        console.log("pending to add address", action.payload);
-      })
+      .addCase(addAddress.pending, (state, action) => {})
       .addCase(addAddress.fulfilled, (state, action) => {
         toast.success("Address added successfully!");
       })

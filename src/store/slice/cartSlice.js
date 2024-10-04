@@ -9,7 +9,6 @@ export const createCart = createAsyncThunk(
       const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/cart/${userId}`
       );
-
       return response.data;
     } catch (error) {
       if (error.response && error.response.status === 409) {
@@ -162,7 +161,7 @@ const cartSlice = createSlice({
     // load the localstorage data
     loadCartDetials: (state) => {
       const cartId = localStorage.getItem("cartId");
-      cartId != undefined ? (state.cartId = cartId) : console.log("hello");
+      state.cartId = cartId;
       state.cartDetailsLoaded = true;
     },
     // update selected items array
@@ -174,12 +173,11 @@ const cartSlice = createSlice({
     builder
       // create new cart
       .addCase(createCart.pending, (state, action) => {
-        console.log("fullfield");
-
         state.loading = true;
       })
       .addCase(createCart.fulfilled, (state, action) => {
         const cartId = action.payload._id;
+        console.log(cartId);
         localStorage.setItem("cartId", cartId);
         console.log("fullfield");
         state.cartId = cartId;
@@ -189,7 +187,6 @@ const cartSlice = createSlice({
         // if user has already cart then store old cart data
         const cartId = action.payload.data?._id;
         localStorage.setItem("cartId", cartId);
-        console.log("rejected");
         state.cartId = cartId;
         state.error = action.payload;
       })

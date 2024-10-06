@@ -22,7 +22,7 @@ function Home() {
           console.log(response);
         });
       } else {
-        console.log("Cart already exists: ", cartId);
+        // console.log("Cart already exists: ", cartId);
       }
     }
   }, [dispatch, user?._id, cartId]);

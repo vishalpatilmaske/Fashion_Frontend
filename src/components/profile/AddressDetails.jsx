@@ -78,7 +78,7 @@ const AddressDetails = () => {
     if (userId) {
       dispatch(getUserData({ userId }));
     }
-  }, [dispatch, userId]);
+  }, [dispatch, userId, handleToAddAddressWithValidation]);
   const userData = useSelector((state) => state.auth.user.userData);
   const userAddress = userData?.address || [];
   return (

@@ -76,7 +76,7 @@ const Customers = () => {
             <tbody>
               {users?.length > 0 ? (
                 users.map((user, index) => (
-                  <tr key={index}>
+                  <tr key={index} className="coustomer-list">
                     <th scope="row" className="text-truncate">
                       {index + 1}
                     </th>

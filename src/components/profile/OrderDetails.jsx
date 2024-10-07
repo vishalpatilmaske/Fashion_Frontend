@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserOrders } from "../../store/slice/checkoutSlice";
+import { cancelOrder, getUserOrders } from "../../store/slice/checkoutSlice";
 import { jwtDecode } from "jwt-decode";
 import moment from "moment";
 
@@ -16,12 +16,19 @@ const OrderDetails = () => {
     userId = decodedToken?.id;
   }
 
+  // call the cancel order
+  const cancelOrd = (order) => {
+    const orderId = order?._id;
+    dispatch(cancelOrder({ userId, orderId }));
+  };
+
   // call the API to get user orders
   useEffect(() => {
     if (userId) {
       dispatch(getUserOrders(userId));
     }
-  }, [dispatch]);
+  }, [dispatch, cancelOrd]);
+
   const orders = useSelector((state) => state.checkout.orders);
   const ordersList = orders.filter((order) => order.orders);
   const handleTabClick = (tab) => {
@@ -98,7 +105,7 @@ const OrderDetails = () => {
                                   <th rowSpan={2}>
                                     <div className="image-card">
                                       <img
-                                        src={order.product.productId.image}
+                                        src={order.product.productId?.image}
                                         alt="product-image"
                                         className="order-product-image"
                                       />
@@ -111,7 +118,7 @@ const OrderDetails = () => {
                                   >
                                     <div>
                                       <p>
-                                        {order.product.productId.description}
+                                        {order.product.productId?.description}
                                       </p>
                                       <p>
                                         <b>Quantity :</b>
@@ -137,7 +144,12 @@ const OrderDetails = () => {
                       <div className="card-footer text-body-secondary d-flex justify-content-between">
                         <div>{moment(order.orderDate).fromNow()}</div>
                         <div>
-                          <button className="btn btn-sm bg-warning rounded-pill cancel-button">
+                          <button
+                            className="btn btn-sm bg-warning rounded-pill cancel-button"
+                            onClick={() => {
+                              cancelOrd(order);
+                            }}
+                          >
                             Cancel Order
                           </button>
                         </div>

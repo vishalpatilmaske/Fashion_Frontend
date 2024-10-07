@@ -17,21 +17,25 @@ function WomensProductPoster() {
     <div className="container-fluid">
       <ul className="row product-list mb-3">
         {products &&
-          products.slice(0, 6).map((item, index) => (
-            <li key={item._id || index} className="col-4 col-sm-4 col-lg-2">
-              <div className="card womens-card">
-                <img
-                  src={item.image}
-                  className="card-img-top womens-product img-fluid"
-                  alt="poster image"
-                  onClick={() => {
-                    navigate("/women-product-listing");
-                  }}
-                />
-                <div className="card-body"></div>
-              </div>
-            </li>
-          ))}
+          // Filter products where the category is 'women' and then slice the array to show only 6 products
+          products
+            .filter((item) => item.category === "women")
+            .slice(0, 6)
+            .map((item, index) => (
+              <li key={item._id || index} className="col-4 col-sm-4 col-lg-2">
+                <div className="card womens-card">
+                  <img
+                    src={item.image}
+                    className="card-img-top womens-product img-fluid"
+                    alt="poster image"
+                    onClick={() => {
+                      navigate("/women-product-listing");
+                    }}
+                  />
+                  <div className="card-body"></div>
+                </div>
+              </li>
+            ))}
       </ul>
     </div>
   );

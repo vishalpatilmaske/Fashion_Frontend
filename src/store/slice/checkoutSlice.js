@@ -195,6 +195,26 @@ export const getUserOrders = createAsyncThunk(
   }
 );
 
+// cancel order
+
+export const cancelOrder = createAsyncThunk(
+  "checkout/cancelOrder",
+  async ({ userId, orderId }, { rejectWithValue }) => {
+    try {
+      console.log(orderId);
+      const response = await axiosInstance.delete(
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/order/${userId}/cancel-order/${orderId}`
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
 // Slice for order
 const checkoutSlice = createSlice({
   name: "checkout",
@@ -257,6 +277,20 @@ const checkoutSlice = createSlice({
         state.allOrders = action.payload.data;
       })
       .addCase(getAllOrders.rejected, (state, action) => {
+        state.loding = true;
+        state.error = null;
+      })
+      .addCase(cancelOrder.pending, (state) => {
+        state.loding = true;
+        state.error = null;
+      })
+      .addCase(cancelOrder.fulfilled, (state, action) => {
+        state.loding = false;
+        if (!state.loding) {
+          toast.success(action.payload.message);
+        }
+      })
+      .addCase(cancelOrder.rejected, (state, action) => {
         state.loding = true;
         state.error = null;
       });

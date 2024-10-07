@@ -1,18 +1,34 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllOrders } from "../../store/slice/checkoutSlice";
+import { getAllOrders, cancelOrder } from "../../store/slice/checkoutSlice";
 import { getAllUsers } from "../../store/slice/authSlice";
 import moment from "moment";
 import "../style/pages/order.css";
+import deleteDocumentImage from "../assets/image/delete-document.png";
+import { jwtDecode } from "jwt-decode";
 
 const Orders = () => {
   const dispatch = useDispatch();
+
+  const token = localStorage.getItem("accessToken");
+
+  let userId;
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    userId = decodedToken?.id;
+  }
+
+  // call the cancel order
+  const cancelOrd = (order) => {
+    const orderId = order?.orderId;
+    dispatch(cancelOrder({ userId, orderId }));
+  };
 
   // Fetch all users and orders when the component mounts
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(getAllOrders());
-  }, [dispatch]);
+  }, [dispatch, cancelOrd]);
 
   // Get users, loading status, and orders from the state
   const allOrders = useSelector((state) => state.checkout?.allOrders);
@@ -25,7 +41,6 @@ const Orders = () => {
 
     return userAddress ? userAddress : null;
   };
-  console.log(allOrders);
 
   // Create a flattened array of orders for all the orders in a site
   const orders = allOrders?.flatMap((order) =>
@@ -111,10 +126,15 @@ const Orders = () => {
                               }`
                             : "Address not found"}
                         </td>
-                        <td>
-                          <button className="btn btn-sm btn-danger">
-                            Delete
-                          </button>
+                        <td className="text-truncate">
+                          <img
+                            src={deleteDocumentImage}
+                            alt="delete"
+                            className="png-image"
+                            onClick={() => {
+                              cancelOrd(order);
+                            }}
+                          />
                         </td>
                       </tr>
                     ))

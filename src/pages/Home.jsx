@@ -3,6 +3,7 @@ import "../style/page/home.css";
 import Carousel from "../components/home/Carousel.jsx";
 import Poster from "../components/home/Poster.jsx";
 import WomensProductPoster from "../components/home/WomensProductPoster.jsx";
+import MenProductPoster from "../components/home/MenProductPoster.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { createCart } from "../store/slice/cartSlice.js";
 
@@ -32,6 +33,7 @@ function Home() {
       <Carousel />
       <Poster />
       <WomensProductPoster />
+      <MenProductPoster />
     </>
   );
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useMemo } from "react";
 import "../../style/globle.css";
 import "../../style/components/home/header.css";
 import { NavLink, useNavigate } from "react-router-dom";
-
 import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
@@ -14,7 +13,6 @@ function Header() {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   // Load user data and cart details on mount
   useEffect(() => {
     dispatch(loadLocalStorage());

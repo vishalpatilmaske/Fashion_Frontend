@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import "../style/pages/dashboard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getAllProducts } from "../../store/slice/productSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -14,12 +15,16 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(getAllOrders());
+    dispatch(getAllProducts());
   }, [dispatch]);
 
   // Get all users
   const users = useSelector((state) => state.auth.user.allUsers);
   // Get all orders
   const allOrders = useSelector((state) => state.checkout?.allOrders);
+
+  // Get all orders
+  const allProducts = useSelector((state) => state.product?.allProducts);
 
   // Create a flattened array of orders for all the orders in a site
   const orders = allOrders?.flatMap((order) => order?.orders);
@@ -69,7 +74,7 @@ const Dashboard = () => {
             <div className="card-body d-flex justify-content-between">
               <div>
                 <h5 className="card-title">Products</h5>
-                <h6>10K</h6>
+                <h6>{allProducts?.data?.length}</h6>
               </div>
               <div>
                 <img src={image} alt="" />

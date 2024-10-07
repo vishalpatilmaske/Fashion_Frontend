@@ -9,3 +9,8 @@ h4 {
   width: 1.4rem;
   height: 1.4rem;
 }
+.coustomer-list {
+  background-color: red;
+  height: 3.5rem;
+  vertical-align: middle;
+}

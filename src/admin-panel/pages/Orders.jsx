@@ -47,7 +47,7 @@ const Orders = () => {
     order?.orders?.map((orderDetail) => ({
       userEmail: order?.user?.email,
       orderId: orderDetail?._id,
-      category: orderDetail?.product.productId?.category,
+      category: orderDetail?.product?.productId?.category,
       quantity: orderDetail?.product?.quantity,
       total: orderDetail?.totalPrice,
       paymentStatus: orderDetail?.payment?.status,

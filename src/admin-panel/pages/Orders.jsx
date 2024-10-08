@@ -45,12 +45,12 @@ const Orders = () => {
   // Create a flattened array of orders for all the orders in a site
   const orders = allOrders?.flatMap((order) =>
     order?.orders?.map((orderDetail) => ({
-      userEmail: order.user?.email,
+      userEmail: order?.user?.email,
       orderId: orderDetail?._id,
-      category: orderDetail.product.productId?.category,
-      quantity: orderDetail.product?.quantity,
+      category: orderDetail?.product.productId?.category,
+      quantity: orderDetail?.product?.quantity,
       total: orderDetail?.totalPrice,
-      paymentStatus: orderDetail.payment?.status,
+      paymentStatus: orderDetail?.payment?.status,
       orderDate: orderDetail?.orderDate,
       orderStatus: orderDetail?.orderStatus,
       shippingAddress:

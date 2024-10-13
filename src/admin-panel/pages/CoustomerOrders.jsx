@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { cancelOrder } from "../../store/slice/checkoutSlice";
 import "../style/pages/coustomerorder.css";
+import { jwtDecode } from "jwt-decode";
 import moment from "moment";
 
 const CoustomerOrders = () => {
@@ -8,8 +10,23 @@ const CoustomerOrders = () => {
   const location = useLocation();
 
   const { user, allOrders } = location.state || {};
+
   const userData = allOrders?.filter((order) => order.user._id === user._id);
   const userOrders = userData?.[0]?.orders || [];
+
+  const token = localStorage.getItem("accessToken");
+
+  let userId;
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    userId = decodedToken?.id;
+  }
+
+  // call the cancel order
+  const cancelOrd = (order) => {
+    const orderId = order?._id;
+    dispatch(cancelOrder({ userId, orderId }));
+  };
 
   // Function to display the shipping address for an order
   const shippingAddress = (order) => {
@@ -28,7 +45,7 @@ const CoustomerOrders = () => {
   return (
     <div className="ms-3">
       <div className="d-flex justify-content-between p-2 shadow mb-3">
-        <h4>Orders</h4>
+        <h4>Coustomer Orders</h4>
       </div>
 
       <div className="d-flex">
@@ -89,7 +106,12 @@ const CoustomerOrders = () => {
                               <td>{order.orderStatus}</td>
                               <td>{shippingAddress(order)}</td>
                               <td>
-                                <button className="btn btn-sm btn-warning">
+                                <button
+                                  className="btn btn-sm btn-warning"
+                                  onClick={() => {
+                                    cancelOrd(order);
+                                  }}
+                                >
                                   delete
                                 </button>
                               </td>

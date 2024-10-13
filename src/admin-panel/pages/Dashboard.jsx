@@ -7,6 +7,7 @@ import "../style/pages/dashboard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllProducts } from "../../store/slice/productSlice";
+import { current } from "@reduxjs/toolkit";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -28,10 +29,13 @@ const Dashboard = () => {
 
   // Create a flattened array of orders for all the orders in a site
   const orders = allOrders?.flatMap((order) => order?.orders);
+  const totalRevenu = orders?.reduce((acc, current) => {
+    return acc + (current?.product?.productId?.price || 0);
+  }, 0);
 
   return (
-    <div className="container">
-      <div className="row w-100">
+    <div className="container ">
+      <div className="row w-100 ">
         {/* Customers */}
         <div
           className="col-md-6 col-lg-3 mb-4"
@@ -41,7 +45,7 @@ const Dashboard = () => {
             <div className="card-body d-flex justify-content-between justify-content-between">
               <div className="">
                 <h5 className="card-title">Customers</h5>
-                <h6>{users?.length}</h6>
+                <h4>{users?.length}</h4>
               </div>
               <div className="">
                 <img src={image} alt="" />
@@ -59,7 +63,7 @@ const Dashboard = () => {
             <div className="card-body d-flex justify-content-between">
               <div>
                 <h5 className="card-title">Orders</h5>
-                <h6>{orders?.length}</h6>
+                <h4>{orders?.length}</h4>
               </div>
               <div>
                 <img src={image} alt="" />
@@ -74,7 +78,7 @@ const Dashboard = () => {
             <div className="card-body d-flex justify-content-between">
               <div>
                 <h5 className="card-title">Products</h5>
-                <h6>{allProducts?.data?.length}</h6>
+                <h4>{allProducts?.data?.length}</h4>
               </div>
               <div>
                 <img src={image} alt="" />
@@ -89,7 +93,7 @@ const Dashboard = () => {
             <div className="card-body d-flex justify-content-between">
               <div>
                 <h5 className="card-title">Total Revenu</h5>
-                <h6>10K</h6>
+                <h4>{totalRevenu}</h4>
               </div>
               <div>
                 <img src={image} alt="" />

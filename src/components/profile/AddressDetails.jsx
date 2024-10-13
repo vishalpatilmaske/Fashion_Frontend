@@ -88,7 +88,7 @@ const AddressDetails = () => {
       </div>
       <div className="d-felx row">
         {" "}
-        <div className="card add-new-address mt-3 me-2 ms-2 ">
+        <div className="card add-new-address mt-3 me-2 ms-sm-2">
           <div className="card-body p-5 mt-4">
             <div
               className="d-flex justify-content-center addnewaddress"

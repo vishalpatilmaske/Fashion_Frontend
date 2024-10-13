@@ -72,7 +72,7 @@ const OrderDetails = () => {
             ordersList.length > 0 ? (
               ordersList.map((data) =>
                 data.orders.map((order, index) => {
-                  const formattedDate = moment(order.orderDate).format(
+                  const formattedDate = moment(order?.orderDate).format(
                     "DD MMM YYYY"
                   );
                   return (
@@ -85,13 +85,13 @@ const OrderDetails = () => {
                           </div>
                           <div className="ms-5 pt-2">
                             <p className="ps-sm-3">Total</p>
-                            <p className="price">₹ {order.totalPrice}</p>
+                            <p className="price">₹ {order?.totalPrice}</p>
                           </div>
                         </div>
                         <div className="card-right">
                           <div>
                             <p className="order-id">
-                              Order # {order.payment.transactionId}
+                              Order # {order?.payment?.transactionId}
                             </p>
                           </div>
                         </div>
@@ -105,7 +105,7 @@ const OrderDetails = () => {
                                   <th rowSpan={2}>
                                     <div className="image-card">
                                       <img
-                                        src={order.product.productId?.image}
+                                        src={order?.product.productId?.image}
                                         alt="product-image"
                                         className="order-product-image"
                                       />
@@ -118,19 +118,21 @@ const OrderDetails = () => {
                                   >
                                     <div>
                                       <p>
-                                        {order.product.productId?.description}
+                                        {order?.product?.productId?.description}
                                       </p>
                                       <p>
                                         <b>Quantity :</b>
-                                        {order.product.quantity}
+                                        {order?.product?.quantity}
                                       </p>
                                       <p>
-                                        <b>Price :</b> ₹{order.totalPrice}
+                                        <b>Price :</b> ₹{order?.totalPrice}
                                       </p>
                                       <div className="d-flex align-items-center justify-content-between">
                                         <p>
                                           <b> Payment :</b>{" "}
-                                          {order.isPaid ? "Success" : "Pending"}
+                                          {order?.isPaid
+                                            ? "Success"
+                                            : "Pending"}
                                         </p>
                                       </div>
                                     </div>

@@ -5,14 +5,14 @@ import { FaRegUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineProduct } from "react-icons/ai";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { GiHamburgerMenu } from "react-icons/gi"; // Import hamburger menu icon
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false); // State to manage sidebar visibility
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
-    setIsOpen(!isOpen); // Toggle the sidebar visibility
+    setIsOpen(!isOpen);
   };
 
   return (

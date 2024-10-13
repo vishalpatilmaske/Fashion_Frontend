@@ -4,7 +4,7 @@
   color: white !important;
   overflow-y: auto;
   position: fixed;
-  width: 250px;
+  width: 18vw;
   transition: width 0.3s ease;
 }
 

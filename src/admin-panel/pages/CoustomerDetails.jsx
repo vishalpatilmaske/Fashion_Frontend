@@ -22,8 +22,8 @@ const CustomerDetails = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-between p-2 shadow mb-3">
-        <h4>User Details</h4>
+      <div className="d-flex justify-content-between p-2 shadow mb-3 ">
+        <h4 className="ps-3">User Details</h4>
       </div>
 
       <div className="d-flex">

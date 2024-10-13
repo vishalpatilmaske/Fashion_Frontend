@@ -30,22 +30,13 @@ const MenProductListing = () => {
   return (
     <>
       {" "}
-      <div className="row container-fluid">
+      <div className="row container-fluid  p-0 m-0 d-flex justify-content-center">
         <div className="col-md-2 ">
           <h4 style={{ fontSize: "1rem" }} className="mt-3 ms-3">
             Result for you
           </h4>
         </div>
-        <div className="col-md-10 container row ">
-          {/* <div className="">
-            <h4 style={{ fontSize: "1rem" }} className="mt-3">
-              Result for you
-            </h4>
-            <p className="text-secondary" style={{ fontSize: "0.8rem" }}>
-              Check each product page for other buying options. Price and other
-              details may vary based on product size and colour.
-            </p>
-          </div> */}
+        <div className="col-12 col-md-10 container row ">
           <div className="mt-4">
             <ul className="row men-product-list">
               {products &&

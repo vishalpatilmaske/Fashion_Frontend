@@ -2,7 +2,7 @@ import React from "react";
 import image1 from "/public/assets/images/carousel/home1.webp";
 import image2 from "/public/assets/images/carousel/home2.webp";
 import image3 from "/public/assets/images/carousel/home3.webp";
-
+import "../../style/components/home/carousel.css";
 function Carousel() {
   return (
     <section className="container-fluid carousel p-0">
@@ -15,15 +15,23 @@ function Carousel() {
           <div className="carousel-item active">
             <img
               src={image1}
-              className="d-block w-100  img-fluid"
+              className="d-block w-100 img-fluid carousel-img"
               alt="image"
             />
           </div>
           <div className="carousel-item">
-            <img src={image2} className="d-block w-100 img-fluid" alt="image" />
+            <img
+              src={image2}
+              className="d-block w-100 img-fluid carousel-img"
+              alt="image"
+            />
           </div>
           <div className="carousel-item">
-            <img src={image3} className="d-block w-100 img-fluid" alt="image" />
+            <img
+              src={image3}
+              className="d-block w-100 img-fluid carousel-img"
+              alt="image"
+            />
           </div>
         </div>
         <button

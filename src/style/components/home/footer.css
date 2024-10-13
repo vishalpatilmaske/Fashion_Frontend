@@ -1,5 +1,5 @@
 .footer {
-  background-color: #191f4e;
+  background-color: #032b44;
   color: white;
   font-family: "Roboto", sans-serif;
   width: 100%;
@@ -60,9 +60,12 @@ h6 {
   padding: 10px;
 }
 
-/* Form mobile screen */
-@media (max-width: 480px) {
+/* for mobile screen */
+@media screen and (max-width: 540px) {
   .first-child {
+    display: none;
+  }
+  .dont-show-mobile {
     display: none;
   }
 }

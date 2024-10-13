@@ -120,9 +120,6 @@ const CheckoutPayment = ({ products, subtotal }) => {
                         shippingAddress: selectedAddress._id,
                       })
                     );
-                    // dispatch(getUserOrders(userId)).then((data) => {
-                    //   console.log(data);
-                    // });
                   }
                   // cashn on delivery
                   if (payment === "cash_on_delivery") {
@@ -130,10 +127,10 @@ const CheckoutPayment = ({ products, subtotal }) => {
                       orders: [
                         {
                           products: productsList.map((item) => ({
-                            productId: item.productId,
-                            quantity: item.quantity,
+                            productId: item?.productId,
+                            quantity: item?.quantity,
                           })),
-                          shippingAddress: selectedAddress._id,
+                          shippingAddress: selectedAddress?._id,
                           orderStatus: "shipped",
                           payment: {
                             method: "cash_on_delivery",
@@ -148,8 +145,8 @@ const CheckoutPayment = ({ products, subtotal }) => {
                       dispatch(
                         CreateOrderCashOnDelivery({ userId, orderData })
                       ).then((data) => {
-                        if (data.payload.data.message) {
-                          toast.success(data.payload.data.message);
+                        if (data?.payload?.data?.message) {
+                          toast.success(data?.payload?.data?.message);
                           navigate("/profile-orders");
                         }
                       });
@@ -161,8 +158,10 @@ const CheckoutPayment = ({ products, subtotal }) => {
               }}
             >
               {payment === "online_payment"
-                ? "Pay Now"
-                : "Use this payment method"}
+                ? "Pay now"
+                : payment === "cash_on_delivery"
+                ? "Place Order"
+                : "Select Payment Method"}
             </button>
           </div>
         </div>

@@ -61,7 +61,7 @@ const Orders = () => {
   return (
     <div className="ms-3">
       <div className="d-flex justify-content-between p-2 shadow mb-3">
-        <h4>Orders</h4>
+        <h4>All Orders</h4>
       </div>
       <div className="d-flex">
         <div className="col-12 mx-auto">
@@ -127,14 +127,14 @@ const Orders = () => {
                             : "Address not found"}
                         </td>
                         <td className="text-truncate">
-                          <img
-                            src={deleteDocumentImage}
-                            alt="delete"
-                            className="png-image"
+                          <button
+                            className="btn btn-sm btn-warning"
                             onClick={() => {
                               cancelOrd(order);
                             }}
-                          />
+                          >
+                            Cancel
+                          </button>
                         </td>
                       </tr>
                     ))

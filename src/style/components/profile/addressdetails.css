@@ -26,7 +26,7 @@
 @media screen and (max-width: 570px) {
   .add-new-address {
     width: 100%;
-    border: 2px dotted rgb(143, 143, 143);
+    /* border: 2px dotted rgb(143, 143, 143); */
     cursor: pointer;
   }
   .add-new-address h5 {
@@ -44,7 +44,7 @@
   }
   .add-new-address {
     width: 45%;
-    border: 2px dotted rgb(143, 143, 143);
+    /* border: 2px dotted rgb(143, 143, 143); */
     cursor: pointer;
   }
   .add-new-address h5 {

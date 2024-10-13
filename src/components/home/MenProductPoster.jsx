@@ -15,6 +15,7 @@ function MenProductPoster() {
 
   return (
     <div className="container-fluid">
+      <h3 className="text-center">Gent's Corner</h3>
       <ul className="row product-list mb-3">
         {products &&
           // Filter products where the category is 'women' and then slice the array to show only 6 products

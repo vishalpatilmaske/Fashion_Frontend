@@ -31,14 +31,23 @@
   object-fit: contain;
   border-radius: 8px;
 }
-
-@media screen and (max-width: 480px) {
+/* for mobile screen */
+@media screen and (max-width: 540px) {
   .product-list li {
     margin-bottom: 10px;
   }
-
-  .womens-card {
-    width: 10rem;
-    height: 12rem;
+  .product-description {
+    font-size: 0.8rem;
+  }
+  .product-price {
+    font-size: 1rem;
+  }
+  .men-product-listing-card {
+    width: 50vw !important;
+    height: 53vh !important;
+  }
+  .men-product-image {
+    padding-top: 5px;
+    max-height: 10rem;
   }
 }

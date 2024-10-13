@@ -36,12 +36,7 @@ function Footer() {
             <div className="col-sm-12 mb-2 ">
               <strong className="d-none d-md-block">Get in touch</strong>
             </div>
-
-            {/* display only on small screen  */}
-            {/* <h2 className="d-block d-md-none">
-              Fashion<strong className="navbarbrand">Flick</strong>
-            </h2> */}
-            <div className="row pt-2">
+            <div className="row pt-2 dont-show-mobile">
               <div className="col-2">
                 <a
                   href="https://www.instagram.com/vishal_patil_maske/"
@@ -70,7 +65,7 @@ function Footer() {
                 </a>
               </div>
             </div>
-            <div className="mt-3">
+            <div className="mt-3 dont-show-mobile">
               <p>
                 Mobile:<a href="tel:9322396236"></a> +919322396236
               </p>
@@ -82,7 +77,7 @@ function Footer() {
                 </a>
               </p>
             </div>
-            <div className="row mt-2">
+            <div className="row mt-2 dont-show-mobile">
               <div className="input-group input-group-sm mb-3">
                 <input
                   type="text"

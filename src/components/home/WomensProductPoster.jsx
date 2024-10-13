@@ -15,12 +15,13 @@ function WomensProductPoster() {
 
   return (
     <div className="container-fluid">
+      <h3 className="text-center">Fashion Femme</h3>
       <ul className="row product-list mb-3">
         {products &&
           // Filter products where the category is 'women' and then slice the array to show only 6 products
           products
             .filter((item) => item.category === "women")
-            .slice(0, 6)
+            .slice(0, 12)
             .map((item, index) => (
               <li key={item._id || index} className="col-4 col-sm-4 col-lg-2">
                 <div className="card womens-card">

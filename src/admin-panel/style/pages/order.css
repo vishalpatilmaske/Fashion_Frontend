@@ -11,6 +11,7 @@
 .all-orders .table tbody tr td {
   font-size: 0.9rem;
   padding: 8px;
+  /* vertical-align: middle; */
 }
 
 .all-orders .table th {

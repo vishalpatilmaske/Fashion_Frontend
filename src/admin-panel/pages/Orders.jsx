@@ -59,7 +59,7 @@ const Orders = () => {
   );
 
   return (
-    <div className="ms-3">
+    <div className="ms-4">
       <div className="d-flex justify-content-between p-2 shadow mb-3">
         <h4>All Orders</h4>
       </div>

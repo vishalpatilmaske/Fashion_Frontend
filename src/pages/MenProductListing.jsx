@@ -38,7 +38,7 @@ const MenProductListing = () => {
         </div>
         <div className="col-12 col-md-10 container row ">
           <div className="mt-4">
-            <ul className="row men-product-list">
+            <ul className="row men-product-list mb-3">
               {products &&
                 products.map((item, index) => (
                   <li

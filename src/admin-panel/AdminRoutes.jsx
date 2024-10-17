@@ -9,6 +9,8 @@ import Products from "./pages/Products.jsx";
 import EditCoustomer from "./pages/EditCoustomer.jsx";
 import CoustomerDetails from "./pages/CoustomerDetails.jsx";
 import CoustomerOrders from "./pages/CoustomerOrders.jsx";
+import EditProdcut from "./pages/EditProduct.jsx";
+import AddNewProduct from "./pages/AddNewProduct.jsx";
 
 const AdminRoutes = () => {
   return (
@@ -21,6 +23,8 @@ const AdminRoutes = () => {
         <Route path="/user-orders" element={<CoustomerOrders />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/edit-product" element={<EditProdcut />} />
+        <Route path="/products/add-new-product" element={<AddNewProduct />} />
       </Route>
     </Routes>
   );

@@ -58,24 +58,23 @@ const Signin = () => {
   }, [auth, navigate, from]);
 
   return (
-    <div className="row d-flex justify-content-center ">
-      <div className="py-3 signin-header">
+    <div className="row d-flex justify-content-center container-fluid m-0 p-0 ">
+      <div className="signin-header m-0 p-0">
         <h3
           onClick={() => {
             navigate("/");
           }}
-          style={{ cursor: "pointer" }}
+          className="ps-sm-5 ps-4 bg-dark py-2"
         >
-          <strong>Fashion</strong>
+          <strong className="fashion">Fashion</strong>
           <strong className="flick">Flick</strong>
         </h3>
       </div>
       <form
         id="show-login"
         name="login_form"
-        className="w-100 mt-4"
+        className="w-100 mt-4 singin-form"
         onSubmit={handleSubmit}
-        style={{ maxWidth: "400px" }}
       >
         <div className="card p-4 shadow-sm">
           <span

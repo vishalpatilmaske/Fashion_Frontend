@@ -1,0 +1,49 @@
+.product-image {
+  height: 30vh;
+  width: 100%;
+}
+
+.products-listing-admin-panel .card {
+  cursor: pointer;
+  height: 100%;
+}
+
+.products-listing-admin-panel .card-img-top {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
+
+.products-listing-admin-panel .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.products-listing-admin-panel .edit-product {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.edit-prodcut {
+  display: flex;
+}
+.edit-prodcut div {
+  width: 5vw;
+}
+.edit-prodcut img {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Optional: Add responsive design */
+@media (max-width: 768px) {
+  .col-md-3 {
+    flex: 0 0 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .col-md-3 {
+    flex: 0 0 100%;
+  }
+}

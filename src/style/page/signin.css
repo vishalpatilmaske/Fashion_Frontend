@@ -1,9 +1,24 @@
 .signin-header {
-  background-color: aliceblue;
+  max-width: 100%;
 }
 .signin-header h3 {
   cursor: pointer;
 }
+.fashion {
+  color: rgb(241, 240, 240);
+}
 .flick {
   color: rgb(212, 109, 50);
+}
+
+.singin-form {
+  max-width: 30vw;
+}
+
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .singin-form {
+    max-width: 100vw;
+    margin-top: 5rem !important;
+  }
 }

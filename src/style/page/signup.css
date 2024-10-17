@@ -1,6 +1,13 @@
 .flick {
   color: rgb(212, 109, 50);
 }
-.signup-header {
-  background-color: aliceblue;
+.signup-form {
+  max-width: 30vw;
+}
+/* For Mobile Screens */
+@media screen and (max-width: 576px) {
+  .signup-form {
+    max-width: 100vw;
+    margin-top: 5rem !important;
+  }
 }

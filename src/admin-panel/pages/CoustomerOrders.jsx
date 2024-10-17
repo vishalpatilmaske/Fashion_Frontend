@@ -31,12 +31,12 @@ const CoustomerOrders = () => {
   // Function to display the shipping address for an order
   const shippingAddress = (order) => {
     const userAddress = user?.address?.find(
-      (address) => address?._id === order?.shippingAddress.toString()
+      (address) => address?._id === order?.shippingAddress?.toString()
     );
 
     // Check if the address was found
     if (userAddress) {
-      return `${userAddress.fullname}, ${userAddress.housenumber}, ${userAddress.area}, ${userAddress.landmark}, ${userAddress.dist}, ${userAddress.pincode}`;
+      return `${userAddress?.fullname}, ${userAddress?.housenumber}, ${userAddress?.area}, ${userAddress?.landmark}, ${userAddress?.dist}, ${userAddress?.pincode}`;
     } else {
       return "Address not found";
     }
@@ -95,15 +95,15 @@ const CoustomerOrders = () => {
                           userOrders.map((order, index) => (
                             <tr key={index}>
                               <td>{index + 1}</td>
-                              <td>{order.product.productId.category}</td>
-                              <td>{order.product.productId.name}</td>
-                              <td>{order.product.quantity}</td>
-                              <td>{order.product.productId.price}</td>
-                              <td>{order.payment.status}</td>
+                              <td>{order?.product?.productId?.category}</td>
+                              <td>{order?.product?.productId?.name}</td>
+                              <td>{order?.product?.quantity}</td>
+                              <td>{order?.product?.productId?.price}</td>
+                              <td>{order?.payment?.status}</td>
                               <td>
-                                {moment(order.orderDate).format("DD MMM YYYY")}
+                                {moment(order?.orderDate).format("DD MMM YYYY")}
                               </td>
-                              <td>{order.orderStatus}</td>
+                              <td>{order?.orderStatus}</td>
                               <td>{shippingAddress(order)}</td>
                               <td>
                                 <button

@@ -70,15 +70,16 @@ const Signup = () => {
   };
 
   return (
-    <div className="row d-flex justify-content-center mx-auto">
-      <div className="py-3 signup-header ">
+    <div className="row d-flex justify-content-center mx-auto container-fluid m-0 p-0">
+      <div className="signup-header m-0 p-0">
         <h3
           onClick={() => {
             navigate("/");
           }}
+          className="ps-sm-5 ps-4 bg-dark py-2"
           style={{ cursor: "pointer" }}
         >
-          <strong>Fashion</strong>
+          <strong className="fashion">Fashion</strong>
           <strong className="flick">Flick</strong>
         </h3>
       </div>
@@ -86,8 +87,7 @@ const Signup = () => {
         name="signup_form"
         onSubmit={handleSubmitData}
         method="post"
-        className="w-100 mt-4"
-        style={{ maxWidth: "400px" }}
+        className="w-100 mt-4 signup-form"
       >
         <div className="card p-4 shadow-sm">
           <span

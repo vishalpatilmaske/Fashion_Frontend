@@ -7,7 +7,6 @@ import "../style/pages/dashboard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllProducts } from "../../store/slice/productSlice";
-import { current } from "@reduxjs/toolkit";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -20,12 +19,12 @@ const Dashboard = () => {
   }, [dispatch]);
 
   // Get all users
-  const users = useSelector((state) => state.auth.user.allUsers);
+  const users = useSelector((state) => state?.auth?.user?.allUsers);
   // Get all orders
-  const allOrders = useSelector((state) => state.checkout?.allOrders);
+  const allOrders = useSelector((state) => state?.checkout?.allOrders);
 
   // Get all orders
-  const allProducts = useSelector((state) => state.product?.allProducts);
+  const allProducts = useSelector((state) => state?.product?.allProducts);
 
   // Create a flattened array of orders for all the orders in a site
   const orders = allOrders?.flatMap((order) => order?.orders);
@@ -73,7 +72,10 @@ const Dashboard = () => {
         </div>
 
         {/* Total Products*/}
-        <div className="col-md-6 col-lg-3 mb-4">
+        <div
+          className="col-md-6 col-lg-3 mb-4"
+          onClick={() => navigate("/admin-panel/products")}
+        >
           <div className="card shadow dashboard-card ">
             <div className="card-body d-flex justify-content-between">
               <div>

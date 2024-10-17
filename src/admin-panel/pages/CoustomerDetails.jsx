@@ -18,7 +18,7 @@ const CustomerDetails = () => {
     }
   }, []);
 
-  const userData = useSelector((state) => state.auth.user.userData);
+  const userData = useSelector((state) => state?.auth?.user?.userData);
 
   return (
     <div>

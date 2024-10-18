@@ -81,9 +81,10 @@ const CartItemList = () => {
   // Handle removing an item from the cart
   const handleRemoveFromCart = (productId) => {
     if (productId) {
-      dispatch(removeFromCart({ cartId, productId }));
+      dispatch(removeFromCart({ cartId, productId })).then(() => {
+        dispatch(getCartItems({ cartId }));
+      });
       // Fetch the updated cart items after removing an item
-      dispatch(getCartItems({ cartId }));
     }
   };
 

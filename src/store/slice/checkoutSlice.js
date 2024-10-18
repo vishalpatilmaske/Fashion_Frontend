@@ -201,7 +201,6 @@ export const cancelOrder = createAsyncThunk(
   "checkout/cancelOrder",
   async ({ userId, orderId }, { rejectWithValue }) => {
     try {
-      console.log(orderId, userId);
       const response = await axiosInstance.delete(
         `${
           import.meta.env.VITE_API_URL

@@ -19,6 +19,7 @@ const OrderDetails = () => {
   // call the cancel order
   const cancelOrd = (order) => {
     const orderId = order?._id;
+    console.log(order);
     dispatch(cancelOrder({ userId, orderId }));
   };
 
@@ -72,6 +73,7 @@ const OrderDetails = () => {
             ordersList?.length > 0 ? (
               ordersList?.map((data) =>
                 data?.orders?.map((order, index) => {
+                  // console.log(order);
                   const formattedDate = moment(order?.orderDate).format(
                     "DD MMM YYYY"
                   );
@@ -105,7 +107,7 @@ const OrderDetails = () => {
                                   <th rowSpan={2}>
                                     <div className="image-card">
                                       <img
-                                        src={order?.product?.productId?.image}
+                                        src={order?.product?.productId.image}
                                         alt="product-image"
                                         className="order-product-image"
                                       />

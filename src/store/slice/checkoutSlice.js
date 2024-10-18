@@ -206,6 +206,7 @@ export const cancelOrder = createAsyncThunk(
           import.meta.env.VITE_API_URL
         }/api/order/${userId}/cancel-order/${orderId}`
       );
+      console.log(response);
 
       return response.data;
     } catch (error) {

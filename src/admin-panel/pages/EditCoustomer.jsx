@@ -35,7 +35,10 @@ const EditCustomer = () => {
   };
 
   return (
-    <div className="card container mx-auto col-10 p-5">
+    <div
+      className="card container mx-auto col-10 p-5"
+      style={{ marginTop: "5rem" }}
+    >
       <form onSubmit={handleSubmit} className="row g-3 col-10 mx-auto">
         {/* Email Input */}
         <div className="col-md-6">

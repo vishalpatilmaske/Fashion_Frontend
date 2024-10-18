@@ -36,7 +36,7 @@ const Customers = () => {
   }
 
   return (
-    <div className="p-2 ms-4">
+    <div className="p-2 ms-4" style={{ marginTop: "5rem" }}>
       <div className="d-flex justify-content-between p-2 shadow mb-3 container-fluid">
         <div>
           <h4>User Management</h4>

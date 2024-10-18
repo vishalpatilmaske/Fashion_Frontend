@@ -61,10 +61,19 @@ const MenProductListing = () => {
                         />
                         <div className="card-body text-center">
                           <strong>{item.name}</strong>
-                          <p style={{ fontSize: "0.9rem" }}>
+                          <p
+                            style={{ fontSize: "0.9rem" }}
+                            onClick={() => {
+                              navigate("/product-details", { state: item });
+                            }}
+                          >
                             {item.description.slice(0, 50).toString() + "..."}
                           </p>
-                          <p>
+                          <p
+                            onClick={() => {
+                              navigate("/product-details", { state: item });
+                            }}
+                          >
                             <sup>₹</sup>
                             <span style={{ fontSize: "1.4rem" }}>
                               {item.price}

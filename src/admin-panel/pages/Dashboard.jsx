@@ -33,7 +33,7 @@ const Dashboard = () => {
   }, 0);
 
   return (
-    <div className="container ">
+    <div className="container" style={{ marginTop: "5rem" }}>
       <div className="row w-100 ">
         {/* Customers */}
         <div

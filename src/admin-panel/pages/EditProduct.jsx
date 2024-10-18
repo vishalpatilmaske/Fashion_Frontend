@@ -27,7 +27,7 @@ const EditProduct = () => {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "5rem" }}>
       <div className="d-flex justify-content-between shadow ms-3 py-2 mb-3 container-fluid ">
         <div>
           <h4>Edit Product</h4>

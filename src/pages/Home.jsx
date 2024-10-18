@@ -13,6 +13,7 @@ function Home() {
 
   // Get cartId from localStorage
   const cartId = localStorage.getItem("cartId");
+  const loading = useSelector((state) => state.product.loading);
 
   useEffect(() => {
     // Check if user is authenticated
@@ -23,18 +24,25 @@ function Home() {
           console.log(response);
         });
       } else {
-        // console.log("Cart already exists: ", cartId);
       }
     }
   }, [dispatch, user?._id, cartId]);
 
   return (
-    <>
-      <Carousel />
-      <Poster />
-      <WomensProductPoster />
-      <MenProductPoster />
-    </>
+    <div>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
+
+      <div className={loading ? "blurred" : ""}>
+        <Carousel />
+        <Poster />
+        <WomensProductPoster />
+        <MenProductPoster />
+      </div>
+    </div>
   );
 }
 

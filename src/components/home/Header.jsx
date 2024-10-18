@@ -55,8 +55,10 @@ function Header() {
       navigate("/signin");
     }
   };
+  const loading = useSelector((state) => state.product.loading);
 
   return (
+    // <div className={loading ? "blurred" : ""}>
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container-fluid py-1 header ">
         <div className="container d-flex justify-content-between justify-content-sm-around ">
@@ -122,6 +124,7 @@ function Header() {
         </div>
       </div>
     </nav>
+    // </div>
   );
 }
 

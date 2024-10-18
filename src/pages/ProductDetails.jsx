@@ -56,13 +56,6 @@ function ProductDetails() {
         <div className="row mb-5">
           <div className="col-sm-6 d-flex flex-column align-items-center pt-4">
             <div className="product-images mb-3"></div>
-            {/* <div className="border main-image">
-              <img
-                src={productDetails.image}
-                alt="product-image"
-                className="img-fluid"
-              />
-            </div> */}
             <div className="card main-image">
               <img
                 src={productDetails.image}

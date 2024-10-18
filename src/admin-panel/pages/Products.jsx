@@ -18,7 +18,7 @@ const Products = () => {
   const allProducts = useSelector((state) => state?.product?.allProducts);
 
   return (
-    <div className="ms-4">
+    <div className="ms-4" style={{ marginTop: "5rem" }}>
       <div className="d-flex justify-content-between p-2 shadow mb-3 container-fluid ">
         <div>
           <h4>All Products</h4>

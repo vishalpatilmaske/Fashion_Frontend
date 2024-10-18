@@ -6,6 +6,17 @@
 .header {
   padding: 1rem;
 }
+.admin-header {
+  width: 81.8%;
+  right: 0;
+  left: auto;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
 
 .header-nav .nav-item .nav-link {
   padding: 0.5rem;

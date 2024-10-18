@@ -56,6 +56,7 @@ const productSlice = createSlice({
     // contain all product
     allProducts: [],
     error: null,
+    loading: true,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -63,14 +64,17 @@ const productSlice = createSlice({
       // Get all products
       .addCase(getAllProducts.pending, (state) => {
         state.success = false;
+        state.loading = true;
       })
       .addCase(getAllProducts.fulfilled, (state, action) => {
         state.success = true;
+        state.loading = false;
         state.allProducts = action.payload;
       })
       .addCase(getAllProducts.rejected, (state, action) => {
         state.success = false;
         state.error = action.payload;
+        state.loading = true;
       })
       // Get cart products
       .addCase(getCartProducts.pending, (state) => {

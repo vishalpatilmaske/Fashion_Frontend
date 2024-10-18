@@ -50,10 +50,19 @@ const WomenProductListing = () => {
                       />
                       <div className="card-body text-center">
                         <strong>{item.name}</strong>
-                        <p className="product-description">
+                        <p
+                          className="product-description"
+                          onClick={() => {
+                            navigate("/product-details", { state: item });
+                          }}
+                        >
                           {item.description.slice(0, 30).toString() + "..."}
                         </p>
-                        <p>
+                        <p
+                          onClick={() => {
+                            navigate("/product-details", { state: item });
+                          }}
+                        >
                           <sup>₹</sup>
                           <span className="product-price">{item.price}</span>
                           <sub className="text-secondary"> M.R.P</sub>

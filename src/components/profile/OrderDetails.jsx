@@ -29,8 +29,8 @@ const OrderDetails = () => {
     }
   }, [dispatch, cancelOrd]);
 
-  const orders = useSelector((state) => state.checkout.orders);
-  const ordersList = orders.filter((order) => order.orders);
+  const orders = useSelector((state) => state?.checkout?.orders);
+  const ordersList = orders.filter((order) => order?.orders);
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
@@ -69,9 +69,9 @@ const OrderDetails = () => {
 
         <div className="card-body">
           {activeTab === "orders" ? (
-            ordersList.length > 0 ? (
-              ordersList.map((data) =>
-                data.orders.map((order, index) => {
+            ordersList?.length > 0 ? (
+              ordersList?.map((data) =>
+                data?.orders?.map((order, index) => {
                   const formattedDate = moment(order?.orderDate).format(
                     "DD MMM YYYY"
                   );
@@ -105,7 +105,7 @@ const OrderDetails = () => {
                                   <th rowSpan={2}>
                                     <div className="image-card">
                                       <img
-                                        src={order?.product.productId?.image}
+                                        src={order?.product?.productId?.image}
                                         alt="product-image"
                                         className="order-product-image"
                                       />
@@ -144,7 +144,7 @@ const OrderDetails = () => {
                         </div>
                       </div>
                       <div className="card-footer text-body-secondary d-flex justify-content-between">
-                        <div>{moment(order.orderDate).fromNow()}</div>
+                        <div>{moment(order?.orderDate).fromNow()}</div>
                         <div>
                           <button
                             className="btn btn-sm bg-warning rounded-pill cancel-button"

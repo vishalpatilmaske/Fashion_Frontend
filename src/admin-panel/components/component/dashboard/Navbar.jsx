@@ -6,8 +6,8 @@ import userImage from "../../../assets/image/user-image.png";
 
 const Navbar = () => {
   return (
-    <nav className="header navbar-expand-lg bg-body-tertiary bg-dark p-4 p-sm-2 ms-sm-3 shadow">
-      <div className="container-fluid">
+    <nav className="header navbar navbar-expand-lg bg-body-tertiary bg-dark p-4 p-sm-2 ms-sm-3 shadow fixed-top w-75  ">
+      <div className="container-fluid bg-dark">
         <div className="collapse navbar-collapse" id="headerNav">
           <ul className="header-nav me-auto">
             <li className="nav-item">

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   initiatePayment,
   CreateOrderCashOnDelivery,
-  getUserOrders,
 } from "../../store/slice/checkoutSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -22,13 +21,15 @@ const CheckoutPayment = ({ products, subtotal }) => {
   };
 
   // User's credential: user ID
-  const userId = useSelector((state) => state.auth.signin.userCredential?._id);
+  const userId = useSelector(
+    (state) => state?.auth?.signin?.userCredential?._id
+  );
 
   // List of products to order
   const productsList = products;
 
   // Get the shipping address from the store
-  const address = useSelector((state) => state.auth.user.userData.address);
+  const address = useSelector((state) => state?.auth?.user?.userData?.address);
 
   // Find the primary address
   let selectedAddress = null;
@@ -117,16 +118,18 @@ const CheckoutPayment = ({ products, subtotal }) => {
                           transactionId: null,
                         },
                         isPaid: null,
-                        shippingAddress: selectedAddress._id,
+                        shippingAddress: selectedAddress?._id,
                       })
-                    );
+                    ).then(() => {
+                      navigate("/");
+                    });
                   }
                   // cashn on delivery
                   if (payment === "cash_on_delivery") {
                     const orderData = {
                       orders: [
                         {
-                          products: productsList.map((item) => ({
+                          products: productsList?.map((item) => ({
                             productId: item?.productId,
                             quantity: item?.quantity,
                           })),

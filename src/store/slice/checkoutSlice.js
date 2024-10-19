@@ -154,9 +154,8 @@ export const CreateOrderCashOnDelivery = createAsyncThunk(
         `${import.meta.env.VITE_API_URL}/api/order/${userId}/create-order`,
         orderData
       );
+      console.log(order);
       return order;
-      toast.success("Order placed successfully!");
-      return order.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
     }
@@ -206,8 +205,6 @@ export const cancelOrder = createAsyncThunk(
           import.meta.env.VITE_API_URL
         }/api/order/${userId}/cancel-order/${orderId}`
       );
-      console.log(response);
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
@@ -251,7 +248,7 @@ const checkoutSlice = createSlice({
       .addCase(CreateOrderCashOnDelivery.rejected, (state, action) => {
         state.loding = false;
         state.error = null;
-        console.log(action);
+        console.log(action.payload.message);
       })
       // Get user single user orders
       .addCase(getUserOrders.pending, (state) => {

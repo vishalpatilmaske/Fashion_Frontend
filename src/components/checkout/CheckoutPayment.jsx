@@ -148,6 +148,7 @@ const CheckoutPayment = ({ products, subtotal }) => {
                       dispatch(
                         CreateOrderCashOnDelivery({ userId, orderData })
                       ).then((data) => {
+                        console.log(data.payload);
                         if (data?.payload?.data?.message) {
                           toast.success(data?.payload?.data?.message);
                           navigate("/profile-orders");

@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { cancelOrder, getUserOrders } from "../../store/slice/checkoutSlice";
 import { jwtDecode } from "jwt-decode";
 import moment from "moment";
+import "../../style/global.css";
 
 const OrderDetails = () => {
   const [activeTab, setActiveTab] = useState("orders");
   const dispatch = useDispatch();
-
+  const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("accessToken");
 
   let userId;
@@ -19,14 +20,21 @@ const OrderDetails = () => {
   // call the cancel order
   const cancelOrd = (order) => {
     const orderId = order?._id;
-    console.log(order);
-    dispatch(cancelOrder({ userId, orderId }));
+    dispatch(cancelOrder({ userId, orderId })).then((data) => {
+      if (data.payload.success) {
+        setLoading(false);
+      }
+    });
   };
 
   // call the API to get user orders
   useEffect(() => {
     if (userId) {
-      dispatch(getUserOrders(userId));
+      dispatch(getUserOrders(userId)).then((data) => {
+        if (data.payload.success) {
+          setLoading(false);
+        }
+      });
     }
   }, [dispatch, cancelOrd]);
 
@@ -38,6 +46,12 @@ const OrderDetails = () => {
 
   return (
     <div className="container-md container-fluid col-md-8 d-flex row mx-auto mb-5">
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
+
       <div className="w-100">
         <h2 className="text-start mt-4">Your Orders</h2>
       </div>
@@ -107,7 +121,7 @@ const OrderDetails = () => {
                                   <th rowSpan={2}>
                                     <div className="image-card">
                                       <img
-                                        src={order?.product?.productId.image}
+                                        src={order?.product?.productId?.image}
                                         alt="product-image"
                                         className="order-product-image"
                                       />

@@ -177,9 +177,8 @@ const cartSlice = createSlice({
       })
       .addCase(createCart.fulfilled, (state, action) => {
         const cartId = action.payload._id;
-        console.log(cartId);
         localStorage.setItem("cartId", cartId);
-        console.log("fullfield");
+
         state.cartId = cartId;
         state.loading = false;
       })
@@ -199,6 +198,7 @@ const cartSlice = createSlice({
       })
       .addCase(addItemsToCart.rejected, (state, action) => {
         state.error = action.payload;
+        state.loading = false;
       })
       // get cart items
       .addCase(getCartItems.pending, (state, action) => {

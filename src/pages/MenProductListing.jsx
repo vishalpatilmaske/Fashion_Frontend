@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../style/page/menproductlisting.css";
 import { useNavigate } from "react-router-dom";
 import { addItemsToCart } from "../store/slice/cartSlice";
+import "../style/global.css";
 
 const MenProductListing = () => {
   const navigate = useNavigate();
@@ -25,36 +26,39 @@ const MenProductListing = () => {
       navigate("/cart");
     }
   };
+  const loading = useSelector((state) => state.product.loading);
+
   const products = useSelector((state) => state.product.allProducts.data);
 
   return (
     <>
       {" "}
       <div className="row container-fluid  p-0 m-0 d-flex justify-content-center">
+        {loading && (
+          <div className="loading-overlay">
+            <div className="spinner"></div>
+          </div>
+        )}
         <div className="col-md-2 ">
           <h4 style={{ fontSize: "1rem" }} className="mt-3 ms-3">
             Result for you
           </h4>
         </div>
         <div className="col-12 col-md-10 container row ">
-          <div className="mt-4">
+          <div className="container mt-3 ">
             <ul className="row men-product-list mb-3">
               {products &&
                 products.map((item, index) => (
                   <li
                     key={item._id || index}
-                    className="col-6 col-sm-4 col-md-3 col-lg-3 "
+                    className="col-6 col-sm-4 col-lg-3 "
                   >
-                    {item.category == "men" ? (
-                      <div
-                        className="card men-product-listing-card mt-3 "
-                        style={{ height: "80vh", width: "70vw" }}
-                      >
+                    {item.category === "men" ? (
+                      <div className="card men-product-listing-card mb-2">
                         <img
                           src={item.image}
                           className="card-img-top men-product-image img-fluid"
                           alt="poster image"
-                          style={{ height: "40vh" }}
                           onClick={() => {
                             navigate("/product-details", { state: item });
                           }}
@@ -62,12 +66,12 @@ const MenProductListing = () => {
                         <div className="card-body text-center">
                           <strong>{item.name}</strong>
                           <p
-                            style={{ fontSize: "0.9rem" }}
+                            className="product-description"
                             onClick={() => {
                               navigate("/product-details", { state: item });
                             }}
                           >
-                            {item.description.slice(0, 50).toString() + "..."}
+                            {item.description.slice(0, 30).toString() + "..."}
                           </p>
                           <p
                             onClick={() => {
@@ -75,9 +79,7 @@ const MenProductListing = () => {
                             }}
                           >
                             <sup>₹</sup>
-                            <span style={{ fontSize: "1.4rem" }}>
-                              {item.price}
-                            </span>
+                            <span className="product-price">{item.price}</span>
                             <sub className="text-secondary"> M.R.P</sub>
                           </p>
                           <button

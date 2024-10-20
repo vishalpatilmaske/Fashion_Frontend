@@ -3,9 +3,11 @@ import { MdOutlineAdd } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addAddress, getUserData } from "../../store/slice/authSlice";
+import "../../style/global.css";
 
 const AddressDetails = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     fullname: "",
     mobile: "",
@@ -69,20 +71,33 @@ const AddressDetails = () => {
   const handleToAddAddressWithValidation = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      dispatch(addAddress({ userId, address: formData }));
+      dispatch(addAddress({ userId, address: formData })).then((data) => {
+        if (data.payload.success) {
+          setLoading(false);
+        }
+      });
     }
   };
 
   // Fetch user data on component mount
   useEffect(() => {
     if (userId) {
-      dispatch(getUserData({ userId }));
+      dispatch(getUserData({ userId })).then((data) => {
+        if (data.payload.success) {
+          setLoading(false);
+        }
+      });
     }
   }, [dispatch, userId, handleToAddAddressWithValidation]);
   const userData = useSelector((state) => state.auth.user.userData);
   const userAddress = userData?.address || [];
   return (
     <div className="container d-flex row mx-auto col-md-9 mb-5 address-main-container">
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="w-100">
         <h2 className="text-start mt-4">Your Address</h2>
       </div>

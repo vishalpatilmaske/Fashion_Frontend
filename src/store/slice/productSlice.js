@@ -74,7 +74,7 @@ const productSlice = createSlice({
       .addCase(getAllProducts.rejected, (state, action) => {
         state.success = false;
         state.error = action.payload;
-        state.loading = true;
+        state.loading = false;
       })
       // Get cart products
       .addCase(getCartProducts.pending, (state) => {

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../style/page/womenproductlisting.css";
 import { useNavigate } from "react-router-dom";
 import { addItemsToCart } from "../store/slice/cartSlice";
+import "../style/global.css";
 
 const WomenProductListing = () => {
   const navigate = useNavigate();
@@ -27,8 +28,15 @@ const WomenProductListing = () => {
   };
   const products = useSelector((state) => state.product.allProducts.data);
 
+  const loading = useSelector((state) => state.product.loading);
+
   return (
     <div>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <h4 style={{ fontSize: "1rem" }} className="mt-3 ms-3">
         Result for you
       </h4>

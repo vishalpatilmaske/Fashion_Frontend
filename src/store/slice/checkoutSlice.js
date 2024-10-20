@@ -150,12 +150,10 @@ export const CreateOrderCashOnDelivery = createAsyncThunk(
   "order/CreateOrderCashOnDelivery",
   async ({ userId, orderData }, { rejectWithValue }) => {
     try {
-      console.log("check" + orderData, userId);
       const order = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/order/${userId}/create-order`,
         orderData
       );
-      console.log(order);
       return order;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");
@@ -222,7 +220,7 @@ const checkoutSlice = createSlice({
     orders: [],
     allOrders: null,
     orderCreated: null,
-    loding: true,
+    loading: true,
     error: null,
   },
   reducers: {},
@@ -230,66 +228,68 @@ const checkoutSlice = createSlice({
     builder
       .addCase(initiatePayment.pending, (state) => {
         state.orderCreated = null;
+        state.loading = true;
       })
       .addCase(initiatePayment.fulfilled, (state, action) => {
-        console.log(action);
         state.orderCreated = action.payload;
+        state.loading = false;
       })
       .addCase(initiatePayment.rejected, (state, action) => {
+        state.loading = false;
         toast.error("Payment initiation failed!");
       })
       // Create cash on delivery order
       .addCase(CreateOrderCashOnDelivery.pending, (state) => {
-        state.loding = true;
+        state.loading = true;
         state.error = null;
       })
       .addCase(CreateOrderCashOnDelivery.fulfilled, (state, action) => {
-        state.loding = false;
+        state.loading = false;
       })
       .addCase(CreateOrderCashOnDelivery.rejected, (state, action) => {
-        state.loding = false;
+        state.loading = false;
         state.error = null;
-        console.log(action.payload.message);
+        console.log(action.payload);
       })
       // Get user single user orders
       .addCase(getUserOrders.pending, (state) => {
-        state.loding = true;
+        state.loading = true;
         state.error = null;
       })
       .addCase(getUserOrders.fulfilled, (state, action) => {
-        state.loding = false;
+        state.loading = false;
         state.orders = action.payload.data;
       })
       .addCase(getUserOrders.rejected, (state, action) => {
-        state.loding = true;
+        state.loading = false;
         state.error = null;
       })
-
       // Get all users  orders
       .addCase(getAllOrders.pending, (state) => {
-        state.loding = true;
+        state.loading = true;
         state.error = null;
       })
       .addCase(getAllOrders.fulfilled, (state, action) => {
-        state.loding = false;
+        state.loading = false;
         state.allOrders = action.payload.data;
       })
       .addCase(getAllOrders.rejected, (state, action) => {
-        state.loding = true;
+        state.loading = false;
         state.error = null;
       })
+      // cancel order
       .addCase(cancelOrder.pending, (state) => {
-        state.loding = true;
+        state.loading = true;
         state.error = null;
       })
       .addCase(cancelOrder.fulfilled, (state, action) => {
-        state.loding = false;
-        if (!state.loding) {
+        state.loading = false;
+        if (!state.loading) {
           toast.success(action.payload.message);
         }
       })
       .addCase(cancelOrder.rejected, (state, action) => {
-        state.loding = true;
+        state.loading = false;
         state.error = null;
       });
   },

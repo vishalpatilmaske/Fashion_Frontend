@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import "../../style/globle.css";
+import "../../style/global.css";
 import "../../style/components/home/header.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PiHandbagSimpleBold } from "react-icons/pi";

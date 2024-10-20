@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store/index.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./style/global.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       pauseOnHover
       theme="dark"
       transition:Bounce
+      className="toast-size"
     />
   </Provider>
 );

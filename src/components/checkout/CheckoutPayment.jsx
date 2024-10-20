@@ -64,7 +64,7 @@ const CheckoutPayment = ({ products, subtotal }) => {
           close
         </span>
       </div>
-      <div className="collapse mt-2" id="collapsePayment">
+      <div className="mt-2">
         <div className="card card-body">
           <div>
             <div className="form-check my-4">

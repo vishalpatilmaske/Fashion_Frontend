@@ -42,3 +42,12 @@ p:hover {
     transform: rotate(360deg);
   }
 }
+
+/* for mobile screen  */
+@media screen and (max-width: 767px) {
+  .toast-size {
+    max-width: 50vw;
+    font-size: 0.6rem;
+    padding: 1px;
+  }
+}

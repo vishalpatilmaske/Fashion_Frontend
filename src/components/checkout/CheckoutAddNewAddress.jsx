@@ -72,7 +72,7 @@ const CheckoutAddNewAddress = ({
   const handleToAddAddressWithValidation = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      handleToAddAddress(); // Only call this if the form is valid
+      handleToAddAddress();
     }
   };
 

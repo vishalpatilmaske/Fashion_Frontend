@@ -9,7 +9,7 @@ const Product = () => {
       <div className="mb-3">
         <h2 className="poster-heading">FEATURED BRAND FOR WOMEN</h2>
       </div>
-      <div className="girlshop-poster-images d-flex flex-row container justify-content-between">
+      <div className="girlshop-poster-images d-flex flex-row container justify-content-around">
         <div>
           <img src={poster2} className="img-thumbnail " alt="poster" />
         </div>

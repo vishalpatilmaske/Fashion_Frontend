@@ -7,6 +7,7 @@ import deleteDocumentImage from "../assets/image/delete-document.png";
 import { getAllOrders } from "../../store/slice/checkoutSlice";
 import "../style/pages/customers.css";
 import { useNavigate } from "react-router-dom";
+import "../../style/global.css";
 
 const Customers = () => {
   const dispatch = useDispatch();
@@ -31,12 +32,13 @@ const Customers = () => {
     return userOrders ? userOrders[0]?.orders.length : 0;
   };
 
-  if (loading) {
-    return <div>Loading users...</div>;
-  }
-
   return (
     <div className="p-2 ms-4" style={{ marginTop: "5rem" }}>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="d-flex justify-content-between p-2 shadow mb-3 container-fluid">
         <div>
           <h4>User Management</h4>

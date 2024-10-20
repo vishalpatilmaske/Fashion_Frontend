@@ -47,6 +47,22 @@ export const getCartProducts = createAsyncThunk(
   }
 );
 
+export const createProduct = createAsyncThunk(
+  "product/createProduct",
+  async (productData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/product/create-product`,
+        productData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error:", error);
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: "productSlice",
   initialState: {
@@ -98,6 +114,7 @@ const productSlice = createSlice({
         state.success = false;
         state.error = action.payload;
       });
+    // create product
   },
 });
 

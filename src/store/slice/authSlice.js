@@ -226,9 +226,11 @@ const authSlice = createSlice({
         state.user.loading = true;
       })
       .addCase(getUserData.fulfilled, (state, action) => {
+        state.user.loading = false;
         state.user.userData = action.payload.data;
       })
       .addCase(getUserData.rejected, (state, action) => {
+        state.user.loading = false;
         console.log("Error while getting users data", action.payload);
       })
 
@@ -243,26 +245,28 @@ const authSlice = createSlice({
       })
       .addCase(getAllUsers.rejected, (state, action) => {
         state.user.error = action.payload;
+        state.user.loading = false;
       })
       // update user data
       .addCase(updateUser.pending, (state, action) => {
-        state.user.loading = true;
+        // state.user.loading = true;
         state.user.error = null;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.user.loading = false;
+        // state.user.loading = false;
         toast.success("Changes successfull !");
       })
       .addCase(updateUser.rejected, (state, action) => {
+        // state.user.loading = false;
         state.user.error = action.payload;
       })
       // delete user
       .addCase(deleteUser.pending, (state, action) => {
-        state.user.loading = true;
+        // state.user.loading = true;
         state.user.error = null;
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.user.loading = false;
+        // state.user.loading = false;
         if (action.payload.data.success) {
           toast.success(action.payload.data.message);
         }

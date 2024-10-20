@@ -22,7 +22,6 @@ const EditProduct = () => {
   const handleSaveChanges = (e) => {
     e.preventDefault();
     // Perform save operation (e.g., API call) with the modified product
-    console.log("Saved product:", product);
     navigate("/all-products");
   };
 

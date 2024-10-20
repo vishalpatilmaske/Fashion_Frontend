@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { getAllUsers } from "../../store/slice/authSlice";
 import { getAllOrders } from "../../store/slice/checkoutSlice";
 import image from "../assets/image/user-image.png";
@@ -7,15 +7,30 @@ import "../style/pages/dashboard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllProducts } from "../../store/slice/productSlice";
+import "../../style/global.css";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
   // Fetch all users and orders when the component mounts
   useEffect(() => {
-    dispatch(getAllUsers());
-    dispatch(getAllOrders());
-    dispatch(getAllProducts());
+    dispatch(getAllUsers()).then((data) => {
+      if (data.payload.success) {
+        setLoading(false);
+      }
+    });
+    dispatch(getAllOrders()).then((data) => {
+      if (data.payload.success) {
+        setLoading(false);
+      }
+    });
+    dispatch(getAllProducts()).then((data) => {
+      if (data.payload.success) {
+        setLoading(false);
+      }
+    });
   }, [dispatch]);
 
   // Get all users
@@ -34,6 +49,11 @@ const Dashboard = () => {
 
   return (
     <div className="container" style={{ marginTop: "5rem" }}>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="row w-100 ">
         {/* Customers */}
         <div

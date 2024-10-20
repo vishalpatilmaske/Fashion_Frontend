@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllOrders, cancelOrder } from "../../store/slice/checkoutSlice";
 import { getAllUsers } from "../../store/slice/authSlice";
 import moment from "moment";
 import "../style/pages/order.css";
 import deleteDocumentImage from "../assets/image/delete-document.png";
 import { jwtDecode } from "jwt-decode";
+import "../../style/global.css";
 
 const Orders = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("accessToken");
 
@@ -27,7 +29,11 @@ const Orders = () => {
   // Fetch all users and orders when the component mounts
   useEffect(() => {
     dispatch(getAllUsers());
-    dispatch(getAllOrders());
+    dispatch(getAllOrders()).then((data) => {
+      if (data.payload.success) {
+        setLoading(false);
+      }
+    });
   }, [dispatch, cancelOrd]);
 
   // Get users, loading status, and orders from the state
@@ -60,6 +66,11 @@ const Orders = () => {
 
   return (
     <div className="ms-4" style={{ marginTop: "5rem" }}>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="d-flex justify-content-between p-2 shadow mb-3">
         <h4>All Orders</h4>
       </div>

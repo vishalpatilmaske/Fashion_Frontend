@@ -20,7 +20,13 @@
 
 .sidebar-components ul li:hover {
   background-color: #161d31;
-  padding-left: 10px;
+  border-radius: 1rem;
+  color: white;
+  padding-left: 12px;
+}
+.sidebar-components ul p:hover {
+  background-color: #161d31;
+  color: white;
 }
 
 /* Responsive for tablets */

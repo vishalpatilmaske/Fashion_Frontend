@@ -54,7 +54,7 @@ const MenProductListing = () => {
                     className="col-6 col-sm-4 col-lg-3 "
                   >
                     {item.category === "men" ? (
-                      <div className="card men-product-listing-card mb-2">
+                      <div className="card men-product-listing-card mb-3">
                         <img
                           src={item.image}
                           className="card-img-top men-product-image img-fluid"

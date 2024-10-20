@@ -12,8 +12,8 @@
 }
 
 .men-product-listing-card {
-  width: 12rem;
-  height: 14rem;
+  width: 50vw;
+  height: 65vh;
   background-color: #fff;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -26,8 +26,8 @@
 }
 
 .men-product-image {
-  width: 100%;
-  height: 100%;
+  max-width: 40rem;
+  max-height: 12rem;
   object-fit: contain;
   border-radius: 8px;
 }

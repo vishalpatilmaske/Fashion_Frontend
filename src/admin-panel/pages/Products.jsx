@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import editTextImage from "../assets/image/edit-text.png";
 import "../style/pages/products.css";
 import { useNavigate } from "react-router-dom";
+import "../../style/global.css";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -16,9 +17,15 @@ const Products = () => {
 
   // Get all products
   const allProducts = useSelector((state) => state?.product?.allProducts);
+  const loading = useSelector((state) => state.product.loading);
 
   return (
     <div className="ms-4" style={{ marginTop: "5rem" }}>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="d-flex justify-content-between p-2 shadow mb-3 container-fluid ">
         <div>
           <h4>All Products</h4>

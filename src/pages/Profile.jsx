@@ -7,9 +7,10 @@ import addressPngImage from "../../public/assets/images/profile/address_png_imag
 import securityPngImage from "../../public/assets/images/profile/security_png_image.png";
 import orderPngImage from "../../public/assets/images/profile/order_png_image.png";
 import adminPngImage from "../../public/assets/images/profile/admin_png_image.png";
-
 import "../style/components/profile/orderdetails.css";
 import { useNavigate } from "react-router-dom";
+import "../style/global.css";
+
 function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,12 +18,15 @@ function Profile() {
     dispatch(loadLocalStorage());
   }, [dispatch]);
 
-  const userCredential = useSelector(
-    (state) => state.auth.signin.userCredential
-  );
+  const loading = useSelector((state) => state.auth.user.loading);
 
   return (
     <>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div className="mb-5 ">
         <h2 className="ps-4 pt-3 your-account">Your Account</h2>
         <div className="container-lg row mx-auto profile-page-main-container">

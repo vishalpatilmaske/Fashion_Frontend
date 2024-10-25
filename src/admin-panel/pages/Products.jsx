@@ -1,10 +1,11 @@
 import { getAllProducts } from "../../store/slice/productSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import editTextImage from "../assets/image/edit-text.png";
+import { deleteProduct } from "../../store/slice/productSlice";
 import "../style/pages/products.css";
 import { useNavigate } from "react-router-dom";
 import "../../style/global.css";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -65,18 +66,33 @@ const Products = () => {
                   Category: {product.category}
                 </li>
               </ul>
-              <div className="card-body d-flex justify-contetn-start edit-prodcut">
-                {/* <div className="">Edit product</div> */}
-                <div className="">
-                  <img
-                    src={editTextImage}
-                    alt="edit"
+              <div className="card-body">
+                <div class="d-flex justify-content-between">
+                  <button
+                    className="btn btn-sm btn-warning col-5"
                     onClick={() =>
                       navigate("/admin-panel/products/edit-product", {
                         state: { product },
                       })
                     }
-                  />
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-sm btn-danger col-5"
+                    onClick={() => {
+                      dispatch(deleteProduct({ productId: product?._id })).then(
+                        (res) => {
+                          if (res?.payload?.success) {
+                            toast.success("Product deleted successfully!");
+                            dispatch(getAllProducts());
+                          }
+                        }
+                      );
+                    }}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>

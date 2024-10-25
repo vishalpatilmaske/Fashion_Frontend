@@ -4,7 +4,6 @@ import { getAllOrders, cancelOrder } from "../../store/slice/checkoutSlice";
 import { getAllUsers } from "../../store/slice/authSlice";
 import moment from "moment";
 import "../style/pages/order.css";
-import deleteDocumentImage from "../assets/image/delete-document.png";
 import { jwtDecode } from "jwt-decode";
 import "../../style/global.css";
 
@@ -30,7 +29,9 @@ const Orders = () => {
   useEffect(() => {
     dispatch(getAllUsers());
     dispatch(getAllOrders()).then((data) => {
-      if (data.payload.success) {
+      if (data.meta.rejectedWithValue) {
+        setLoading(false);
+      } else if (data.payload.success) {
         setLoading(false);
       }
     });

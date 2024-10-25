@@ -80,6 +80,10 @@ const WomenProductListing = () => {
                           className="btn btn-warning rounded-pill"
                           style={{ fontSize: "0.6rem" }}
                           onClick={() => {
+                            const cartId = localStorage.getItem("cartId");
+                            if (!cartId) {
+                              navigate("/signin");
+                            }
                             handleAddToCart(item._id);
                           }}
                         >

@@ -1,8 +1,8 @@
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoMdNotifications } from "react-icons/io";
-import "../../../style/component/navbar.css";
-import userImage from "../../../assets/image/user-image.png";
+import "../../style/component/navbar.css";
+import userImage from "../../assets/image/user-image.png";
 
 const Navbar = () => {
   return (

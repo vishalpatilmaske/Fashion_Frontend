@@ -29,6 +29,9 @@ function ProductDetails() {
 
   // Handle add to cart
   const handleAddToCart = () => {
+    if (!cartId) {
+      navigate("/signin");
+    }
     const productId = productDetails._id;
     if (isAuthenticate) {
       dispatch(addItemsToCart({ cartId, productId, quantity }));
@@ -124,7 +127,10 @@ function ProductDetails() {
                 type="button"
                 className="col-6 btn btn-warning buy-now-button px-2 md-px-5 rounded-pill"
                 onClick={() => {
-                  console.log();
+                  if (!cartId) {
+                    navigate("/signin");
+                  }
+
                   navigate("/checkout", {
                     state: {
                       products: [

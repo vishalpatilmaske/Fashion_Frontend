@@ -21,7 +21,7 @@ function Home() {
       // If cartId is null or undefined, create a new cart
       if (!cartId) {
         dispatch(createCart(user._id)).then((response) => {
-          console.log(response);
+          // console.log(response);
         });
       } else {
       }

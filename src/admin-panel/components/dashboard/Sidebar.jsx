@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "../../../style/component/sidebar.css";
+import "../../style/component/sidebar.css";
+
 import { IoHomeOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -17,11 +18,6 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Button to toggle sidebar on mobile screens */}
-      <div className="mobile-toggle-button d-md-none" onClick={toggleSidebar}>
-        <GiHamburgerMenu size={30} />
-      </div>
-
       {/* Sidebar */}
       <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
         <div>

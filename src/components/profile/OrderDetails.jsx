@@ -31,7 +31,9 @@ const OrderDetails = () => {
   useEffect(() => {
     if (userId) {
       dispatch(getUserOrders(userId)).then((data) => {
-        if (data.payload.success) {
+        if (data.meta.rejectedWithValue) {
+          setLoading(false);
+        } else if (data.payload.success) {
           setLoading(false);
         }
       });
@@ -177,11 +179,11 @@ const OrderDetails = () => {
                 })
               )
             ) : (
-              <p>No orders found</p>
+              <h3 className="text-center mt-5">No orders found</h3>
             )
           ) : (
             <div>
-              <h2 className="card-title my-5">Empty</h2>
+              <h3 className="text-center my-5">No order cancelled</h3>
             </div>
           )}
         </div>

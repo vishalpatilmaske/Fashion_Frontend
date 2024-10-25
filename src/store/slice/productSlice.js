@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import axiosInstance from "../../config/axiosConfig";
 
 // Get all products
 export const getAllProducts = createAsyncThunk(
   "product/getAllProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/api/product`
       );
       return response.data;
@@ -31,7 +32,7 @@ export const getCartProducts = createAsyncThunk(
       if (existingProduct) {
         return null;
       }
-      const response = await axios.get(
+      const response = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/api/product/${productId}`
       );
 
@@ -47,17 +48,33 @@ export const getCartProducts = createAsyncThunk(
   }
 );
 
+// create a new product
 export const createProduct = createAsyncThunk(
   "product/createProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/product/create-product`,
         productData
       );
       return response.data;
     } catch (error) {
-      console.error("Error:", error);
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
+// delete  product
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProdcut",
+  async ({ productId }, { rejectWithValue }) => {
+    const response = await axiosInstance.delete(
+      `${import.meta.env.VITE_API_URL}/api/product/${productId}/delete`
+    );
+    return response.data;
+    try {
+    } catch (error) {
+      console.log(error);
       return rejectWithValue(error.response?.data?.error || "Network Error");
     }
   }

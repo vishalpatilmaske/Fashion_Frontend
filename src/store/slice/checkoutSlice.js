@@ -185,7 +185,6 @@ export const getUserOrders = createAsyncThunk(
       const response = await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/api/order/${userId}/get-orders`
       );
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || "Network Error");

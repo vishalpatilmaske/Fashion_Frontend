@@ -28,7 +28,7 @@ const ProfileComponent = () => {
           width: "150px",
           height: "150px",
           objectFit: "cover",
-          margin: "0 auto",
+          margin: "1rem auto",
         }}
         alt="profile image of user"
       />

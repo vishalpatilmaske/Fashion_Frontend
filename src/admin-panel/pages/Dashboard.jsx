@@ -10,6 +10,11 @@ import { getAllProducts } from "../../store/slice/productSlice";
 import "../../style/global.css";
 import SellChart from "../components/dashboard/SellChart.jsx";
 import SellTypeChart from "../components/dashboard/SellTypeCart.jsx";
+import RecenteOrder from "../components/dashboard/RecentOrder.jsx";
+import totalrevenu from "../assets/image/totalrevenu.png";
+import totalorders from "../assets/image/totalorders.png";
+import totalproducts from "../assets/image/totalproducts.png";
+import totalcoustomer from "../assets/image/totalcoustomer.png";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -76,7 +81,7 @@ const Dashboard = () => {
                   <h4>{users?.length}</h4>
                 </div>
                 <div className="">
-                  <img src={image} alt="" />
+                  <img src={totalcoustomer} alt="" />
                 </div>
               </div>
             </div>
@@ -94,7 +99,7 @@ const Dashboard = () => {
                   <h4>{orders?.length}</h4>
                 </div>
                 <div>
-                  <img src={image} alt="" />
+                  <img src={totalorders} alt="" />
                 </div>
               </div>
             </div>
@@ -112,7 +117,7 @@ const Dashboard = () => {
                   <h4>{allProducts?.data?.length}</h4>
                 </div>
                 <div>
-                  <img src={image} alt="" />
+                  <img src={totalproducts} alt="" />
                 </div>
               </div>
             </div>
@@ -127,7 +132,7 @@ const Dashboard = () => {
                   <h4>{totalRevenu}</h4>
                 </div>
                 <div>
-                  <img src={image} alt="" />
+                  <img src={totalrevenu} alt="" />
                 </div>
               </div>
             </div>
@@ -135,9 +140,10 @@ const Dashboard = () => {
         </div>
       </div>
       {/* product sell chart in year */}
-      <div className="row">
+      <div className="row container mx-auto">
         <SellChart monthlySales={monthlySales} />
         <SellTypeChart menSales={menSales} womenSales={womenSales} />
+        <RecenteOrder />
       </div>
     </>
   );

@@ -6,6 +6,8 @@ import "../style/pages/products.css";
 import { useNavigate } from "react-router-dom";
 import "../../style/global.css";
 import { toast } from "react-toastify";
+import editTextImage from "../assets/image/edit-text.png";
+import deleteDocumentImage from "../assets/image/delete-document.png";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -67,19 +69,21 @@ const Products = () => {
                 </li>
               </ul>
               <div className="card-body">
-                <div class="d-flex justify-content-between">
-                  <button
-                    className="btn btn-sm btn-warning col-5"
+                <div class="d-flex justify-content-around">
+                  <img
+                    src={editTextImage}
+                    alt=""
+                    style={{ width: "1.4rem", height: " 1.4rem" }}
                     onClick={() =>
                       navigate("/admin-panel/products/edit-product", {
                         state: { product },
                       })
                     }
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-sm btn-danger col-5"
+                  />
+                  <img
+                    src={deleteDocumentImage}
+                    alt=""
+                    style={{ width: "1.4rem", height: " 1.4rem" }}
                     onClick={() => {
                       dispatch(deleteProduct({ productId: product?._id })).then(
                         (res) => {
@@ -90,9 +94,7 @@ const Products = () => {
                         }
                       );
                     }}
-                  >
-                    Delete
-                  </button>
+                  />
                 </div>
               </div>
             </div>

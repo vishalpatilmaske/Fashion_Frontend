@@ -98,8 +98,8 @@ const SellChart = ({ monthlySales }) => {
     <div
       className="chart-container card shadow-sm p-4 mb-5 bg-body rounded"
       style={{
-        width: "60%",
-        maxWidth: "70%",
+        width: "100%",
+        maxWidth: "68%",
         margin: "0 auto",
         height: "400px",
         borderRadius: "10px",

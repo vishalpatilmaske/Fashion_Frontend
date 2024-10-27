@@ -27,7 +27,7 @@ const SellTypeChart = ({ menSales, womenSales }) => {
       title: {
         display: true,
         text: "Sales Distribution by Product Type (Men vs. Women)",
-        font: { size: 16, weight: "bold" },
+        font: { size: 13, weight: "bold" },
         color: "#333",
       },
       tooltip: {
@@ -45,7 +45,7 @@ const SellTypeChart = ({ menSales, womenSales }) => {
       className="chart-container card shadow-sm p-4 mb-5 bg-body rounded"
       style={{
         width: "100%",
-        maxWidth: "30%",
+        maxWidth: "28%",
         margin: "0 auto",
         height: "400px",
         borderRadius: "10px",

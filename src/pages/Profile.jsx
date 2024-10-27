@@ -27,9 +27,11 @@ function Profile() {
           <div className="spinner"></div>
         </div>
       )}
-      <div className="mb-5 ">
-        <h2 className="ps-4 pt-3 your-account">Your Account</h2>
-        <div className="container-lg row mx-auto profile-page-main-container">
+      <div className="mb-5  ">
+        <h2 className="mb-sm-4 pt-sm-3 your-account container mx-auto">
+          Your Account
+        </h2>
+        <div className=" container-lg row mx-auto profile-page-main-container">
           <div className="col-sm-3 col-md-4">
             <ProfileComponent />
           </div>

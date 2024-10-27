@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllOrders, cancelOrder } from "../../store/slice/checkoutSlice";
 import { getAllUsers } from "../../store/slice/authSlice";
+import deleteDocumentImage from "../assets/image/delete-document.png";
 import moment from "moment";
 import "../style/pages/order.css";
 import { jwtDecode } from "jwt-decode";
@@ -66,7 +67,7 @@ const Orders = () => {
   );
 
   return (
-    <div className="ms-4" style={{ marginTop: "5rem" }}>
+    <div className="ms-4 " style={{ marginTop: "5rem" }}>
       {loading && (
         <div className="loading-overlay">
           <div className="spinner"></div>
@@ -79,7 +80,7 @@ const Orders = () => {
         <div className="col-12 mx-auto">
           <div className="card all-orders">
             <div className="card-body">
-              <table className="table table-hover">
+              <table className="table table-hover ">
                 <thead className="thead-light">
                   <tr>
                     <th scope="col" className="col-1">
@@ -139,14 +140,14 @@ const Orders = () => {
                             : "Address not found"}
                         </td>
                         <td className="text-truncate">
-                          <button
-                            className="btn btn-sm btn-warning"
+                          <img
+                            src={deleteDocumentImage}
+                            alt="delete-button"
+                            style={{ width: "1.4rem", height: " 1.4rem" }}
                             onClick={() => {
                               cancelOrd(order);
                             }}
-                          >
-                            Cancel
-                          </button>
+                          />
                         </td>
                       </tr>
                     ))

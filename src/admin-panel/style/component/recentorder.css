@@ -87,8 +87,6 @@
 /* table font and compact view */
 .small-text-table td {
   font-size: 0.85rem;
-  padding: 0.5rem;
-  padding: 10px;
 }
 
 /* Adjust loading overlay */

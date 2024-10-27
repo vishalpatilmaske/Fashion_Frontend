@@ -70,14 +70,16 @@ const RecenteOrder = () => {
               {orders && orders.length > 0 ? (
                 orders?.map((order, index) => (
                   <tr key={order.orderId}>
-                    <td>{index + 1}</td>
-                    <td>{order.userEmail}</td>
-                    <td>{order.category}</td>
-                    <td>{order.quantity}</td>
-                    <td>{order.total}</td>
-                    <td>{order.paymentStatus}</td>
-                    <td>{moment(order.orderDate).format("DD MMM YYYY")}</td>
-                    <td>{order.orderStatus}</td>
+                    <td className="py-2">{index + 1}</td>
+                    <td className="py-2">{order.userEmail}</td>
+                    <td className="py-2">{order.category}</td>
+                    <td className="py-2">{order.quantity}</td>
+                    <td className="py-2">{order.total}</td>
+                    <td className="py-2">{order.paymentStatus}</td>
+                    <td className="py-2">
+                      {moment(order.orderDate).format("DD MMM YYYY")}
+                    </td>
+                    <td className="py-2">{order.orderStatus}</td>
                   </tr>
                 ))
               ) : (

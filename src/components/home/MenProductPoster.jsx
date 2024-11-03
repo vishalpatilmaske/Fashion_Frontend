@@ -27,7 +27,7 @@ function MenProductPoster() {
                 <div className="card womens-card">
                   <img
                     src={item.image}
-                    className="card-img-top womens-product img-fluid"
+                    className="card-img-top womens-product img-fluid p-3"
                     alt="poster image"
                     onClick={() => {
                       navigate("/men-product-listing");

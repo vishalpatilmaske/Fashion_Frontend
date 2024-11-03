@@ -98,6 +98,7 @@ const CheckoutPayment = ({ products, subtotal }) => {
               </label>
             </div>
           </div>
+          {/* for make the payment */}
           <div>
             <hr />
             <button
@@ -120,9 +121,12 @@ const CheckoutPayment = ({ products, subtotal }) => {
                         isPaid: null,
                         shippingAddress: selectedAddress?._id,
                       })
-                    ).then(() => {
-                      navigate("/");
-                    });
+                    )
+                      .unwrap()
+                      .then((data) => {
+                        console.log(data);
+                        navigate("/");
+                      });
                   }
                   // cashn on delivery
                   if (payment === "cash_on_delivery") {
@@ -130,7 +134,7 @@ const CheckoutPayment = ({ products, subtotal }) => {
                       orders: [
                         {
                           products: productsList?.map((item) => ({
-                            productId: item?.productId,
+                            productId: item?.productId?._id,
                             quantity: item?.quantity,
                           })),
                           shippingAddress: selectedAddress?._id,
@@ -145,15 +149,16 @@ const CheckoutPayment = ({ products, subtotal }) => {
                       ],
                     };
                     if (orderData) {
-                      dispatch(
-                        CreateOrderCashOnDelivery({ userId, orderData })
-                      ).then((data) => {
-                        console.log(data.payload);
-                        if (data?.payload?.data?.message) {
-                          toast.success(data?.payload?.data?.message);
-                          navigate("/profile-orders");
-                        }
-                      });
+                      dispatch(CreateOrderCashOnDelivery({ userId, orderData }))
+                        .then((data) => {
+                          if (data?.payload?.data?.message) {
+                            toast.success(data?.payload?.data?.message);
+                            navigate("/profile-orders");
+                          }
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
                     }
                   }
                 } else {

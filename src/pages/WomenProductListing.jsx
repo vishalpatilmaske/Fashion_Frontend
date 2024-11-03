@@ -3,7 +3,7 @@ import { getAllProducts } from "../store/slice/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import "../style/page/womenproductlisting.css";
 import { useNavigate } from "react-router-dom";
-import { addItemsToCart } from "../store/slice/cartSlice";
+import { addItemsToCart, getCartItems } from "../store/slice/cartSlice";
 import "../style/global.css";
 
 const WomenProductListing = () => {
@@ -22,8 +22,10 @@ const WomenProductListing = () => {
   // handel add item to the cart
   const handleAddToCart = (productId, quantity = 1) => {
     if (isAuthenticate) {
-      dispatch(addItemsToCart({ cartId, productId, quantity }));
-      navigate("/cart");
+      dispatch(addItemsToCart({ cartId, productId, quantity })).then(() => {
+        dispatch(getCartItems({ cartId }));
+        navigate("/cart");
+      });
     }
   };
   const products = useSelector((state) => state.product.allProducts.data);
@@ -47,10 +49,10 @@ const WomenProductListing = () => {
               products.map((item, index) => (
                 <li key={item._id || index} className="col-6 col-sm-4 col-lg-3">
                   {item.category === "women" ? (
-                    <div className="card womens-product-listing-card ">
+                    <div className="card womens-product-listing-card">
                       <img
                         src={item.image}
-                        className="card-img-top womens-product-image img-fluid"
+                        className="card-img-top womens-product-image img-fluid mt-3"
                         alt="poster image"
                         onClick={() => {
                           navigate("/product-details", { state: item });

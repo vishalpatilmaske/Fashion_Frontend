@@ -24,10 +24,10 @@ function WomensProductPoster() {
             .slice(0, 12)
             .map((item, index) => (
               <li key={item._id || index} className="col-4 col-sm-4 col-lg-2">
-                <div className="card womens-card">
+                <div className="card womens-card ">
                   <img
                     src={item.image}
-                    className="card-img-top womens-product img-fluid"
+                    className="card-img-top womens-product img-fluid p-3"
                     alt="poster image"
                     onClick={() => {
                       navigate("/women-product-listing");

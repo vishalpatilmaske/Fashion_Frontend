@@ -8,6 +8,7 @@ import {
   updateItemQuantity,
 } from "../store/slice/cartSlice";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { getCartItems } from "../store/slice/cartSlice";
 
 function ProductDetails() {
   const [quantity, setQuantity] = useState(1);
@@ -34,8 +35,10 @@ function ProductDetails() {
     }
     const productId = productDetails._id;
     if (isAuthenticate) {
-      dispatch(addItemsToCart({ cartId, productId, quantity }));
-      navigate("/cart", { state: quantity });
+      dispatch(addItemsToCart({ cartId, productId, quantity })).then(() => {
+        dispatch(getCartItems({ cartId }));
+        navigate("/cart", { state: quantity });
+      });
     }
   };
 
@@ -135,7 +138,7 @@ function ProductDetails() {
                     state: {
                       products: [
                         {
-                          productId: productDetails._id,
+                          productId: productDetails,
                           quantity: quantity,
                         },
                       ],

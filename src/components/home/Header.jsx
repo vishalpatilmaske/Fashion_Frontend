@@ -6,71 +6,55 @@ import { PiHandbagSimpleBold } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { loadLocalStorage, logout } from "../../store/slice/authSlice";
+import { loadLocalStorage } from "../../store/slice/authSlice";
 import { loadCartDetials, getCartItems } from "../../store/slice/cartSlice";
 
 function Header() {
-  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   // Load user data and cart details on mount
   useEffect(() => {
     dispatch(loadLocalStorage());
     dispatch(loadCartDetials());
   }, [dispatch]);
 
+  // Selectors
   const cartId = useSelector((state) => state.cart.cartId);
+
+  const cartItems = useSelector((state) => state.cart.items);
+  const isAuthenticated = useSelector(
+    (state) => state.auth.signin.isAuthenticate
+  );
+
+  // Fetch cart items if cartId is available
   useEffect(() => {
-    if (cartId) {
-      dispatch(getCartItems({ cartId }));
-    }
+    if (cartId) dispatch(getCartItems({ cartId }));
   }, [cartId, dispatch]);
 
-  const { isAuthenticate } = useSelector((state) => state.auth.signin);
+  // Calculate total cart item count using memoization
+  const totalCartItems = useMemo(
+    () => cartItems?.reduce((acc, item) => acc + item.quantity, 0) || 0,
+    [cartItems]
+  );
 
-  // Calculate total cart item count
-  const totalCartItems = useMemo(() => {
-    return (
-      cartItems?.reduce(
-        (accumulator, current) => accumulator + current.quantity,
-        0
-      ) || 0
-    );
-  }, [cartItems]);
-
-  // Handle click on profile
-  const handelClickOnProfile = () => {
-    if (isAuthenticate) {
-      navigate("/profile");
-    } else {
-      navigate("/signin");
-    }
-  };
-
-  // Handle click on the cart
-  const handelClickOnCart = () => {
-    if (isAuthenticate) {
-      navigate("/cart");
-    } else {
-      navigate("/signin");
-    }
-  };
-  const loading = useSelector((state) => state.product.loading);
+  // Navigate function for profile and cart
+  const handleNavigate = (path) => navigate(isAuthenticated ? path : "/signin");
 
   return (
-    // <div className={loading ? "blurred" : ""}>
     <nav className="navbar navbar-expand-lg bg-dark">
       <div className="container-fluid py-1 header ">
-        <div className="container d-flex justify-content-between justify-content-sm-around ">
-          {/* logo */}
-          <NavLink to="/" className="navbar-brand  d-flex align-items-center">
+        <div className="container d-flex justify-content-between align-items-center">
+          {/* Logo */}
+          <NavLink to="/" className="navbar-brand d-flex align-items-center">
             <h4>
               <strong className="text-white">Fashion</strong>
               <strong className="navbarbrand">Flick</strong>
             </h4>
           </NavLink>
-          {/* category */}
-          <ul className="navbar-nav product-category ms-2 mb-2 mb-lg-0 d-flex align-items-center">
+
+          {/* Category Links */}
+          <ul className="navbar-nav product-category ms-2 mb-2 mb-lg-0 d-flex align-items-center ">
             <li className="nav-item">
               <NavLink
                 className="nav-link text-white"
@@ -88,9 +72,10 @@ function Header() {
               </NavLink>
             </li>
           </ul>
+
           {/* search */}
           <div className="w-50 serach-bar-main-container">
-            <div className="input-group input-group-sm serach-bar d-flex align-items-center ">
+            <div className="input-group input-group-sm serach-bar mb-4">
               <input
                 type="text"
                 className="form-control"
@@ -105,10 +90,14 @@ function Header() {
               </span>
             </div>
           </div>
-          {/* icons */}
-          <ul className="navbar-nav icons d-flex align-items-between">
+
+          {/* Icons for Cart and Profile */}
+          <ul className="navbar-nav icons d-flex align-items-between ">
             <li className="nav-item me-3">
-              <span className="nav-link" onClick={handelClickOnCart}>
+              <span
+                className="nav-link"
+                onClick={() => handleNavigate("/cart")}
+              >
                 <PiHandbagSimpleBold className="icon-size" />
                 {totalCartItems > 0 && (
                   <span className="number-of-cart-items">{totalCartItems}</span>
@@ -116,7 +105,10 @@ function Header() {
               </span>
             </li>
             <li className="nav-item ms-3">
-              <span className="nav-link" onClick={handelClickOnProfile}>
+              <span
+                className="nav-link"
+                onClick={() => handleNavigate("/profile")}
+              >
                 <AiOutlineUser className="icon-size" />
               </span>
             </li>
@@ -124,7 +116,6 @@ function Header() {
         </div>
       </div>
     </nav>
-    // </div>
   );
 }
 

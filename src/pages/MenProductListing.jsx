@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { getAllProducts } from "../store/slice/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addItemsToCart } from "../store/slice/cartSlice";
+import { addItemsToCart, getCartItems } from "../store/slice/cartSlice";
 import "../style/page/menproductlisting.css";
 import "../style/global.css";
 
@@ -29,8 +29,10 @@ const MenProductListing = () => {
   // Handle Add to Cart with authentication check
   const handleAddToCart = (productId, quantity = 1) => {
     if (isAuthenticated) {
-      dispatch(addItemsToCart({ cartId, productId, quantity }));
-      navigate("/cart");
+      dispatch(addItemsToCart({ cartId, productId, quantity })).then(() => {
+        dispatch(getCartItems({ cartId }));
+        navigate("/cart");
+      });
     } else {
       alert("Please sign in to add items to your cart.");
     }
@@ -58,7 +60,7 @@ const MenProductListing = () => {
                 <img
                   src={item.image}
                   alt={`${item.name}`}
-                  className="card-img-top men-product-image img-fluid"
+                  className="card-img-top men-product-image img-fluid mt-3"
                   onClick={() => navigate("/product-details", { state: item })}
                 />
                 <div className="card-body text-center">

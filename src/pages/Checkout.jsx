@@ -15,7 +15,7 @@ const Checkout = () => {
   // Data from the cart and the productDetails page
   const location = useLocation();
   const { products, subtotal } = location.state || {};
-
+  console.log(products), subtotal;
   return (
     <>
       {/* Header */}

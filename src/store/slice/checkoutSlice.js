@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../config/axiosConfig";
 import { toast } from "react-toastify";
 
-// Async thunk to create an order
+// Async thunk to create an order and pay online
 export const initiatePayment = createAsyncThunk(
   "order/createRazorpayOrder",
   async ({
@@ -13,6 +13,7 @@ export const initiatePayment = createAsyncThunk(
     payment,
     orderStatus,
   }) => {
+    console.log(cartItems);
     try {
       // Step 1: Create Razorpay order on the backend
       const orderResponse = await axiosInstance.post(
@@ -21,7 +22,7 @@ export const initiatePayment = createAsyncThunk(
       );
 
       if (!orderResponse.data.success) {
-        console.error("Error creating Razorpay order");
+        console.log("Error creating Razorpay order");
         return;
       }
       const order = orderResponse.data.order;
@@ -110,7 +111,7 @@ const verifyAndPlaceOrder = async (
         orders: [
           {
             products: cartItems.map((item) => ({
-              productId: item.productId,
+              productId: item.productId._id,
               quantity: item.quantity,
             })),
             shippingAddress,

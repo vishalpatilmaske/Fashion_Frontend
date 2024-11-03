@@ -31,6 +31,9 @@ h4 strong {
   top: 15px;
 }
 
+.product-category {
+  width: 15%;
+}
 /* For Mobile Screens */
 @media screen and (max-width: 576px) {
   .navbar {

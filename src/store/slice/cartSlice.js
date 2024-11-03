@@ -73,30 +73,13 @@ export const updateItemQuantity = createAsyncThunk(
 // add items to the selected items to buy
 export const addSelectedCartItems = createAsyncThunk(
   "cart/addSelectedCartItems",
-  async ({ cartId, productId, quantity }, { rejectWithValue }) => {
+  async ({ cartId, productId }, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post(
         `${
           import.meta.env.VITE_API_URL
         }/api/cart/${cartId}/add-selected-cart-items`,
-        { productId, quantity }
-      );
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.error || "Network Error");
-    }
-  }
-);
-
-// get items from the selected items to buy
-export const getSelectedCartItems = createAsyncThunk(
-  "cart/getSelectedCartItems",
-  async ({ cartId }, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.get(
-        `${
-          import.meta.env.VITE_API_URL
-        }/api/cart/${cartId}/get-selected-cart-items`
+        { productId }
       );
       return response.data;
     } catch (error) {
@@ -149,10 +132,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: {
     cartId: null,
-    // items array containe the productId and the quantity of the product
     items: [],
-    // selcted items of the cart ot buy
-    selectedItems: [],
     cartDetailsLoaded: false,
     loading: true,
     error: null,
@@ -178,7 +158,6 @@ const cartSlice = createSlice({
       .addCase(createCart.fulfilled, (state, action) => {
         const cartId = action.payload._id;
         localStorage.setItem("cartId", cartId);
-
         state.cartId = cartId;
         state.loading = false;
       })
@@ -210,29 +189,7 @@ const cartSlice = createSlice({
       })
       .addCase(getCartItems.rejected, (state, action) => {
         state.error = action.payload;
-      })
-      // update item quantity
-      .addCase(updateItemQuantity.pending, (state, action) => {})
-      .addCase(updateItemQuantity.fulfilled, (state, action) => {})
-      .addCase(updateItemQuantity.rejected, (state, action) => {})
-      // add items to the selectd item
-      .addCase(addSelectedCartItems.pending, (state, action) => {})
-      .addCase(addSelectedCartItems.fulfilled, (state, action) => {
-        state.selectedItems = action.payload.data;
-      })
-      .addCase(addSelectedCartItems.rejected, (state, action) => {})
-      // get the selected cart items
-      .addCase(getSelectedCartItems.pending, (state, action) => {})
-      .addCase(getSelectedCartItems.fulfilled, (state, action) => {
-        state.selectedItems = action.payload.data;
-      })
-      .addCase(getSelectedCartItems.rejected, (state, action) => {})
-      // deselect selcted cart items
-      .addCase(deselectSelectedCartItems.pending, (state, action) => {})
-      .addCase(deselectSelectedCartItems.fulfilled, (state, action) => {
-        state.selectedItems = action.payload.cart.selectedItems;
-      })
-      .addCase(deselectSelectedCartItems.rejected, (state, action) => {});
+      });
   },
 });
 

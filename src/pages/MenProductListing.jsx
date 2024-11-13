@@ -85,7 +85,7 @@ const MenProductListing = () => {
                   <button
                     type="button"
                     className="btn btn-warning rounded-pill"
-                    style={{ fontSize: "0.6rem" }}
+                    style={{ fontSize: "0.6rem", marginBottom: "1rem" }}
                     onClick={() => handleAddToCart(item._id)}
                   >
                     Add to Cart

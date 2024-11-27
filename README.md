@@ -1,6 +1,4 @@
-Here's the updated and polished version of your README file for the eCommerce project incorporating the Role-Based Access Control (RBAC) UI feature as specified in the assignment:
 
----
 
 # **eCommerce Frontend with RBAC Integration**
 
@@ -101,7 +99,7 @@ This project is the frontend of an eCommerce web application designed with **Rea
 ## **Demo**
 
 - Live Application: https://fashionflickshop.netlify.app
-- GitHub Repository: [Provide Repository Link]
+- GitHub Repository: https://github.com/vishalpatilmaske/Fashion_Frontend
 
 
 

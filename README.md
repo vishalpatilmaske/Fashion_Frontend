@@ -100,13 +100,8 @@ This project is the frontend of an eCommerce web application designed with **Rea
 
 ## **Demo**
 
-- Live Application: [Provide Deployment Link]
+- Live Application: https://fashionflickshop.netlify.app
 - GitHub Repository: [Provide Repository Link]
 
----
 
-Feel free to explore the project and provide feedback. We look forward to improving it further!
 
---- 
-
-Make sure to update the "Deployment Link" and "Repository Link" placeholders with actual URLs before submission.

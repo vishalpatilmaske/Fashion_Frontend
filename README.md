@@ -101,5 +101,10 @@ This project is the frontend of an eCommerce web application designed with **Rea
 - Live Application: https://fashionflickshop.netlify.app
 - GitHub Repository: https://github.com/vishalpatilmaske/Fashion_Frontend
 
+## **Test Credentials for Admin Panel**
+Email: admin@gmail.com
+Password: admin01
+
+
 
 

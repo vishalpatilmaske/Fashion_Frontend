@@ -85,7 +85,7 @@ This project is the frontend of an eCommerce web application designed with **Rea
 ### **Security Measures**
 - **Role-Based Restrictions**: Users can only access functionalities allowed by their assigned roles.
 - **Error Handling**: Validation and proper feedback for invalid inputs or unauthorized actions.
-- **Mock API (Optional)**: Simulated server responses for CRUD operations to demonstrate the workflow.
+
 
 ---
 

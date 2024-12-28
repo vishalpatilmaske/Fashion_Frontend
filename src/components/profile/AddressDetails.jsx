@@ -87,7 +87,7 @@ const AddressDetails = () => {
 
         if (modalRef.current) {
           const modalInstance = new window.bootstrap.Modal(modalRef.current);
-          modalInstance.hide();
+          modalInstance.hide(); // Close modal after successful submission
         }
       }
     }
@@ -194,6 +194,8 @@ const AddressDetails = () => {
                   type="submit"
                   className="btn btn-warning btn-sm px-3 rounded-pill"
                   onClick={handleToAddAddressWithValidation}
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
                 >
                   Use This Address
                 </button>

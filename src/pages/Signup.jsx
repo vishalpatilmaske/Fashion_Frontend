@@ -4,6 +4,8 @@ import "../style/page/signup.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../store/slice/authSlice";
+import shopingImage from "../../public/assets/images/login/shopingbags.png";
+import google from "../../public/assets/images/login/google.png";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -70,24 +72,15 @@ const Signup = () => {
   };
 
   return (
-    <div className="row d-flex justify-content-center mx-auto container-fluid m-0 p-0">
-      <div className="signup-header m-0 p-0">
-        <h3
-          onClick={() => {
-            navigate("/");
-          }}
-          className="ps-sm-5 ps-4 bg-dark py-2"
-          style={{ cursor: "pointer" }}
-        >
-          <strong className="fashion">Fashion</strong>
-          <strong className="flick">Flick</strong>
-        </h3>
-      </div>
+    <div
+      className="row d-flex justify-content-center mx-auto container-fluid align-items-center"
+      style={{ height: "100Vh" }}
+    >
       <form
         name="signup_form"
         onSubmit={handleSubmitData}
         method="post"
-        className="w-100 mt-4 signup-form"
+        className="w-100 mt-4 signup-form d-none"
       >
         <div className="card p-4 shadow-sm">
           <span
@@ -134,7 +127,7 @@ const Signup = () => {
           <div className="form-group mb-3">
             <input
               type="password"
-              className="form-control"
+              className="form-control form-control-sm"
               name="confirm-password"
               placeholder="Confirm Password"
               autoComplete="new-password"
@@ -156,6 +149,116 @@ const Signup = () => {
           </p>
         </div>
       </form>
+      <div className="signup-page-container card shadow-sm">
+        <div className="signup-page-form-container d-flex row">
+          <div className="signin-header m-0 p-0 mb-3">
+            <h3
+              onClick={() => {
+                navigate("/");
+              }}
+              className="pt-3 ps-2"
+            >
+              <strong className="fashion">Fashion</strong>
+              <strong className="flick">Flick</strong>
+            </h3>
+          </div>
+          <div className="login-form mb-4 ">
+            <div className="d-flex align-items-start">
+              <span
+                className="position-absolute top-0 end-0 "
+                style={{ cursor: "pointer" }}
+              >
+                <i className="fa-solid fa-xmark" />
+              </span>
+              <div className="login-greet mb-4 w-100">
+                <h2>Create an account</h2>
+                <p>please enter your details</p>
+              </div>{" "}
+            </div>
+            <div>
+              <button type="submit" className="btn border btn-sm w-100">
+                <img
+                  src={google}
+                  alt="fashion flick google icon"
+                  style={{ width: "1.2rem", marginRight: "0.3rem" }}
+                />
+                Sign in with Google
+              </button>
+              <div className="google-or">
+                <hr />
+                or
+                <hr />
+              </div>
+            </div>
+            <form
+              name="signup_form"
+              onSubmit={handleSubmitData}
+              method="post"
+              className="w-100 mt-4 signup-form"
+            >
+              <div>
+                {/* Email Field */}
+                <div className="form-group mb-3">
+                  <input
+                    type="email"
+                    className="form-control form-control-sm"
+                    name="email"
+                    placeholder="Email"
+                    autoComplete="new-password"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  {errors.email && (
+                    <small className="text-danger">{errors.email}</small>
+                  )}
+                </div>
+
+                {/* Password Field */}
+                <div className="form-group mb-3">
+                  <input
+                    type="password"
+                    className="form-control form-control-sm"
+                    name="password"
+                    placeholder="Create Password"
+                    autoComplete="new-password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  {errors.password && (
+                    <small className="text-danger">{errors.password}</small>
+                  )}
+                </div>
+
+                {/* Confirm Password Field */}
+                <div className="form-group mb-3">
+                  <input
+                    type="password"
+                    className="form-control form-control-sm"
+                    name="confirm-password"
+                    placeholder="Confirm Password"
+                    autoComplete="new-password"
+                    onChange={(e) => setConPassword(e.target.value)}
+                  />
+                  {errors.conPassword && (
+                    <small className="text-danger">{errors.conPassword}</small>
+                  )}
+                </div>
+
+                <button type="submit" className="btn btn-warning btn-sm w-100">
+                  Sign up
+                </button>
+                <p className="text-center mt-3">
+                  Already have an account?{" "}
+                  <Link to="/signin" className="text-primary">
+                    Sign in
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="signup-image-container">
+          <img src={shopingImage} alt="fashion flick shoping images" />
+        </div>
+      </div>
     </div>
   );
 };

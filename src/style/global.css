@@ -6,7 +6,7 @@ p:hover {
 }
 
 .blurred {
-  filter: blur(8px);
+  filter: blur(10px);
   pointer-events: none;
   transition: filter 0.5s ease;
 }

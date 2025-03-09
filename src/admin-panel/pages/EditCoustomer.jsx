@@ -10,6 +10,7 @@ const EditCustomer = () => {
 
   const userId = user?._id;
 
+  // form data
   const [formData, setFormData] = useState({
     email: user.email || "",
     password: user.password || "",

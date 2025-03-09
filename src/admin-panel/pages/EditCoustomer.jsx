@@ -24,7 +24,7 @@ const EditCustomer = () => {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); // Toggle password visibility
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (e) => {

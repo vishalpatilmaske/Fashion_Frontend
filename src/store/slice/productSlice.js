@@ -64,6 +64,23 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+// create a new product
+export const updateProduct = createAsyncThunk(
+  "product/updateProduct",
+  async ({ productId, update }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.patch(
+        `${import.meta.env.VITE_API_URL}/api/product/${productId}/update`,
+        update
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || "Network Error");
+    }
+  }
+);
+
 // delete  product
 export const deleteProduct = createAsyncThunk(
   "product/deleteProdcut",

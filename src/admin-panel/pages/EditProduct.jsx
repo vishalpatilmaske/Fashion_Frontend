@@ -1,9 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-
+import { act, useState } from "react";
+import { updateProduct } from "../../store/slice/productSlice";
+import { useDispatch } from "react-redux";
 const EditProduct = () => {
   const location = useLocation();
-  const navigate = useNavigate(); // To navigate after saving changes
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { product: initialProduct } = location.state || {};
 
   // Use state to manage product modifications
@@ -21,8 +23,13 @@ const EditProduct = () => {
   // Handle form submission
   const handleSaveChanges = (e) => {
     e.preventDefault();
-    // Perform save operation (e.g., API call) with the modified product
-    navigate("/all-products");
+
+    const productId = product?._id;
+    const update = product;
+    dispatch(updateProduct({ productId, update })).then((response) => {
+      alert(response.payload.message);
+      navigate("/admin-panel/products");
+    });
   };
 
   return (

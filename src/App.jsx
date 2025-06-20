@@ -20,6 +20,7 @@ import PrivateRoutes from "./routes/PrivateRoutes.jsx";
 import PrivateAdminRoutes from "./routes/AdminRoutes.jsx";
 import AdminRoutes from "../src/admin-panel/AdminRoutes.jsx";
 
+// make some modification
 const MyRoutes = () => {
   const location = useLocation();
   const hideHeaderFooterPaths = [

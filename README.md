@@ -105,4 +105,3 @@ This project is the frontend of an eCommerce web application designed with **Rea
 - Live Application: https://fashionflickshop.netlify.app
 - GitHub Repository: https://github.com/vishalpatilmaske/Fashion_Frontend
 
-> > > > > > > 36ed551301a25651d13f15d5e4b85654076127e9
